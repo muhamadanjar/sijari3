@@ -1,1 +1,42 @@
-<ion-nav [root]="rootPage"></ion-nav>
+<ion-menu [content]="content">
+  
+
+  <ion-content>
+    <!--<li class="sidenav-avatar bg-material">
+          <div class="opacity-overlay-gradient"></div>
+          <div class="bottom">
+            <img src="http://placehold.it/300x200" alt="" class="avatar">
+         
+            <span class="dropdown-button waves-effect waves-light" data-activates="dropdown1">heyfromjhon@email.com<i class="ion-android-arrow-dropdown right"></i></span><ul id="dropdown1" class="dropdown-content" style="width: 264px; position: absolute; top: 74px; left: 0px; display: none; opacity: 1;">
+              <li><a href="#!">hellojhon@email.com</a></li>
+              <li><a href="#!">heyfromjhon@email.com</a></li>
+              <li class="divider"></li>
+              <li><a href="#!">Settings <i class="ion-ios-gear"></i></a></li>
+            </ul>
+         
+            
+          </div>
+    </li>-->
+    <img src="http://placehold.it/300x200"/>
+    <!--<ion-card text-center class="hide-card">
+        <img src="http://placehold.it/300x200" class="custom-avatar"/>
+        <h2>Nama</h2>
+        <p>Have some p tag here</p>
+        <p>I am the third guy inline here</p>
+        <hr>
+    </ion-card>-->
+    <ion-list>
+      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+        {{p.title}}
+      </button>
+      <button menuClose ion-item (click)="logout()">
+        <ion-icon ios="ios-log-out" md="md-log-out"></ion-icon>
+        Log Out
+      </button>
+    </ion-list>
+  </ion-content>
+
+</ion-menu>
+
+<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

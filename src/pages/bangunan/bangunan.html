@@ -1,0 +1,80 @@
+<!--
+  Generated template for the BangunanPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>bangunan</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+	<ion-list>
+        <button type="button" ion-button icon-left block (click)="geolocate()" color="secondary">
+            <ion-icon ios="ios-locate" md="md-locate"></ion-icon>
+            Dapatkan Lokasi
+        </button>
+      	
+		<ion-item>
+	        <ion-icon ios="ios-globe" md="md-globe"  [ngStyle]="{'color': '#0CA9EA'}"></ion-icon>
+	        Latitude
+	        <ion-badge item-right>{{data.y}}</ion-badge>
+	    </ion-item>
+	    <ion-item>
+	        <ion-icon ios="ios-globe" md="md-globe" [ngStyle]="{'color': '#CE6296'}"></ion-icon>
+	        Longitude
+	        <ion-badge item-right>{{data.x}}</ion-badge>
+	    </ion-item>
+		<ion-item>
+			<ion-label floating>Lokasi Proyek</ion-label>
+			<ion-input [(ngModel)]="data.lokasi_proyek" name="lokasi_proyek" ></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label>Kabupaten</ion-label>
+			
+			<ion-select [(ngModel)]="data.kode_kab" #kode_kab (ionChange)="changeKabupaten(kode_kab.value)">
+				<ion-option value="0">---</ion-option>
+				<ion-option *ngFor="let kecamatan of allKecamatan" value="{{ kecamatan.kode_kec }}">
+					{{ kecamatan.nama_kecamatan }}
+				</ion-option>
+
+			</ion-select>
+			
+		</ion-item>
+		<ion-item>
+			<ion-label>Kecamatan</ion-label>
+			
+			<ion-select [(ngModel)]="data.kode_kec" #kode_kec (ionChange)="changeKecamatan(kode_kec.value)">
+				<ion-option value="0">---</ion-option>
+				<ion-option *ngFor="let kecamatan of allKecamatan" value="{{ kecamatan.kode_kec }}">
+					{{ kecamatan.nama_kecamatan }}
+				</ion-option>
+
+			</ion-select>
+			
+		</ion-item>
+		<ion-item>
+			<ion-label>Kelurahan/Desa</ion-label>
+			<ion-select [(ngModel)]="data.kode_kel">
+				<ion-option value="0">---</ion-option>
+				<ion-option *ngFor="let desa of allDesa" value="{{ desa.kode_kel }}">
+					{{ desa.nama_kelurahan }}
+				</ion-option>
+				
+			</ion-select>
+		</ion-item>
+		<ion-item>
+			<ion-label floating>Jorong / Korong</ion-label>
+			<ion-input [(ngModel)]="data.joring_korong" name="joring_korong" ></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label floating>Tanggal</ion-label>
+			<ion-input [(ngModel)]="data.tanggal" name="tanggal" ></ion-input>
+		</ion-item>
+	</ion-list>
+</ion-content>
