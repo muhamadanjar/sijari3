@@ -1,3 +1,4 @@
+$font-size-box-title: 16px;
 page-tanah {
     .input-full-width {
         width: 100%;
@@ -211,7 +212,7 @@ page-tanah {
     .box-header > .ion,
     .box-header .box-title {
     display: inline-block;
-    font-size: 18px;
+    font-size: $font-size-box-title;
     margin: 0;
     line-height: 1;
     }

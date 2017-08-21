@@ -17,12 +17,15 @@ import { SignupPage } from '../pages/signup/signup';
 import { ProfilepicPage } from '../pages/profilepic/profilepic';
 import { ProfilePage } from '../pages/profile/profile';
 import { TabsPage } from '../pages/tabs/tabs';
+import { SettingPage } from '../pages/setting/setting';
+
 import { config } from './app.firebaseconfig';
 import { AngularFireAuth } from 'angularfire2/auth';
-
 import { AngularFireModule } from 'angularfire2';
+import {AngularFireDatabase} from 'angularfire2/database';
 
 import { IonicStorageModule } from '@ionic/storage';
+import {Geolocation} from '@ionic-native/geolocation';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {//CdkTableModule,
     MdAutocompleteModule,
@@ -76,7 +79,8 @@ import { FileChooser } from '@ionic-native/file-chooser';
     BangunanPage,
     ProfilePage,
     ProfilepicPage,
-    TabsPage
+    TabsPage,
+    SettingPage
   ],
   imports: [
     BrowserModule,
@@ -133,7 +137,8 @@ import { FileChooser } from '@ionic-native/file-chooser';
     BangunanPage,
     ProfilePage,
     ProfilepicPage,
-    TabsPage
+    TabsPage,
+    SettingPage
   ],
   providers: [
     StatusBar,
@@ -142,10 +147,12 @@ import { FileChooser } from '@ionic-native/file-chooser';
     DbirigasiserviceProvider,
     TanahProvider,
     BangunanProvider,
+    Geolocation,
     GeolocationProvider,
     AuthProvider,
     SettingProvider,
     AngularFireAuth,
+    AngularFireDatabase,
     UserProvider,
     ImghandlerProvider,
     FileChooser

@@ -1,29 +1,18 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { tanahData } from './tanahData';
+//import {Tanah} from '../../models/tanah';
 
 import { FormBuilder, FormGroup, FormArray,FormControl, Validators } from '@angular/forms';
 import { Geolocation } from '@ionic-native/geolocation';
 import { GeolocationProvider } from '../../providers/geolocation/geolocation';
 import { TanahProvider } from '../../providers/tanah/tanah';
-
-import {Tanah} from '../../models/tanah';
-
 import { SettingProvider } from '../../providers/setting/setting';
+
 import {Storage} from '@ionic/storage';
 import {AngularFireDatabase, FirebaseObjectObservable,FirebaseListObservable} from 'angularfire2/database';
-
-import * as $ from 'jquery';
 import {HomePage} from '../home/home';
-export interface Customer {
-    name: string; // required field with minimum 5 characters
-    addresses: Address[]; // user can have one or more addresses
-}
 
-export interface Address {
-    street: string;  // required field
-    postcode: string;
-}
 
 export interface Tanaman {
     nama_tanaman: string;  // required field
@@ -51,7 +40,7 @@ export class TanahPage {
   make: string;
 	model: string;
 	
-	
+
 	allProvinsi;allKabupaten;allKecamatan;allKelurahan;
 	allstatuskepemilikantanah;allpemanfaatantanah;
 
@@ -63,11 +52,6 @@ export class TanahPage {
 	item: FirebaseObjectObservable<any>;
 	items: FirebaseListObservable<any>;
 
-	foods = [
-    {value: 'steak-0', viewValue: 'Steak'},
-    {value: 'pizza-1', viewValue: 'Pizza'},
-    {value: 'tacos-2', viewValue: 'Tacos'}
-  ];
   constructor(public navCtrl: NavController, public navParams: NavParams,
   	public geolocation:Geolocation,
 		public geolocationService: GeolocationProvider,
@@ -93,8 +77,6 @@ export class TanahPage {
       }
      
 		);
-		console.log(this.allstatuskepemilikantanah);
-		
 		
 		this.kuesionerForm = this._fb.group({
 			lokasi_proyek: [""],
@@ -129,8 +111,12 @@ export class TanahPage {
 
 		this.profile = tanahProvider.getPagesProfile();
 		this.statustanah = tanahProvider.getPagesStatusTanah();
-		console.log(this.item);
-		
+		//console.log(this.item);
+		var o = this.dbsetting.AdminLTE.options;
+		this.dbsetting._init();
+		if (o.enableBoxWidget) {
+			this.dbsetting.AdminLTE.boxWidget.activate();
+		}
 	}
 		
 	/*setMake(m){
@@ -165,8 +151,6 @@ export class TanahPage {
 		}
 	}*/
 
-	
-
   ionViewDidLoad() {
 		this.geolocate2();
 		
@@ -185,6 +169,13 @@ export class TanahPage {
 			lebih_sepuluh: [""],
     });
 	}
+	initTanamanBatang(){
+		return this._fb.group({
+      nama_tanaman: [""],
+			batang: [""]
+    });
+	}
+
 	addHortikultura() {
     const control = <FormArray>this.kuesionerForm.controls['tanaman_hortikultura'];
     control.push(this.initTanaman());
@@ -195,10 +186,7 @@ export class TanahPage {
 	}
 	addTanamanhias(){
 		const control = <FormArray>this.kuesionerForm.controls['tanamanhias'];
-    control.push(this._fb.group({
-      nama_tanaman: [""],
-			batang: [""]
-    }));
+    control.push(this.initTanamanBatang());
 	}
 	removeTanamanhias(i: number) {
     const control = <FormArray>this.kuesionerForm.controls['tanamanhias'];
@@ -215,10 +203,7 @@ export class TanahPage {
 
 	addTanamanlain(){
 		const control = <FormArray>this.kuesionerForm.controls['tanamanlain'];
-    control.push(this._fb.group({
-      nama_tanaman: [""],
-			batang: [""]
-    }));
+    control.push(this.initTanamanBatang());
 	}
 	removeTanamanlain(i: number) {
     const control = <FormArray>this.kuesionerForm.controls['tanamanlain'];
@@ -343,9 +328,10 @@ export class TanahPage {
 	      }
 	    );
 	}
-		
 
 
+	
+	
 	addItem(newName: string) {
     this.items.push({ text: newName });
   }
@@ -357,6 +343,9 @@ export class TanahPage {
   }
   deleteEverything() {
     this.items.remove();
-  }
+	}
+	
+
+	
 
 }

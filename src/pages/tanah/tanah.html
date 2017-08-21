@@ -1,6 +1,4 @@
-
 <ion-header>
-
   <ion-navbar color="skin-green">
 	<ion-buttons left>
 		<button ion-button (click)="close()">
@@ -9,12 +7,11 @@
 	</ion-buttons>
     <ion-title>Tanah</ion-title>
     <ion-buttons end color="primary">
-      <button ion-button (click)="addTanah()" >
-        <ion-icon name="send"></ion-icon>
-      </button>
+		<button ion-button (click)="addTanah()" >
+			<ion-icon name="send"></ion-icon>
+		</button>
     </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
 
@@ -43,7 +40,6 @@
 					<md-option *ngFor="let kabupaten of allKabupaten" [value]="kabupaten.kode_kab">{{ kabupaten.nama_kabupaten }}</md-option>
 				</md-select>
 				</div>
-				
 			</md-list-item>
 			<md-list-item>
 				<div flex class="input-full-width">
@@ -130,91 +126,193 @@
 			<ion-label floating>Jorong</ion-label>
 			<ion-input formControlName="jorong"></ion-input>
 		</ion-item>-->
-	<ion-list>
-		
-		<div>
+		<ion-list>
+			
 			<div>
-				<div class="box box-primary">
-					<div class="box-header with-border">
-						<h3 class="box-title">Profile</h3>
-					</div>
-					<div class="box-body">
-						<ion-item>
-							<ion-label floating>Nama Pemilik</ion-label>
-							<ion-input formControlName="nama_pemilik">
-								
-							</ion-input>
-						</ion-item>
-						<ion-item>
-							<ion-label floating>Alamat Pemilik</ion-label>
-							<ion-input formControlName="alamat_pemilik">
-								
-							</ion-input>
-						</ion-item>
+				<div>
+					<div class="box box-primary">
+						<div class="box-header with-border">
+							<h3 class="box-title">Profile</h3>
+						</div>
+						<div class="box-body">
+							<ion-item>
+								<ion-label floating >Nama Pemilik</ion-label>
+								<ion-input formControlName="nama_pemilik">
+									
+								</ion-input>
+							</ion-item>
+							<ion-item>
+								<ion-label floating>Alamat Pemilik</ion-label>
+								<ion-input formControlName="alamat_pemilik">
+									
+								</ion-input>
+							</ion-item>
 
+						</div>
 					</div>
-				</div>
-				<div class="box box-primary">
-					<div class="box-header with-border">
-						<h3 class="box-title">Status Tanah</h3>
-					</div>
-					<div class="box-body">
-						<ion-item>
-							<ion-label>Status Kepemilikan Tanah</ion-label>
-							<ion-select formControlName="status_kepemilikan_tanah">
-								<ion-option value="0">Pilih Status Kepemilikan Tanah</ion-option>
-								<ion-option *ngFor="let desa of allstatuskepemilikantanah" value="{{ desa.value }}">
-									{{ desa.value }}
-								</ion-option>
-							</ion-select>
-						</ion-item>
-						<ion-item>
-							<ion-label>Status Kepemilikan Tanah</ion-label>
-							<ion-select formControlName="pemanfaatantanah">
-								<ion-option value="0">Pilih Status Kepemilikan Tanah</ion-option>
-								<ion-option *ngFor="let desa of allpemanfaatantanah" value="{{ desa.value }}">
-									{{ desa.value }}
-								</ion-option>
-							</ion-select>
-						</ion-item>
-						<div formArrayName="tanaman_hortikultura">
-							<div class="box box-success">
-								<div class="box-header with-border">
-									<h3 class="box-title">Hortikura</h3>
+					<div class="box box-primary">
+						<div class="box-header with-border">
+							<h3 class="box-title">Status Tanah</h3>
+						</div>
+						<div class="box-body">
+							<ion-item>
+								<ion-label stacked>Status Kepemilikan Tanah</ion-label>
+								<ion-select formControlName="status_kepemilikan_tanah">
+									<ion-option value="0">Pilih Status Kepemilikan Tanah</ion-option>
+									<ion-option *ngFor="let desa of allstatuskepemilikantanah" value="{{ desa.value }}">
+										{{ desa.value }}
+									</ion-option>
+								</ion-select>
+							</ion-item>
+							<ion-item>
+								<ion-label stacked>Status Kepemilikan Tanah</ion-label>
+								<ion-select formControlName="pemanfaatantanah">
+									<ion-option value="0">Pilih Status Kepemilikan Tanah</ion-option>
+									<ion-option *ngFor="let desa of allpemanfaatantanah" value="{{ desa.value }}">
+										{{ desa.value }}
+									</ion-option>
+								</ion-select>
+							</ion-item>
+							<div formArrayName="tanaman_hortikultura">
+								<div class="box box-success">
+									<div class="box-header with-border">
+										<h3 class="box-title">Hortikura</h3>
 
-									<div class="box-tools pull-right">
-										<!--<button type="button" class="btn btn-box-tool" data-widget="collapse">
-											<i class="fa fa-minus"></i>
-										</button>-->
-										<button (click)="addHortikultura()" type="button" class="btn btn-box-tool" title="Tambah Hortikura">
-											<i class="fa fa-plus"></i>
-										</button>
-										<button ion-button small (click)="addHortikultura()">Tambah Hortikura <i class="fa fa-plus"></i></button>
-										<!--<button type="button" class="btn btn-box-tool" data-widget="remove">
-											<i class="fa fa-times"></i>
-										</button>-->
+										<div class="box-tools pull-right">
+											<!--<button type="button" class="btn btn-box-tool" data-widget="collapse">
+												<i class="fa fa-minus"></i>
+											</button>-->
+											<button (click)="addHortikultura()" type="button" class="btn btn-box-tool" title="Tambah Hortikura">
+												<i class="fa fa-plus"></i>
+											</button>
+											<button ion-button small (click)="addHortikultura()"><i class="fa fa-plus"></i></button>
+											<!--<button type="button" class="btn btn-box-tool" data-widget="remove">
+												<i class="fa fa-times"></i>
+											</button>-->
+										</div>
 									</div>
-								</div>
-								
-								<div class="box-body">
-									<div *ngFor="let address of kuesionerForm.controls.tanaman_hortikultura.controls; let i=index" class="box box-warning box-solid">
-										<div class="box-header with-border">
-											<h3 class="box-title">Tanaman Hortikura :{{i + 1}}</h3>
-											<div class="box-tools pull-right">
-												<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-												</button>
-												<button type="button" class="btn btn-box-tool" *ngIf="kuesionerForm.controls.tanaman_hortikultura.controls.length > 1" (click)="removeHortikultura(i)"><i class="fa fa-remove"></i>
-												</button>
-												
+									
+									<div class="box-body">
+										<div *ngFor="let address of kuesionerForm.controls.tanaman_hortikultura.controls; let i=index" class="box box-warning box-solid collapsed-box">
+											<div class="box-header with-border ">
+												<h3 class="box-title">Tanaman Hortikura :{{i + 1}}</h3>
+												<div class="box-tools pull-right">
+													<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+													</button>
+													<button type="button" class="btn btn-box-tool" *ngIf="kuesionerForm.controls.tanaman_hortikultura.controls.length > 1" (click)="removeHortikultura(i)"><i class="fa fa-remove"></i>
+													</button>
+													
+												</div>
+											
 											</div>
-										
+											
+											<div class="box-body" [formGroupName]="i">
+													<ion-item>
+														<ion-label floating>Nama Tanaman</ion-label>
+														<ion-input type="text" class="form-control" formControlName="nama_tanaman"></ion-input>
+														<small [hidden]="kuesionerForm.controls.tanaman_hortikultura.controls[i].controls.nama_tanaman.valid" class="text-danger">
+															Nama Tanaman tidak boleh Kosong
+														</small>
+													</ion-item>
+													<ion-item>
+														<ion-label floating>1 - 3 Tahun</ion-label>
+														<ion-input type="number" class="form-control" formControlName="satu_tiga"></ion-input>
+													</ion-item>
+													<ion-item>
+														<ion-label floating>3 - 10 Tahun</ion-label>
+														<ion-input type="number" class="form-control" formControlName="tiga_sepuluh"></ion-input>
+													</ion-item>
+													<ion-item>
+														<ion-label floating>Lebih dari 10 Tahun</ion-label>
+														<ion-input type="number" class="form-control" formControlName="lebih_sepuluh"></ion-input>
+													</ion-item>
+											</div>	
+											
 										</div>
 										
-										<div class="box-body" [formGroupName]="i">
+									</div>
+								</div>
+							</div>
+							
+							<div formArrayName="tanamanhias">
+								<div class="box box-success">
+									<div class="box-header with-border">
+										<h3 class="box-title">Tanaman Hias</h3>
+
+										<div class="box-tools pull-right">
+										
+											<button (click)="addTanamanhias()" type="button" class="btn btn-box-tool" title="Tambah Hias">
+												<i class="fa fa-plus"></i>
+											</button>
+											<button ion-button small (click)="addTanamanhias()"> <i class="fa fa-plus"></i></button>
+											
+										</div>
+									</div>
+									
+									<div class="box-body">
+										<div *ngFor="let address of kuesionerForm.controls.tanamanhias.controls; let i=index" class="box box-warning box-solid collapsed-box">
+											<div class="box-header with-border">
+												<h3 class="box-title">Tanaman Hias :{{i + 1}}</h3>
+												<div class="box-tools pull-right">
+													<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+													</button>
+													<button type="button" class="btn btn-box-tool" *ngIf="kuesionerForm.controls.tanamanhias.controls.length > 1" (click)="removeTanamanhias(i)"><i class="fa fa-remove"></i>
+													</button>
+													
+												</div>
+											
+											</div>
+											
+											<div class="box-body" [formGroupName]="i">
+												<ion-item>
+													<ion-label floating>Nama Tanaman</ion-label>
+													<ion-input type="text" color="secondary" class="form-control" formControlName="nama_tanaman"></ion-input>
+													<small [hidden]="kuesionerForm.controls.tanamanhias.controls[i].controls.nama_tanaman.valid" class="text-danger">
+														Nama Tanaman tidak boleh Kosong
+													</small>
+												</ion-item>
+												<ion-item>
+													<ion-label floating>Batang</ion-label>
+													<ion-input type="number" class="form-control" formControlName="batang"></ion-input>
+												</ion-item>
+											</div>	
+											
+										</div>
+										
+									</div>
+								</div>
+							</div>
+							
+							<div formArrayName="tanamanpelindung">
+								<div class="box box-success">
+									<div class="box-header with-border">
+										<h3 class="box-title">Tanaman Pelindung</h3>
+
+										<div class="box-tools pull-right">
+											<button (click)="addTanamanpelindung()" type="button" class="btn btn-box-tool" title="Tambah Hias">
+												<i class="fa fa-plus"></i>
+											</button>
+											<button ion-button small (click)="addTanamanpelindung()"> <i class="fa fa-plus"></i></button>
+											
+										</div>
+									</div>
+									
+									<div class="box-body">
+										<div *ngFor="let address of kuesionerForm.controls.tanamanpelindung.controls; let i=index" class="box box-warning box-solid collapsed-box">
+											<div class="box-header with-border">
+												<h3 class="box-title">Tanaman Pelindung :{{i + 1}}</h3>
+												<div class="box-tools pull-right">
+													<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+													</button>
+													<button type="button" class="btn btn-box-tool" *ngIf="kuesionerForm.controls.tanamanpelindung.controls.length > 1" (click)="removeTanamanpelindung(i)"><i class="fa fa-remove"></i>
+													</button>
+												</div>
+											</div>
+											<div class="box-body" [formGroupName]="i">
 												<ion-item>
 													<ion-label floating>Nama Tanaman</ion-label>
 													<ion-input type="text" class="form-control" formControlName="nama_tanaman"></ion-input>
-													<small [hidden]="kuesionerForm.controls.tanaman_hortikultura.controls[i].controls.nama_tanaman.valid" class="text-danger">
+													<small [hidden]="kuesionerForm.controls.tanamanpelindung.controls[i].controls.nama_tanaman.valid" class="text-danger">
 														Nama Tanaman tidak boleh Kosong
 													</small>
 												</ion-item>
@@ -230,177 +328,70 @@
 													<ion-label floating>Lebih dari 10 Tahun</ion-label>
 													<ion-input type="number" class="form-control" formControlName="lebih_sepuluh"></ion-input>
 												</ion-item>
-										</div>	
-										
-									</div>
-									
-								</div>
-							</div>
-						</div>
-						
-						<div formArrayName="tanamanhias">
-							<div class="box box-success">
-								<div class="box-header with-border">
-									<h3 class="box-title">Tanaman Hias</h3>
-
-									<div class="box-tools pull-right">
-									
-										<button (click)="addTanamanhias()" type="button" class="btn btn-box-tool" title="Tambah Hias">
-											<i class="fa fa-plus"></i>
-										</button>
-										<button ion-button small (click)="addTanamanhias()">Tambah Tanaman Hias <i class="fa fa-plus"></i></button>
+											</div>	
+											
+										</div>
 										
 									</div>
 								</div>
 								
-								<div class="box-body">
-									<div *ngFor="let address of kuesionerForm.controls.tanamanhias.controls; let i=index" class="box box-warning box-solid">
-										<div class="box-header with-border">
-											<h3 class="box-title">Tanaman Hias :{{i + 1}}</h3>
-											<div class="box-tools pull-right">
-												<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-												</button>
-												<button type="button" class="btn btn-box-tool" *ngIf="kuesionerForm.controls.tanamanhias.controls.length > 1" (click)="removeTanamanhias(i)"><i class="fa fa-remove"></i>
-												</button>
-												
-											</div>
-										
-										</div>
-										
-										<div class="box-body" [formGroupName]="i">
-											<ion-item>
-												<ion-label floating>Nama Tanaman</ion-label>
-												<ion-input type="text" color="secondary" class="form-control" formControlName="nama_tanaman"></ion-input>
-												<small [hidden]="kuesionerForm.controls.tanamanhias.controls[i].controls.nama_tanaman.valid" class="text-danger">
-													Nama Tanaman tidak boleh Kosong
-												</small>
-											</ion-item>
-											<ion-item>
-												<ion-label floating>Batang</ion-label>
-												<ion-input type="number" class="form-control" formControlName="batang"></ion-input>
-											</ion-item>
-										</div>	
-										
-									</div>
-									
-								</div>
-							</div>
-						</div>
-						
-						<div formArrayName="tanamanpelindung">
-							<div class="box box-success">
-								<div class="box-header with-border">
-									<h3 class="box-title">Tanaman Pelindung</h3>
-
-									<div class="box-tools pull-right">
-									
-										<button (click)="addTanamanpelindung()" type="button" class="btn btn-box-tool" title="Tambah Hias">
-											<i class="fa fa-plus"></i>
-										</button>
-										<button ion-button small (click)="addTanamanpelindung()">Tambah Tanaman Pelindung <i class="fa fa-plus"></i></button>
-										
-									</div>
-								</div>
-								
-								<div class="box-body">
-									<div *ngFor="let address of kuesionerForm.controls.tanamanpelindung.controls; let i=index" class="box box-warning box-solid">
-										<div class="box-header with-border">
-											<h3 class="box-title">Tanaman Pelindung :{{i + 1}}</h3>
-											<div class="box-tools pull-right">
-												<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-												</button>
-												<button type="button" class="btn btn-box-tool" *ngIf="kuesionerForm.controls.tanamanpelindung.controls.length > 1" (click)="removeTanamanpelindung(i)"><i class="fa fa-remove"></i>
-												</button>
-											</div>
-										</div>
-										<div class="box-body" [formGroupName]="i">
-											<ion-item>
-												<ion-label floating>Nama Tanaman</ion-label>
-												<ion-input type="text" class="form-control" formControlName="nama_tanaman"></ion-input>
-												<small [hidden]="kuesionerForm.controls.tanamanpelindung.controls[i].controls.nama_tanaman.valid" class="text-danger">
-													Nama Tanaman tidak boleh Kosong
-												</small>
-											</ion-item>
-											<ion-item>
-												<ion-label floating>1 - 3 Tahun</ion-label>
-												<ion-input type="number" class="form-control" formControlName="satu_tiga"></ion-input>
-											</ion-item>
-											<ion-item>
-												<ion-label floating>3 - 10 Tahun</ion-label>
-												<ion-input type="number" class="form-control" formControlName="tiga_sepuluh"></ion-input>
-											</ion-item>
-											<ion-item>
-												<ion-label floating>Lebih dari 10 Tahun</ion-label>
-												<ion-input type="number" class="form-control" formControlName="lebih_sepuluh"></ion-input>
-											</ion-item>
-										</div>	
-										
-									</div>
-									
-								</div>
 							</div>
 							
-						</div>
-						<div class="margin-20">
-							<button ion-button small (click)="addLain()">Tambah Lain +</button>
-						</div>
-						<div formArrayName="tanamanlain">
-							<div class="box box-success">
-								<div class="box-header with-border">
-									<h3 class="box-title">Tanaman Lain</h3>
+							<div formArrayName="tanamanlain">
+								<div class="box box-success">
+									<div class="box-header with-border">
+										<h3 class="box-title">Tanaman Lain</h3>
 
-									<div class="box-tools pull-right">
-									
-										<button (click)="addTanamanhias()" type="button" class="btn btn-box-tool" title="Tambah Hias">
-											<i class="fa fa-plus"></i>
-										</button>
-										<button ion-button small (click)="addTanamanlain()">Tambah Tanaman Hias <i class="fa fa-plus"></i></button>
+										<div class="box-tools pull-right">
 										
-									</div>
-								</div>
-								
-								<div class="box-body">
-									<div *ngFor="let address of kuesionerForm.controls.tanamanlain.controls; let i=index" class="box box-warning box-solid">
-										<div class="box-header with-border">
-											<h3 class="box-title">Tanaman Lain :{{i + 1}}</h3>
-											<div class="box-tools pull-right">
-												<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-												</button>
-												<button type="button" class="btn btn-box-tool" *ngIf="kuesionerForm.controls.tanamanlain.controls.length > 1" (click)="removeTanamanlain(i)"><i class="fa fa-remove"></i>
-												</button>
-												
-											</div>
-										
+											<button (click)="addTanamanhias()" type="button" class="btn btn-box-tool" title="Tambah Hias">
+												<i class="fa fa-plus"></i>
+											</button>
+											<button ion-button small (click)="addTanamanlain()"> <i class="fa fa-plus"></i></button>
+											
 										</div>
-										
-										<div class="box-body" [formGroupName]="i">
-											<ion-item>
-												<ion-label floating>Nama Tanaman</ion-label>
-												<ion-input type="text" color="secondary" class="form-control" formControlName="nama_tanaman"></ion-input>
-												<small [hidden]="kuesionerForm.controls.tanamanlain.controls[i].controls.nama_tanaman.valid" class="text-danger">
-													Nama Tanaman tidak boleh Kosong
-												</small>
-											</ion-item>
-											<ion-item>
-												<ion-label floating>Batang</ion-label>
-												<ion-input type="number" class="form-control" formControlName="batang"></ion-input>
-											</ion-item>
-										</div>	
+									</div>
+									
+									<div class="box-body">
+										<div *ngFor="let address of kuesionerForm.controls.tanamanlain.controls; let i=index" class="box box-warning box-solid collapsed-box">
+											<div class="box-header with-border">
+												<h3 class="box-title">Tanaman Lain :{{i + 1}}</h3>
+												<div class="box-tools pull-right">
+													<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+													</button>
+													<button type="button" class="btn btn-box-tool" *ngIf="kuesionerForm.controls.tanamanlain.controls.length > 1" (click)="removeTanamanlain(i)"><i class="fa fa-remove"></i>
+													</button>
+													
+												</div>
+											
+											</div>
+											
+											<div class="box-body" [formGroupName]="i">
+												<ion-item>
+													<ion-label floating>Nama Tanaman</ion-label>
+													<ion-input type="text" color="secondary" class="form-control" formControlName="nama_tanaman"></ion-input>
+													<small [hidden]="kuesionerForm.controls.tanamanlain.controls[i].controls.nama_tanaman.valid" class="text-danger">
+														Nama Tanaman tidak boleh Kosong
+													</small>
+												</ion-item>
+												<ion-item>
+													<ion-label floating>Batang</ion-label>
+													<ion-input type="number" class="form-control" formControlName="batang"></ion-input>
+												</ion-item>
+											</div>	
+										</div>
 									</div>
 								</div>
-							</div>
 
-						</div>						
+							</div>						
+						</div>
 					</div>
-				</div>
-			</div>	
-		</div>
+				</div>	
+			</div>
 
-	</ion-list>
-
-	<pre>{{ kuesionerForm.value | json }}</pre>
-	<button ion-button (click)="save()">Submit</button>
-
+		</ion-list>
+		
+		<pre>{{ kuesionerForm.value | json }}</pre>
 	</form>
 	
 </ion-content>

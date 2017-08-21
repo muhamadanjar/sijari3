@@ -60,9 +60,15 @@ export class LoginPage {
           toast.present();
           loading.dismiss();
         }
-          
-          
       }).catch((res:any)=>{
+        console.log(res);
+        if(res.code =='auth/user-not-found'){
+          toaster.setMessage("User tidak ditemukan.");
+          toaster.present();
+        }else if(res.code =='auth/wrong-password'){
+          toaster.setMessage("Password anda salah.");
+          toaster.present();
+        }
         loading.dismiss();
       });
     }

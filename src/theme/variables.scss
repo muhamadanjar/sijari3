@@ -49,7 +49,15 @@ $colors: (
   skin-bg:    #ECF0F5,
 );
 
-
+$label-md-text-color-focused:color($colors, 'skin-green');
+$text-input-md-highlight-color: color($colors, 'skin-green');
+$picker-md-option-selected-color: color($colors, 'skin-green');
+$select-md-icon-color: color($colors, 'skin-green');
+$picker-md-option-selected-color: color($colors, 'skin-green');
+$picker-md-option-font-size:12px;
+$alert-md-button-text-color:color($colors, 'skin-green');
+$alert-md-title-font-size:18px;
+$alert-md-sub-title-font-size:17px;
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here

@@ -24,40 +24,38 @@ export class TanahMapPage {
         let element: HTMLElement = document.getElementById('map');
 
         let map: GoogleMap = this.googleMaps.create(element);
-
-    // listen to MAP_READY event
-    // You must wait for this event to fire before adding something to the map or modifying it in anyway
+        let marker;
+        // listen to MAP_READY event
+        // You must wait for this event to fire before adding something to the map or modifying it in anyway
         map.one(GoogleMapsEvent.MAP_READY).then(
-            () => {
-                console.log('Map is ready!');
-                // Now you can add elements to the map like the marker
-            }
-        );
+        () => {
+            console.log('Map is ready!');
+            // Now you can add elements to the map like the marker
+        });
 
-    // create CameraPosition
+        // create CameraPosition
         let position: CameraPosition = {
-            target: {
-                lat: 43.0741904,
-                lng: -89.3809802
-            },
-            zoom: 18,
-            tilt: 30
+        target: {
+            lat: 43.0741904,
+            lng: -89.3809802
+        },
+        zoom: 18,
+        tilt: 30
         };
 
-    // move the map's camera to position
+        // move the map's camera to position
         map.moveCamera(position);
 
-    // create new marker
-        /*let markerOptions: MarkerOptions = {
+        // create new marker
+        let markerOptions: MarkerOptions = {
             //position: ionic,
             title: 'Ionic'
         };
 
-        let marker: Marker = map.addMarker(markerOptions)
+        marker = map.addMarker(markerOptions)
         .then((marker: Marker) => {
             marker.showInfoWindow();
-            });*/
+            });
     }
-
     
 }
