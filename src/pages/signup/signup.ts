@@ -41,7 +41,7 @@ export class SignupPage {
       let loader = this.loadingCtrl.create({
          content:"Tunggu"
       });
-        loader.present();
+      loader.present();
       this.userservice.addUser(this.newuser).then((res:any) =>{
         loader.dismiss();
         if(res.success){

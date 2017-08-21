@@ -9,11 +9,14 @@ import { HttpModule } from '@angular/http';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
+
 import { JariPage } from '../pages/jari/jari';
 import { TanahPage } from '../pages/tanah/tanah';
 import { BangunanPage } from '../pages/bangunan/bangunan';
 import { SignupPage } from '../pages/signup/signup';
-
+import { ProfilepicPage } from '../pages/profilepic/profilepic';
+import { ProfilePage } from '../pages/profile/profile';
+import { TabsPage } from '../pages/tabs/tabs';
 import { config } from './app.firebaseconfig';
 import { AngularFireAuth } from 'angularfire2/auth';
 
@@ -61,15 +64,19 @@ import { AuthProvider } from '../providers/auth/auth';
 import { SettingProvider } from '../providers/setting/setting';
 import { UserProvider } from '../providers/user/user';
 import { ImghandlerProvider } from '../providers/imghandler/imghandler';
-
+import { FileChooser } from '@ionic-native/file-chooser';
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     LoginPage,
+    SignupPage,
     JariPage,
     TanahPage,
-    BangunanPage
+    BangunanPage,
+    ProfilePage,
+    ProfilepicPage,
+    TabsPage
   ],
   imports: [
     BrowserModule,
@@ -120,9 +127,13 @@ import { ImghandlerProvider } from '../providers/imghandler/imghandler';
     MyApp,
     HomePage,
     LoginPage,
+    SignupPage,
     JariPage,
     TanahPage,
-    BangunanPage
+    BangunanPage,
+    ProfilePage,
+    ProfilepicPage,
+    TabsPage
   ],
   providers: [
     StatusBar,
@@ -137,7 +148,7 @@ import { ImghandlerProvider } from '../providers/imghandler/imghandler';
     AngularFireAuth,
     UserProvider,
     ImghandlerProvider,
-    
+    FileChooser
   ]
 })
 export class AppModule {}

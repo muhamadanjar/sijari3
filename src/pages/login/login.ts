@@ -6,6 +6,7 @@ import { AuthProvider } from '../../providers/auth/auth';
 import { Storage } from '@ionic/storage';
 import { HomePage } from '../home/home';
 import { SignupPage } from '../signup/signup';
+import { TabsPage } from '../tabs/tabs';
 import { PasswordresetPage } from '../passwordreset/passwordreset';
 
 @Component({
@@ -22,7 +23,7 @@ export class LoginPage {
       authservice.getUser();
       storage.get('user').then((user)=>{
         if(user != null){
-          navCtrl.setRoot(HomePage,null,{
+          navCtrl.setRoot(TabsPage,null,{
             animate:true
           });
         }
@@ -34,26 +35,38 @@ export class LoginPage {
   }
 
   signin() {
-    let loading = this.loadingCtrl.create({
-      content:'Login....',
-    });
-    loading.present();
-    this.authservice.login(this.credentials).then((res: any) => {
-      if (!res.code){
-        this.navCtrl.setRoot(HomePage);loading.dismiss();
-      }else{
-        alert(res);
-        let toast = this.toastCtrl.create({
-            message: "Akses di tolak",
-            position:"bottom",
-            duration:3000
-          })
-        toast.present();
+    var toaster = this.toastCtrl.create({
+  		duration: 5000,
+  		position: "bottom"
+  	});
+    if(this.credentials.email == '' || this.credentials.password == '') {
+  		toaster.setMessage("Semua field harus diisi");
+      toaster.present();
+    }else{
+      let loading = this.loadingCtrl.create({
+        content:'Login....',
+      });
+      loading.present();
+      this.authservice.login(this.credentials).then((res: any) => {
+        if (!res.code){
+          this.navCtrl.setRoot(TabsPage);loading.dismiss();
+        }else{
+          alert(res);
+          let toast = this.toastCtrl.create({
+              message: "Akses di tolak",
+              position:"bottom",
+              duration:3000
+            })
+          toast.present();
+          loading.dismiss();
+        }
+          
+          
+      }).catch((res:any)=>{
         loading.dismiss();
-      }
-        
-        
-    });
+      });
+    }
+    
   }
 
   signin_database(){

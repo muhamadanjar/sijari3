@@ -13,6 +13,8 @@ import { SettingProvider } from '../../providers/setting/setting';
 import {Storage} from '@ionic/storage';
 import {AngularFireDatabase, FirebaseObjectObservable,FirebaseListObservable} from 'angularfire2/database';
 
+import * as $ from 'jquery';
+import {HomePage} from '../home/home';
 export interface Customer {
     name: string; // required field with minimum 5 characters
     addresses: Address[]; // user can have one or more addresses
@@ -77,16 +79,11 @@ export class TanahPage {
 		db: AngularFireDatabase
 	) {
 		console.log('Storage',this.storage.get('user'));
-		/*this.storage.get('user').then((user) => {
-			this.kuesionerForm.value['id_user'] = user;
-			console.log(user);
-		});*/
 		this.items = db.list('/kuesionertanah');
 		this.allstatuskepemilikantanah = this.tanahProvider.getStatusKepemilikanTanah();
 		this.allpemanfaatantanah = this.tanahProvider.getPemanfaatanTanah();
 		this.dbsetting.getAllProvinsi().subscribe((data)=>{
       this.allProvinsi=data;
-    
       },function (error){
         console.log("error"+error);
 
@@ -195,7 +192,38 @@ export class TanahPage {
   removeHortikultura(i: number) {
     const control = <FormArray>this.kuesionerForm.controls['tanaman_hortikultura'];
     control.removeAt(i);
-  }
+	}
+	addTanamanhias(){
+		const control = <FormArray>this.kuesionerForm.controls['tanamanhias'];
+    control.push(this._fb.group({
+      nama_tanaman: [""],
+			batang: [""]
+    }));
+	}
+	removeTanamanhias(i: number) {
+    const control = <FormArray>this.kuesionerForm.controls['tanamanhias'];
+    control.removeAt(i);
+	}
+	addTanamanpelindung(){
+		const control = <FormArray>this.kuesionerForm.controls['tanamanpelindung'];
+    control.push(this.initTanaman());
+	}
+	removeTanamanpelindung(i: number) {
+    const control = <FormArray>this.kuesionerForm.controls['tanamanpelindung'];
+    control.removeAt(i);
+	}
+
+	addTanamanlain(){
+		const control = <FormArray>this.kuesionerForm.controls['tanamanlain'];
+    control.push(this._fb.group({
+      nama_tanaman: [""],
+			batang: [""]
+    }));
+	}
+	removeTanamanlain(i: number) {
+    const control = <FormArray>this.kuesionerForm.controls['tanamanlain'];
+    control.removeAt(i);
+	}
 	public ngOnInit() {
 	}
 	
@@ -266,30 +294,24 @@ export class TanahPage {
 		});
 	}
 
-	addItem(newName: string) {
-    this.items.push({ text: newName });
-  }
-  updateItem(key: string, newText: string) {
-    this.items.update(key, { text: newText });
-  }
-  deleteItem(key: string) {    
-    this.items.remove(key); 
-  }
-  deleteEverything() {
-    this.items.remove();
-  }
-
 	save(){
 		console.log(this.kuesionerForm.value);
-		
-		
 		this.items.push(this.kuesionerForm.value);
-  }
+	}
+
+	addTanah(){
+		this.save();
+		this.navCtrl.setRoot(HomePage);
+	}
+	
+	close(){
+		this.navCtrl.setRoot(HomePage);
+	}
 
 	changeProvinsi(provinsi){
 	  	this.dbsetting.getAllKabupaten(provinsi).subscribe((data)=>{
 	      this.allKabupaten=data;
-	      console.log(data);
+	      //console.log(data);
 	      },function (error){
 	        console.log("error"+error)
 	      },function(){
@@ -301,7 +323,7 @@ export class TanahPage {
 	changeKabupaten(kabupaten){
 	  	this.dbsetting.getAllKecamatan(kabupaten).subscribe((data)=>{
 	      this.allKecamatan=data;
-	      console.log(data);
+	      //console.log(data);
 	      },function (error){
 	        console.log("error"+error)
 	      },function(){
@@ -313,13 +335,28 @@ export class TanahPage {
 	changeKecamatan(kecamatan){
 	  	this.dbsetting.getAllDesa(kecamatan).subscribe((data)=>{
 	      this.allKelurahan=data;
-	      console.log(data);
+	      //console.log(data);
 	      },function (error){
 	        console.log("error"+error)
 	      },function(){
 	        //loadingdata.dismiss();
 	      }
 	    );
+	}
+		
+
+
+	addItem(newName: string) {
+    this.items.push({ text: newName });
+  }
+  updateItem(key: string, newText: string) {
+    this.items.update(key, { text: newText });
+  }
+  deleteItem(key: string) {    
+    this.items.remove(key); 
+  }
+  deleteEverything() {
+    this.items.remove();
   }
 
 }
