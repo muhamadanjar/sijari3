@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { Component,ViewChild,NgZone } from '@angular/core';
+import { NavController, NavParams,Tabs } from 'ionic-angular';
 import { tanahData } from './tanahData';
 //import {Tanah} from '../../models/tanah';
 
@@ -12,7 +12,7 @@ import { SettingProvider } from '../../providers/setting/setting';
 import {Storage} from '@ionic/storage';
 import {AngularFireDatabase, FirebaseObjectObservable,FirebaseListObservable} from 'angularfire2/database';
 import {TabsPage} from '../tabs/tabs';
-
+import {TanahMapPage} from './tanahMap';
 
 export interface Tanaman {
     nama_tanaman: string;  // required field
@@ -50,7 +50,7 @@ export class TanahPage {
 
 	item: FirebaseObjectObservable<any>;
 	items: FirebaseListObservable<any>;
-
+	@ViewChild(Tabs) tabs: Tabs;
   constructor(public navCtrl: NavController, public navParams: NavParams,
   	public geolocation:Geolocation,
 		public geolocationService: GeolocationProvider,
@@ -59,6 +59,7 @@ export class TanahPage {
 		public tanahProvider:TanahProvider,
 		public dbsetting:SettingProvider,
 		public storage:Storage,
+		public zone:NgZone,
 		db: AngularFireDatabase
 	) {
 		console.log('Storage',this.storage.get('user'));
@@ -154,6 +155,7 @@ export class TanahPage {
 		this.geolocate2();
 		
 	}
+	
 	initProfile() {
     return this._fb.group({
       nama_pemilik: [""],
@@ -241,8 +243,7 @@ export class TanahPage {
 					//this.kuesionerForm.value['y'] = position.coords.latitude;
 					this.kuesionerForm.addControl('x',new FormControl(position.coords.longitude));
 					this.kuesionerForm.addControl('y',new FormControl(position.coords.latitude));
-					//this.kuesionerForm.addControl('x',this.data.x);
-					//this.kuesionerForm.addControl('y',this.data.y);
+					
 		    }, (error) => {
 		    	this.error = JSON.stringify(error);
 		    }
@@ -261,10 +262,6 @@ export class TanahPage {
 					//this.kuesionerForm.value['y'] = position.coords.latitude;
 					this.kuesionerForm.addControl('x',new FormControl(position.coords.longitude));
 					this.kuesionerForm.addControl('y',new FormControl(position.coords.latitude));
-					//this.kuesionerForm.value['x'] = position.coords.longitude;
-					//this.kuesionerForm.value['y'] = position.coords.latitude;
-					console.log(this.kuesionerForm);
-					
 					
 	      }, (err) => {
 	        console.log(err);
@@ -287,6 +284,10 @@ export class TanahPage {
 		 // data.coords.longitude
 
 		});
+	}
+
+	pinpoint(){
+		this.navCtrl.setRoot(TanahMapPage);
 	}
 
 	save(){

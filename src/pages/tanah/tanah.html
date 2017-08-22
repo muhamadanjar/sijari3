@@ -65,8 +65,11 @@
 				</md-input-container>
 			</md-list-item>
 		</md-list>
-		<button type="button" ion-button icon-left block (click)="geolocate()" color="secondary">
+		<button type="button" ion-button icon-left (click)="geolocate()" color="secondary">
           <ion-icon ios="ios-locate" md="md-locate"></ion-icon> Dapatkan Lokasi
+		  </button>
+		<button type="button" ion-button icon-left (click)="pinpoint()" color="secondary">
+          <ion-icon ios="ios-map" md="md-map"></ion-icon> Pin Point
       	</button>
 		<ion-item *ngIf="data.y">
 	        <ion-icon ios="ios-globe" md="md-globe"  [ngStyle]="{'color': '#0CA9EA'}"></ion-icon>

@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-navbar color="skin-green">
+	<ion-buttons left>
+		<button ion-button (click)="close()">
+			<ion-icon name="close"></ion-icon>
+		</button>
+	</ion-buttons>
+    <ion-title>Map</ion-title>
+    <ion-buttons end color="primary">
+		<button ion-button >
+			<ion-icon name="locate"></ion-icon>
+		</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+    <div #map id="map"></div>
+</ion-content>

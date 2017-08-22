@@ -12,6 +12,7 @@ import { LoginPage } from '../pages/login/login';
 
 import { JariPage } from '../pages/jari/jari';
 import { TanahPage } from '../pages/tanah/tanah';
+import { TanahMapPage } from '../pages/tanah/tanahMap';
 import { BangunanPage } from '../pages/bangunan/bangunan';
 import { SignupPage } from '../pages/signup/signup';
 import { ProfilepicPage } from '../pages/profilepic/profilepic';
@@ -26,6 +27,7 @@ import {AngularFireDatabase} from 'angularfire2/database';
 
 import { IonicStorageModule } from '@ionic/storage';
 import {Geolocation} from '@ionic-native/geolocation';
+import {GoogleMaps} from '@ionic-native/google-maps';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {//CdkTableModule,
     MdAutocompleteModule,
@@ -75,7 +77,8 @@ import { FileChooser } from '@ionic-native/file-chooser';
     LoginPage,
     SignupPage,
     JariPage,
-    TanahPage,
+    TanahPage,TanahMapPage,
+    
     BangunanPage,
     ProfilePage,
     ProfilepicPage,
@@ -133,7 +136,7 @@ import { FileChooser } from '@ionic-native/file-chooser';
     LoginPage,
     SignupPage,
     JariPage,
-    TanahPage,
+    TanahPage,TanahMapPage,
     BangunanPage,
     ProfilePage,
     ProfilepicPage,
@@ -147,6 +150,7 @@ import { FileChooser } from '@ionic-native/file-chooser';
     DbirigasiserviceProvider,
     TanahProvider,
     BangunanProvider,
+    GoogleMaps,
     Geolocation,
     GeolocationProvider,
     AuthProvider,
