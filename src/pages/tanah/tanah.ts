@@ -11,7 +11,7 @@ import { SettingProvider } from '../../providers/setting/setting';
 
 import {Storage} from '@ionic/storage';
 import {AngularFireDatabase, FirebaseObjectObservable,FirebaseListObservable} from 'angularfire2/database';
-import {HomePage} from '../home/home';
+import {TabsPage} from '../tabs/tabs';
 
 
 export interface Tanaman {
@@ -40,7 +40,6 @@ export class TanahPage {
   make: string;
 	model: string;
 	
-
 	allProvinsi;allKabupaten;allKecamatan;allKelurahan;
 	allstatuskepemilikantanah;allpemanfaatantanah;
 
@@ -238,8 +237,12 @@ export class TanahPage {
 
 		      this.data.x = position.coords.longitude;
 					this.data.y = position.coords.latitude;
-					this.kuesionerForm.value['x'] = position.coords.longitude;
-					this.kuesionerForm.value['y'] = position.coords.latitude;
+					//this.kuesionerForm.value['x'] = position.coords.longitude;
+					//this.kuesionerForm.value['y'] = position.coords.latitude;
+					this.kuesionerForm.addControl('x',new FormControl(position.coords.longitude));
+					this.kuesionerForm.addControl('y',new FormControl(position.coords.latitude));
+					//this.kuesionerForm.addControl('x',this.data.x);
+					//this.kuesionerForm.addControl('y',this.data.y);
 		    }, (error) => {
 		    	this.error = JSON.stringify(error);
 		    }
@@ -254,8 +257,15 @@ export class TanahPage {
 	        this.data.x = position.coords.longitude;
 	        this.data.y = position.coords.latitude;
 	        //this.data.gpsinfo = "latitude :"+this.y+" longitude :"+this.x;
-					this.kuesionerForm.value['x'] = position.coords.longitude;
-					this.kuesionerForm.value['y'] = position.coords.latitude;
+					//this.kuesionerForm.value['x'] = position.coords.longitude;
+					//this.kuesionerForm.value['y'] = position.coords.latitude;
+					this.kuesionerForm.addControl('x',new FormControl(position.coords.longitude));
+					this.kuesionerForm.addControl('y',new FormControl(position.coords.latitude));
+					//this.kuesionerForm.value['x'] = position.coords.longitude;
+					//this.kuesionerForm.value['y'] = position.coords.latitude;
+					console.log(this.kuesionerForm);
+					
+					
 	      }, (err) => {
 	        console.log(err);
 	      });
@@ -286,11 +296,11 @@ export class TanahPage {
 
 	addTanah(){
 		this.save();
-		this.navCtrl.setRoot(HomePage);
+		this.navCtrl.setRoot(TabsPage);
 	}
 	
 	close(){
-		this.navCtrl.setRoot(HomePage);
+		this.navCtrl.setRoot(TabsPage);
 	}
 
 	changeProvinsi(provinsi){

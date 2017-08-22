@@ -15,7 +15,7 @@ import { AuthProvider } from '../providers/auth/auth';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
   rootPage:any = LoginPage
-  pages: Array<{title: string, component: any}>
+  pages: Array<{title: string,icon: string, component: any}>
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
     private auth:AuthProvider,private storage:Storage) {
     platform.ready().then(() => {
@@ -26,9 +26,9 @@ export class MyApp {
       
       // used for an example of ngFor and navigation
       this.pages = [
-        { title: 'Home', component: HomePage },
-        { title: 'Profil', component: ProfilePage },
-        { title: 'Pengaturan', component: SettingPage }
+        { title: 'Home', icon:'home', component: HomePage, },
+        { title: 'Profil', icon:'person', component: ProfilePage, },
+        { title: 'Pengaturan', icon:'hammer', component: SettingPage, }
       ];
     });
   }
