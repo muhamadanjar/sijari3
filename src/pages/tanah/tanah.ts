@@ -62,7 +62,9 @@ export class TanahPage {
 		public zone:NgZone,
 		db: AngularFireDatabase
 	) {
-		console.log('Storage',this.storage.get('user'));
+		
+		
+
 		this.items = db.list('/kuesionertanah');
 		this.allstatuskepemilikantanah = this.tanahProvider.getStatusKepemilikanTanah();
 		this.allpemanfaatantanah = this.tanahProvider.getPemanfaatanTanah();
@@ -78,36 +80,8 @@ export class TanahPage {
      
 		);
 		
-		this.kuesionerForm = this._fb.group({
-			lokasi_proyek: [""],
-			kode_prov: [""],
-			kode_kab: [""],
-			kode_kec: [""],
-			kode_kel: [""],
-			jorong: [""],
-			id_user:[""],
-			nama_pemilik: [""],
-			alamat_pemilik: [""],
-
-			status_kepemilikan_tanah: [""],
-			pemanfaatantanah: [""],
-			tanaman_hortikultura: this._fb.array([
-        this.initTanaman(),
-			]),
-			tanamanhias: this._fb.array([this._fb.group({
-				nama_tanaman: [""],
-				batang: [""]
-			})]),
-			tanamanpelindung:this._fb.array([
-        this.initTanaman(),
-			]),
-			tanamanlain:this._fb.array([this._fb.group({
-				nama_tanaman: [""],
-				batang: [""]
-			})]),
-			
-			
-		});
+		this.initForm();
+		
 
 		this.profile = tanahProvider.getPagesProfile();
 		this.statustanah = tanahProvider.getPagesStatusTanah();
@@ -116,6 +90,33 @@ export class TanahPage {
 		this.dbsetting._init();
 		if (o.enableBoxWidget) {
 			this.dbsetting.AdminLTE.boxWidget.activate();
+		}
+		
+		
+		for (var key in navParams.data) {
+			
+			if(navParams.data[key] instanceof Array){
+				for(var _k in navParams.data[key]){
+					//console.log(navParams.data[key][_k]);
+					if(navParams.data[key][_k] instanceof Array){
+					}else{
+						for(let a in navParams.data[key][_k]){
+							//this.kuesionerForm.controls[key][_k][a] = new FormControl('navParams.data[key][_k][a]');
+						}
+					}
+				}
+			}else{
+				this.kuesionerForm.controls[key] = new FormControl(navParams.data[key]);
+			}
+		}
+		
+		
+		console.log(navParams,this.kuesionerForm);
+	}
+
+	setValue(v){
+		if(this.navParams.data[v] !== null){
+			this.kuesionerForm.controls[v] = new FormControl(this.navParams.data[v]);
 		}
 	}
 		
@@ -151,9 +152,40 @@ export class TanahPage {
 		}
 	}*/
 
-  ionViewDidLoad() {
+  ngAfterViewInit() {
 		this.geolocate2();
 		
+	}
+
+	initForm(){
+		this.kuesionerForm = this._fb.group({
+			lokasi_proyek: ["A"],
+			kode_prov: [""],
+			kode_kab: [""],
+			kode_kec: [""],
+			kode_kel: [""],
+			jorong: [""],
+			id_user:[""],
+			nama_pemilik: [""],
+			alamat_pemilik: [""],
+
+			status_kepemilikan_tanah: [""],
+			pemanfaatantanah: [""],
+			tanaman_hortikultura: this._fb.array([
+        this.initTanaman(),
+			]),
+			tanamanhias: this._fb.array([this._fb.group({
+				nama_tanaman: [""],
+				batang: [""]
+			})]),
+			tanamanpelindung:this._fb.array([
+        this.initTanaman(),
+			]),
+			tanamanlain:this._fb.array([this._fb.group({
+				nama_tanaman: [""],
+				batang: [""]
+			})]),
+		});
 	}
 	
 	initProfile() {
@@ -239,8 +271,6 @@ export class TanahPage {
 
 		      this.data.x = position.coords.longitude;
 					this.data.y = position.coords.latitude;
-					//this.kuesionerForm.value['x'] = position.coords.longitude;
-					//this.kuesionerForm.value['y'] = position.coords.latitude;
 					this.kuesionerForm.addControl('x',new FormControl(position.coords.longitude));
 					this.kuesionerForm.addControl('y',new FormControl(position.coords.latitude));
 					
@@ -268,14 +298,14 @@ export class TanahPage {
 	      });
 	    }
 	    this.geolocation.getCurrentPosition().then((resp) => {
-		// resp.coords.latitude
-		// resp.coords.longitude
-		 this.data.x = resp.coords.longitude;
-	     this.data.y = resp.coords.latitude;
-		}).catch((error) => {
-		  console.log('Error getting location', error);
-		  this.error = JSON.stringify(error);
-		});
+		 		this.data.x = resp.coords.longitude;
+				this.data.y = resp.coords.latitude;
+				this.kuesionerForm.addControl('x',new FormControl(this.data.x));
+				this.kuesionerForm.addControl('y',new FormControl(this.data.y));
+			}).catch((error) => {
+				console.log('Error getting location', error);
+				this.error = JSON.stringify(error);
+			});
 
 		let watch = this.geolocation.watchPosition();
 		watch.subscribe((data) => {
@@ -287,7 +317,7 @@ export class TanahPage {
 	}
 
 	pinpoint(){
-		this.navCtrl.setRoot(TanahMapPage);
+		this.navCtrl.setRoot(TanahMapPage,this.kuesionerForm.value);
 	}
 
 	save(){

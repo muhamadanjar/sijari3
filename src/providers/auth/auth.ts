@@ -35,7 +35,7 @@ export class AuthProvider {
   getUser(){
     return this.storage.get('user');
   }
-  login(credentials: User) {
+  login(credentials: usercreds) {
     var promise = new Promise((resolve, reject) => {
       this.afireauth.auth.signInWithEmailAndPassword(credentials.email, credentials.password).then(() => {
         

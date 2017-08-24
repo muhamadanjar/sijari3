@@ -17,7 +17,53 @@
 
 <ion-content padding>
 	<form [formGroup]="kuesionerForm" novalidate>
-		<md-list>
+		<ion-item>
+			<ion-label floating>Lokasi Proyek</ion-label>
+			<ion-input formControlName="lokasi_proyek"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label>Provinsi</ion-label>
+			<ion-select formControlName="kode_prov" #kode_prov (ionChange)="changeProvinsi(kode_prov.value)">
+				<ion-option value="0">Pilih Provinsi</ion-option>
+				<ion-option *ngFor="let provinsi of allProvinsi" value="{{ provinsi.kode_prov }}">
+					{{ provinsi.nama_provinsi }}
+				</ion-option>
+			</ion-select>
+		</ion-item>
+		<ion-item>
+			<ion-label>Kabupaten</ion-label>
+			<ion-select formControlName="kode_kab" #kode_kab (ionChange)="changeKabupaten(kode_kab.value)">
+				<ion-option value="0">Pilih Kabupaten</ion-option>
+				<ion-option *ngFor="let kabupaten of allKabupaten" value="{{ kabupaten.kode_kab }}">
+					{{ kabupaten.nama_kabupaten }}
+				</ion-option>
+			</ion-select>
+		</ion-item>
+		<ion-item>
+			<ion-label>Kecamatan</ion-label>
+			<ion-select formControlName="kode_kec" #kode_kec (ionChange)="changeKecamatan(kode_kec.value)">
+				<ion-option value="0">Pilih Kecamatan</ion-option>
+				<ion-option *ngFor="let kecamatan of allKecamatan" value="{{ kecamatan.kode_kec }}">
+					{{ kecamatan.nama_kecamatan }}
+				</ion-option>
+			</ion-select>
+		</ion-item>
+		<ion-item>
+			<ion-label>Nagari</ion-label>
+			<ion-select formControlName="kode_kel">
+				<ion-option value="0">Pilih Nagari</ion-option>
+				<ion-option *ngFor="let desa of allKelurahan" value="{{ desa.kode_kel }}">
+					{{ desa.nama_kelurahan }}
+				</ion-option>
+			</ion-select>
+			
+		</ion-item>
+		
+		<ion-item>
+			<ion-label floating>Jorong</ion-label>
+			<ion-input formControlName="jorong"></ion-input>
+		</ion-item>
+		<!--<md-list>
 			<md-list-item>
 				<md-input-container class="input-full-width">
 					<input mdInput formControlName="lokasi_proyek" placeholder="Lokasi Proyek" >
@@ -64,71 +110,25 @@
 					<input mdInput formControlName="jorong" placeholder="Jorong / Sorong" >
 				</md-input-container>
 			</md-list-item>
-		</md-list>
+		</md-list>-->
 		<button type="button" ion-button icon-left (click)="geolocate()" color="secondary">
           <ion-icon ios="ios-locate" md="md-locate"></ion-icon> Dapatkan Lokasi
 		  </button>
 		<button type="button" ion-button icon-left (click)="pinpoint()" color="secondary">
           <ion-icon ios="ios-map" md="md-map"></ion-icon> Pin Point
       	</button>
-		<ion-item *ngIf="data.y">
+		<ion-item *ngIf="kuesionerForm.value.y">
 	        <ion-icon ios="ios-globe" md="md-globe"  [ngStyle]="{'color': '#0CA9EA'}"></ion-icon>
 	        Latitude
-	        <ion-badge item-right>{{data.y}}</ion-badge>
+	        <ion-badge item-right>{{kuesionerForm.value.y}}</ion-badge>
 	    </ion-item>
-	    <ion-item *ngIf="data.x">
+	    <ion-item *ngIf="kuesionerForm.value.x">
 	        <ion-icon ios="ios-globe" md="md-globe" [ngStyle]="{'color': '#CE6296'}"></ion-icon>
 	        Longitude
-	        <ion-badge item-right>{{data.x}}</ion-badge>
+	        <ion-badge item-right>{{kuesionerForm.value.x}}</ion-badge>
 		</ion-item>
 		
-		<!--<ion-item>
-			<ion-label floating>Lokasi Proyek</ion-label>
-			<ion-input formControlName="lokasi_proyek"></ion-input>
-		</ion-item>-->
-		<!--<ion-item>
-			<ion-label>Provinsi</ion-label>
-			<ion-select formControlName="kode_prov" #kode_prov (ionChange)="changeProvinsi(kode_prov.value)">
-				<ion-option value="0">Pilih Provinsi</ion-option>
-				<ion-option *ngFor="let provinsi of allProvinsi" value="{{ provinsi.kode_prov }}">
-					{{ provinsi.nama_provinsi }}
-				</ion-option>
-			</ion-select>
-		</ion-item>-->
-		<!--<ion-item>
-			<ion-label>Kabupaten</ion-label>
-			<ion-select formControlName="kode_kab" #kode_kab (ionChange)="changeKabupaten(kode_kab.value)">
-				<ion-option value="0">Pilih Kabupaten</ion-option>
-				<ion-option *ngFor="let kabupaten of allKabupaten" value="{{ kabupaten.kode_kab }}">
-					{{ kabupaten.nama_kabupaten }}
-				</ion-option>
-			</ion-select>
-		</ion-item>-->
-		<!--<ion-item>
-			<ion-label>Kecamatan</ion-label>
-			
-			<ion-select formControlName="kode_kec" #kode_kec (ionChange)="changeKecamatan(kode_kec.value)">
-				<ion-option value="0">Pilih Kecamatan</ion-option>
-				<ion-option *ngFor="let kecamatan of allKecamatan" value="{{ kecamatan.kode_kec }}">
-					{{ kecamatan.nama_kecamatan }}
-				</ion-option>
-			</ion-select>
-		</ion-item>
-		<ion-item>
-			<ion-label>Nagari</ion-label>
-			<ion-select formControlName="kode_kel">
-				<ion-option value="0">Pilih Nagari</ion-option>
-				<ion-option *ngFor="let desa of allKelurahan" value="{{ desa.kode_kel }}">
-					{{ desa.nama_kelurahan }}
-				</ion-option>
-			</ion-select>
-			
-		</ion-item>-->
 		
-		<!--<ion-item>
-			<ion-label floating>Jorong</ion-label>
-			<ion-input formControlName="jorong"></ion-input>
-		</ion-item>-->
 		<ion-list>
 			
 			<div>
