@@ -14,7 +14,7 @@ import { SettingPage } from '../pages/setting/setting';
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-  rootPage:any = HomePage;
+  rootPage:any = LoginPage;
   pages: Array<{title: string,icon: string, component: any}>
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
   private auth:AuthProvider,private storage:Storage) {

@@ -13,7 +13,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabase } from 'angularfire2/database';
 
 import { IonicStorageModule } from '@ionic/storage';
-import {Geolocation} from '@ionic-native/geolocation';
+import { Geolocation } from '@ionic-native/geolocation';
 import { FileChooser } from "@ionic-native/file-chooser";
 import { File } from "@ionic-native/file";
 import { FilePath } from "@ionic-native/file-path";
@@ -33,6 +33,7 @@ import { ProfilepicPage } from '../pages/profilepic/profilepic';
 import { ProfilePage } from '../pages/profile/profile';
 import { TabsPage } from '../pages/tabs/tabs';
 import { SettingPage } from '../pages/setting/setting';
+import { ChatPage } from '../pages/chat/chat';
 
 
 
@@ -90,7 +91,8 @@ import { ChatProvider } from '../providers/chat/chat';
     ProfilePage,
     ProfilepicPage,
     TabsPage,
-    SettingPage
+    SettingPage,
+    ChatPage
   ],
   imports: [
     BrowserModule,
@@ -149,7 +151,8 @@ import { ChatProvider } from '../providers/chat/chat';
     ProfilePage,
     ProfilepicPage,
     TabsPage,
-    SettingPage
+    SettingPage,
+    ChatPage
   ],
   providers: [
     StatusBar,
