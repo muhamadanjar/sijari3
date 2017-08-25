@@ -72,12 +72,9 @@ export class TanahPage {
       this.allProvinsi=data;
       },function (error){
         console.log("error"+error);
-
       },function(){
         console.log("Mengambil data kecamatan");
-				  
       }
-     
 		);
 		
 		this.initForm();
@@ -93,7 +90,7 @@ export class TanahPage {
 		}
 		
 		
-		for (var key in navParams.data) {
+		/*for (var key in navParams.data) {
 			
 			if(navParams.data[key] instanceof Array){
 				for(var _k in navParams.data[key]){
@@ -108,6 +105,11 @@ export class TanahPage {
 			}else{
 				this.kuesionerForm.controls[key] = new FormControl(navParams.data[key]);
 			}
+		}*/
+		if(navParams.data.lokasi_proyek){
+			console.log(navParams.data);
+			
+			this.kuesionerForm.setValue(navParams.data);
 		}
 		
 		
@@ -159,7 +161,7 @@ export class TanahPage {
 
 	initForm(){
 		this.kuesionerForm = this._fb.group({
-			lokasi_proyek: ["A"],
+			lokasi_proyek: [""],
 			kode_prov: [""],
 			kode_kab: [""],
 			kode_kec: [""],
@@ -185,6 +187,8 @@ export class TanahPage {
 				nama_tanaman: [""],
 				batang: [""]
 			})]),
+			x:[""],
+			y:[""],
 		});
 	}
 	

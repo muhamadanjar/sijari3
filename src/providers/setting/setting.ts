@@ -1,15 +1,24 @@
 import { Injectable } from '@angular/core';
 import { Http,Response} from '@angular/http';
 import * as $ from 'jquery';
-
+import {AngularFireDatabase, FirebaseObjectObservable,FirebaseListObservable} from 'angularfire2/database';
 @Injectable()
 export class SettingProvider {
   url:string;
+  _dbprov: FirebaseListObservable<any>;
+  _dbkab: FirebaseListObservable<any>;
+  _dbkec: FirebaseListObservable<any>;
+  _dbkel: FirebaseListObservable<any>;
+  allProvinsi;
   //el:JQuery;
   AdminLTE:any;AdminLTEOptions:any;
   
-  constructor(public _http:Http) {
+  constructor(public _http:Http,db: AngularFireDatabase) {
     console.log('Hello SettingProvider Provider');
+    this._dbprov = db.list('/provinsi');
+    this._dbkab = db.list('/kabupaten');
+    this._dbkec = db.list('/kecamatan');
+    this._dbkel = db.list('/kelurahan');
     this.setUrl('http://localhost');
     this.AdminLTE = {};
     this.AdminLTE.options = {
@@ -146,9 +155,33 @@ export class SettingProvider {
       .map((response:Response)=>response.json());
   }
   
-  getdata(){
-    return this._http.get(this.url+"/api/getdata")
-      .map((response:Response)=>response.json());
+  loadwilayah(){
+    let prov;
+    this.getAllProvinsi().subscribe((data)=>{
+      this._dbprov.push(data);
+      },function (error){
+        console.log("error"+error);
+      },function(){
+        console.log("Mengambil data kecamatan");
+      }
+    );
+
+    this._http.get(this.url+"/api/getkabupaten/all")
+      .map((response:Response)=>response.json()).subscribe((data)=>{
+        this._dbkab.push(data);
+      });
+    
+    this._http.get(this.url+"/api/getkecamatan/all")
+      .map((response:Response)=>response.json()).subscribe((data)=>{
+        this._dbkec.push(data);
+      });
+
+    this._http.get(this.url+"/api/getkelurahan/all")
+      .map((response:Response)=>response.json()).subscribe((data)=>{
+        this._dbkel.push(data);
+      });
+    
+    
   }
 
   _init() {

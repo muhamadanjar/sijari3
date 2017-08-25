@@ -10,7 +10,7 @@ import { HttpModule } from '@angular/http';
 import { config } from './app.firebaseconfig';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireModule } from 'angularfire2';
-import {AngularFireDatabase} from 'angularfire2/database';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 import { IonicStorageModule } from '@ionic/storage';
 import {Geolocation} from '@ionic-native/geolocation';
@@ -27,6 +27,7 @@ import { HomePage } from '../pages/home/home';
 import { TanahPage } from '../pages/tanah/tanah';
 import { TanahMapPage } from '../pages/tanah/tanahMap';
 import { BangunanPage } from '../pages/bangunan/bangunan';
+import { BangunanMapPage } from '../pages/bangunan/bangunanMap';
 import { SignupPage } from '../pages/signup/signup';
 import { ProfilepicPage } from '../pages/profilepic/profilepic';
 import { ProfilePage } from '../pages/profile/profile';
@@ -75,6 +76,8 @@ import {//CdkTableModule,
     MdTabsModule,
     MdToolbarModule,
     MdTooltipModule} from '@angular/material';
+import { RequestsProvider } from '../providers/requests/requests';
+import { ChatProvider } from '../providers/chat/chat';
 
 @NgModule({
   declarations: [
@@ -83,8 +86,7 @@ import {//CdkTableModule,
     LoginPage,
     SignupPage,
     TanahPage,TanahMapPage,
-
-    BangunanPage,
+    BangunanPage,BangunanMapPage,
     ProfilePage,
     ProfilepicPage,
     TabsPage,
@@ -143,7 +145,7 @@ import {//CdkTableModule,
     LoginPage,
     SignupPage,
     TanahPage,TanahMapPage,
-    BangunanPage,
+    BangunanPage,BangunanMapPage,
     ProfilePage,
     ProfilepicPage,
     TabsPage,
@@ -165,7 +167,9 @@ import {//CdkTableModule,
     AngularFireDatabase,
     FileChooser,
     File,
-    FilePath
+    FilePath,
+    RequestsProvider,
+    ChatProvider
   ]
 })
 export class AppModule {}

@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, FormArray,FormControl, Validators } from '@angu
 import { Geolocation } from '@ionic-native/geolocation';
 import { GeolocationProvider } from '../../providers/geolocation/geolocation';
 import {TabsPage} from '../tabs/tabs';
+import { BangunanMapPage } from './bangunanMap';
 import { SettingProvider } from '../../providers/setting/setting';
 import {Storage} from '@ionic/storage';
 import { bangunanData } from './bangunanData';
@@ -60,7 +61,8 @@ export class BangunanPage {
         hargasewaperbulan:[""],
         jeniskontruksi:[""],
         strukpbb:[""],
-        luasbumibangunan:[""],
+        luasbumi:[""],
+        luasbangunan:[""],
         kepemilikansuratimb:[""],
         pemanfaatanbangunan:[""],
         sumberpenerangan:[""],
@@ -82,8 +84,9 @@ export class BangunanPage {
         kesediandirekolasi:[""],
         alasanpenolakanrelokasi:[""],
         bentukpergantiandisukai:[""],
-        pendapatrespndenpemindahankolektif:[""],
-        
+        pendapatrespondenpemindahankolektif:[""],
+        x:[""],
+        y:[""],
 
 
       });
@@ -95,6 +98,16 @@ export class BangunanPage {
           console.log("Mengambil data kecamatan");
         }
       );
+      var o = this.dbsetting.AdminLTE.options;
+      this.dbsetting._init();
+      if (o.enableBoxWidget) {
+        this.dbsetting.AdminLTE.boxWidget.activate();
+      }
+
+      if(navParams.data.lokasi_proyek){
+        
+        this.bangunanForm.setValue(navParams.data);
+      }
   }
 
   ionViewDidLoad() {
@@ -102,12 +115,18 @@ export class BangunanPage {
   }
 
   addBangunan(){
-
+    console.log(this.bangunanForm.value);
+		this.items.push(this.bangunanForm.value);
+		this.navCtrl.setRoot(TabsPage);
   }
 
   close(){
 		this.navCtrl.setRoot(TabsPage);
   }
+
+  pinpoint(){
+		this.navCtrl.setRoot(BangunanMapPage,this.bangunanForm.value);
+	}
   
   geolocate(){
 		this.geolocationService.geolocate();

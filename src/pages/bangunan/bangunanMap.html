@@ -5,19 +5,14 @@
 			<ion-icon name="close"></ion-icon>
 		</button>
 	</ion-buttons>
-    <ion-title>Setting</ion-title>
+    <ion-title>Map</ion-title>
     <ion-buttons end color="primary">
-      <button ion-button>
-        <ion-icon name="save"></ion-icon>
-      </button>
+		<button ion-button (click)="sendPosition()">
+			<ion-icon name="locate"></ion-icon>
+		</button>
     </ion-buttons>
   </ion-navbar>
-
 </ion-header>
-
-<ion-content padding>
-	
-  
-  <button ion-button (click)="load()">Load Data</button>
-	
+<ion-content>
+    <div #map id="map"></div>
 </ion-content>
