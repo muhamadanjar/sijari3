@@ -96,12 +96,10 @@ export class TanahPage {
 		for (var key in navParams.data) {
 			
 			if(navParams.data[key] instanceof Array){
-				let _arr = navParams.data[key];
-				//console.log(_arr.length,_arr,key);
 				
-				let tarr = this._fb.array([]);
-				//console.log(tanaman);
 				if(key == 'tanaman_hortikultura'){
+					let _arr = navParams.data[key];
+					let tarr = this._fb.array([]);
 					for(let i=0;i<_arr.length;i++){
 						let tanaman = this.initTanaman();
 						tanaman.patchValue({
@@ -111,11 +109,50 @@ export class TanahPage {
 							'lebih_sepuluh':_arr[i].lebih_sepuluh,
 						});
 						tarr.push(tanaman);
-						
 					}
 					console.log(tarr);
-					this.kuesionerForm.setControl('tanaman_hortikultura',tarr);	
-					
+					this.kuesionerForm.setControl(key,tarr);	
+				}else if(key == 'tanamanhias'){
+					let _arr = navParams.data[key];
+					let tarr = this._fb.array([]);
+					for(let i=0;i<_arr.length;i++){
+						let tanaman = this.initTanamanBatang();
+						tanaman.patchValue({
+							'nama_tanaman':_arr[i].nama_tanaman,
+							'batang':_arr[i].batang,
+						});
+						tarr.push(tanaman);
+					}
+					console.log(tarr);
+					this.kuesionerForm.setControl(key,tarr);	
+				}else if(key == 'tanamanpelindung'){
+					let _arr = navParams.data[key];
+					let tarr = this._fb.array([]);
+					for(let i=0;i<_arr.length;i++){
+						let tanaman = this.initTanaman();
+						tanaman.patchValue({
+							'nama_tanaman':_arr[i].nama_tanaman,
+							'satu_tiga':_arr[i].satu_tiga,
+							'tiga_sepuluh':_arr[i].tiga_sepuluh,
+							'lebih_sepuluh':_arr[i].lebih_sepuluh,
+						});
+						tarr.push(tanaman);
+					}
+					console.log(tarr);
+					this.kuesionerForm.setControl(key,tarr);	
+				}else if(key == 'tanamanlain'){
+					let _arr = navParams.data[key];
+					let tarr = this._fb.array([]);
+					for(let i=0;i<_arr.length;i++){
+						let tanaman = this.initTanamanBatang();
+						tanaman.patchValue({
+							'nama_tanaman':_arr[i].nama_tanaman,
+							'batang':_arr[i].batang,
+						});
+						tarr.push(tanaman);
+					}
+					console.log(tarr);
+					this.kuesionerForm.setControl(key,tarr);	
 				}
 				
 			}else{
