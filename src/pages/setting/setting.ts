@@ -1,28 +1,29 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
-import { FormBuilder, FormGroup, FormArray,FormControl, Validators } from '@angular/forms';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+
 import { TabsPage } from '../tabs/tabs';
+import { SettingProvider } from "../../providers/setting/setting";
+@IonicPage()
 @Component({
   selector: 'page-setting',
   templateUrl: 'setting.html',
 })
 export class SettingPage {
-  settingForm:FormGroup;
-  constructor(public navCtrl: NavController, public navParams: NavParams,private _fb: FormBuilder) {
-    this.settingForm = this._fb.group({
-      provinsi: [""],
-      kabupaten: [""],
-      kecamantan: [""],
-      nagari: [""],
-		});
+  
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    public dbsetting:SettingProvider
+  ) {
+    
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SettingPage');
   }
-
   close(){
 		this.navCtrl.setRoot(TabsPage);
-	}
+  }
+  load(){
+    this.dbsetting.loadwilayah();
+  }
 
 }

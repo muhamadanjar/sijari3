@@ -1,0 +1,75 @@
+<!--
+  Generated template for the TanahviewPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="skin-green">
+    <ion-title>Lihat Tanah</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-fab bottom right >
+    <button ion-fab mini><ion-icon name="add"></ion-icon></button>
+    <ion-fab-list side="top">
+      <button ion-fab><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+      <button ion-fab><i class="fa fa-trash" aria-hidden="true"></i></button>      
+    </ion-fab-list>
+  </ion-fab>
+  <div class="box box-primary">
+			<div class="box-header with-border">
+				<h3 class="box-title">Profil Responden</h3>
+				<div class="box-tools pull-right">
+					<button type="button" class="btn btn-box-tool" data-widget="collapse">
+						<i class="fa fa-minus"></i>
+					</button>						
+				</div>					
+			</div>
+			<div class="box-body">
+        <ion-list>
+          
+            <ion-item >
+                <h2>Lokasi Proyek</h2>
+                <p>{{filteredtanah.lokasi_proyek}}</p>
+            </ion-item>
+            
+            <ion-item>
+                <h2>Nama Pemilik</h2>
+                <p>{{filteredtanah.nama_pemilik}}</p>
+            </ion-item>
+            <ion-item>
+                <h2>Alamat Pemilik</h2>
+                <p>{{filteredtanah.alamat_pemilik}}</p>
+            </ion-item>
+        </ion-list>       
+      </div>
+  </div>
+  <div class="box box-primary">
+			<div class="box-header with-border">
+				<h3 class="box-title">Status Tanah</h3>
+				<div class="box-tools pull-right">
+					<button type="button" class="btn btn-box-tool" data-widget="collapse">
+						<i class="fa fa-minus"></i>
+					</button>						
+				</div>					
+			</div>
+			<div class="box-body">
+        <ion-list>
+            <ion-item>
+              <h2>Status Kepemilikan Tanah</h2>
+              <p>{{filteredtanah.status_kepemilikan_tanah}}</p>
+            </ion-item>
+            <ion-item>
+              <h2>Status Pemanfaatan Tanah</h2>  
+              <p>{{filteredtanah.pemanfaatantanah}}</p>
+            </ion-item>
+        </ion-list>
+      </div>
+  </div>
+  
+</ion-content>

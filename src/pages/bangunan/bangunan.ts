@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { FormBuilder, FormGroup, FormArray,FormControl, Validators } from '@angular/forms';
 import { Geolocation } from '@ionic-native/geolocation';
 import { GeolocationProvider } from '../../providers/geolocation/geolocation';
-
-import { SettingProvider } from '../../providers/setting/setting';
-import { bangunanData } from './bangunanData';
 import {TabsPage} from '../tabs/tabs';
+import { BangunanMapPage } from './bangunanMap';
+import { SettingProvider } from '../../providers/setting/setting';
 import {Storage} from '@ionic/storage';
+import { bangunanData } from './bangunanData';
 import {AngularFireDatabase, FirebaseObjectObservable,FirebaseListObservable} from 'angularfire2/database';
+@IonicPage()
 @Component({
   selector: 'page-bangunan',
   templateUrl: 'bangunan.html',
-  providers:[Geolocation]
 })
 export class BangunanPage {
   public data = {} as bangunanData;
@@ -22,49 +22,118 @@ export class BangunanPage {
   public error: string;
   item: FirebaseObjectObservable<any>;
   items: FirebaseListObservable<any>;
-  
+
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public dbsetting:SettingProvider,
 		public storage:Storage,
-    db: AngularFireDatabase,
+    public db: AngularFireDatabase,
     private _fb: FormBuilder,
     public geolocation:Geolocation,
-		public geolocationService: GeolocationProvider,
-  ) {
-		this.items = db.list('/kuesionerbangunan');
-    this.bangunanForm = this._fb.group({
-			lokasi_proyek: [""],
-			kode_prov: [""],
-			kode_kab: [""],
-			kode_kec: [""],
-			kode_kel: [""],
-			jorong: [""],
-			id_user:[""],
-			nama_pemilik: [""],
-			alamat_pemilik: [""],
-
-		});
-		this.dbsetting.getAllProvinsi().subscribe((data)=>{
-      this.allProvinsi=data;
-      },function (error){
-        console.log("error"+error);
-      },function(){
-        console.log("Mengambil data kecamatan");
+		public geolocationService: GeolocationProvider) {
+      this.items = db.list('/kuesionerbangunan');
+      this.initForm();
+      this.dbsetting.getAllProvinsi().subscribe((data)=>{
+        this.allProvinsi=data;
+        },function (error){
+          console.log("error"+error);
+        },function(){
+          console.log("Mengambil data kecamatan");
+        }
+      );
+      var o = this.dbsetting.AdminLTE.options;
+      this.dbsetting._init();
+      if (o.enableBoxWidget) {
+        this.dbsetting.AdminLTE.boxWidget.activate();
       }
-		);
+
+      if(navParams.data.lokasi_proyek){
+        
+        this.bangunanForm.setValue(navParams.data);
+      }
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad BangunanPage');
+    //console.log('ionViewDidLoad BangunanPage');
+  }
+
+  ngAfterContentInit() {
+    this.geolocate();
+    
   }
 
   addBangunan(){
-
+    console.log(this.bangunanForm.value);
+		this.items.push(this.bangunanForm.value);
+		this.navCtrl.setRoot(TabsPage);
   }
 
   close(){
 		this.navCtrl.setRoot(TabsPage);
   }
+
+  initForm(){
+    this.bangunanForm = this._fb.group({
+        lokasi_proyek: [""],
+        kode_prov: [""],
+        kode_kab: [""],
+        kode_kec: [""],
+        kode_kel: [""],
+        jorong: [""],
+
+        id_user:[""],
+        nama: [""],
+        alamat: [""],
+        jenis_kelamin:[""],
+        usia: [""],
+        pendidikanterakhir: [""],
+        statusrumahtangga: [""],
+        lamatinggal: [""],
+
+        jumlahorang: [""],
+        jumlahkk: [""],
+        statuskependudukan:[""],
+        kepemilikanktp:[""],
+        kepemilikankk:[""],
+
+        statuskepemilikantanah: [""],
+        statuskepemilikanrumah: [""],
+        namapemilik:[""],
+        alamatpemilik:[""],
+        hargasewaperbulan:[""],
+        jeniskontruksi:[""],
+        strukpbb:[""],
+        luasbumi:[""],
+        luasbangunan:[""],
+        kepemilikansuratimb:[""],
+        pemanfaatanbangunan:[""],
+        sumberpenerangan:[""],
+        sambungantelpkabel:[""],
+        jenispagarrumah:[""],
+        panjangpagar:[""],
+        kepemilikansumurmataair:[""],
+        kepemilikanrumahlain:[""],
+        kepemilikantanahlain:[""],
+        lokasitanahditempatlain:[""],
+        
+        pekerjaanutama:[""],
+        pekerjaansampingan:[""],
+        totalpendapatanperbulan:[""],
+        totalpengeluaranperbulan:[""],
+
+        pengetahuanrespondenirigasi:[""],
+        sumberinformasi:[""],
+        kesediandirekolasi:[""],
+        alasanpenolakanrelokasi:[""],
+        bentukpergantiandisukai:[""],
+        pendapatrespondenpemindahankolektif:[""],
+        x:[""],
+        y:[""],
+      });
+  }
+
+  pinpoint(){
+		this.navCtrl.setRoot(BangunanMapPage,this.bangunanForm.value);
+	}
   
   geolocate(){
 		this.geolocationService.geolocate();

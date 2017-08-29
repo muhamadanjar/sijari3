@@ -1,5 +1,8 @@
 {
-  "name": "sijari3",
+  "name": "sijari3_android",
   "app_id": "",
-  "type": "ionic-angular"
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
 }

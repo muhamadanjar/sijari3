@@ -3,28 +3,29 @@ import { Platform,Nav } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+import { AuthProvider } from '../providers/auth/auth';
+import { Storage } from '@ionic/storage';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { ProfilePage } from '../pages/profile/profile';
 import { SettingPage } from '../pages/setting/setting';
-import { Storage } from '@ionic/storage';
-import { AuthProvider } from '../providers/auth/auth';
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-  rootPage:any = LoginPage
+  rootPage:any = LoginPage;
   pages: Array<{title: string,icon: string, component: any}>
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
-    private auth:AuthProvider,private storage:Storage) {
+  private auth:AuthProvider,private storage:Storage) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
-      
-      // used for an example of ngFor and navigation
+      /*setTimeout(() => {
+        splashScreen.hide();
+      }, 100);*/
       this.pages = [
         { title: 'Home', icon:'home', component: HomePage, },
         { title: 'Profil', icon:'person', component: ProfilePage, },

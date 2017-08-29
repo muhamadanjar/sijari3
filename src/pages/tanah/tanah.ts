@@ -10,7 +10,7 @@ import { TanahProvider } from '../../providers/tanah/tanah';
 import { SettingProvider } from '../../providers/setting/setting';
 
 import {Storage} from '@ionic/storage';
-import {AngularFireDatabase, FirebaseObjectObservable,FirebaseListObservable} from 'angularfire2/database';
+import {AngularFireDatabase,FirebaseListObservable} from 'angularfire2/database';
 import {TabsPage} from '../tabs/tabs';
 import {TanahMapPage} from './tanahMap';
 
@@ -41,6 +41,7 @@ export class TanahPage {
 	model: string;
 	
 	allProvinsi;allKabupaten;allKecamatan;allKelurahan;
+	kode_prov;kode_kab;kode_kec;kode_kel;
 	allstatuskepemilikantanah;allpemanfaatantanah;
 
 	kuesionerForm: FormGroup;
@@ -48,7 +49,7 @@ export class TanahPage {
 	public profile: any[];
 	public statustanah: any[];
 
-	item: FirebaseObjectObservable<any>;
+
 	items: FirebaseListObservable<any>;
 	@ViewChild(Tabs) tabs: Tabs;
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -62,7 +63,7 @@ export class TanahPage {
 		public zone:NgZone,
 		db: AngularFireDatabase
 	) {
-		console.log('Storage',this.storage.get('user'));
+		
 		this.items = db.list('/kuesionertanah');
 		this.allstatuskepemilikantanah = this.tanahProvider.getStatusKepemilikanTanah();
 		this.allpemanfaatantanah = this.tanahProvider.getPemanfaatanTanah();
@@ -70,44 +71,17 @@ export class TanahPage {
       this.allProvinsi=data;
       },function (error){
         console.log("error"+error);
-
       },function(){
         console.log("Mengambil data kecamatan");
-				  
       }
-     
 		);
+		/*dbsetting.getallprovinsi().then((res: any) => {
+			console.log(res);
+      this.allProvinsi=res[0];
+   	});*/
 		
-		this.kuesionerForm = this._fb.group({
-			lokasi_proyek: [""],
-			kode_prov: [""],
-			kode_kab: [""],
-			kode_kec: [""],
-			kode_kel: [""],
-			jorong: [""],
-			id_user:[""],
-			nama_pemilik: [""],
-			alamat_pemilik: [""],
-
-			status_kepemilikan_tanah: [""],
-			pemanfaatantanah: [""],
-			tanaman_hortikultura: this._fb.array([
-        this.initTanaman(),
-			]),
-			tanamanhias: this._fb.array([this._fb.group({
-				nama_tanaman: [""],
-				batang: [""]
-			})]),
-			tanamanpelindung:this._fb.array([
-        this.initTanaman(),
-			]),
-			tanamanlain:this._fb.array([this._fb.group({
-				nama_tanaman: [""],
-				batang: [""]
-			})]),
-			
-			
-		});
+		this.initForm();
+		
 
 		this.profile = tanahProvider.getPagesProfile();
 		this.statustanah = tanahProvider.getPagesStatusTanah();
@@ -116,6 +90,89 @@ export class TanahPage {
 		this.dbsetting._init();
 		if (o.enableBoxWidget) {
 			this.dbsetting.AdminLTE.boxWidget.activate();
+		}
+		
+		
+		for (var key in navParams.data) {
+			
+			if(navParams.data[key] instanceof Array){
+				
+				if(key == 'tanaman_hortikultura'){
+					let _arr = navParams.data[key];
+					let tarr = this._fb.array([]);
+					for(let i=0;i<_arr.length;i++){
+						let tanaman = this.initTanaman();
+						tanaman.patchValue({
+							'nama_tanaman':_arr[i].nama_tanaman,
+							'satu_tiga':_arr[i].satu_tiga,
+							'tiga_sepuluh':_arr[i].tiga_sepuluh,
+							'lebih_sepuluh':_arr[i].lebih_sepuluh,
+						});
+						tarr.push(tanaman);
+					}
+					console.log(tarr);
+					this.kuesionerForm.setControl(key,tarr);	
+				}else if(key == 'tanamanhias'){
+					let _arr = navParams.data[key];
+					let tarr = this._fb.array([]);
+					for(let i=0;i<_arr.length;i++){
+						let tanaman = this.initTanamanBatang();
+						tanaman.patchValue({
+							'nama_tanaman':_arr[i].nama_tanaman,
+							'batang':_arr[i].batang,
+						});
+						tarr.push(tanaman);
+					}
+					console.log(tarr);
+					this.kuesionerForm.setControl(key,tarr);	
+				}else if(key == 'tanamanpelindung'){
+					let _arr = navParams.data[key];
+					let tarr = this._fb.array([]);
+					for(let i=0;i<_arr.length;i++){
+						let tanaman = this.initTanaman();
+						tanaman.patchValue({
+							'nama_tanaman':_arr[i].nama_tanaman,
+							'satu_tiga':_arr[i].satu_tiga,
+							'tiga_sepuluh':_arr[i].tiga_sepuluh,
+							'lebih_sepuluh':_arr[i].lebih_sepuluh,
+						});
+						tarr.push(tanaman);
+					}
+					console.log(tarr);
+					this.kuesionerForm.setControl(key,tarr);	
+				}else if(key == 'tanamanlain'){
+					let _arr = navParams.data[key];
+					let tarr = this._fb.array([]);
+					for(let i=0;i<_arr.length;i++){
+						let tanaman = this.initTanamanBatang();
+						tanaman.patchValue({
+							'nama_tanaman':_arr[i].nama_tanaman,
+							'batang':_arr[i].batang,
+						});
+						tarr.push(tanaman);
+					}
+					console.log(tarr);
+					this.kuesionerForm.setControl(key,tarr);	
+				}
+				
+			}else{
+				this.kuesionerForm.controls[key] = new FormControl(navParams.data[key]);
+			}
+		}
+		/*if(navParams.data.lokasi_proyek){
+			console.log(navParams.data);
+			
+			//this.kuesionerForm.setValue(navParams.data);
+		}*/
+
+		console.log(this.kuesionerForm);
+		
+
+	}
+
+	setValue(v){
+		if(this.navParams.data[v] !== null){
+			this.kuesionerForm.controls[v] = new FormControl(this.navParams.data[v]);
 		}
 	}
 		
@@ -151,11 +208,43 @@ export class TanahPage {
 		}
 	}*/
 
-  ionViewDidLoad() {
+  ngAfterViewInit() {
 		this.geolocate2();
 		
 	}
-	
+
+	initForm(){
+		this.kuesionerForm = this._fb.group({
+			lokasi_proyek: [""],
+			kode_prov: [""],
+			kode_kab: [""],
+			kode_kec: [""],
+			kode_kel: [""],
+			jorong: [""],
+			id_user:[""],
+			nama_pemilik: [""],
+			alamat_pemilik: [""],
+
+			status_kepemilikan_tanah: [""],
+			pemanfaatantanah: [""],
+			tanaman_hortikultura: this._fb.array([
+        this.initTanaman(),
+			]),
+			tanamanhias: this._fb.array([this._fb.group({
+				nama_tanaman: [""],
+				batang: [""]
+			})]),
+			tanamanpelindung:this._fb.array([
+        this.initTanaman(),
+			]),
+			tanamanlain:this._fb.array([this._fb.group({
+				nama_tanaman: [""],
+				batang: [""]
+			})]),
+			x:[""],
+			y:[""],
+		});
+	}
 	initProfile() {
     return this._fb.group({
       nama_pemilik: [""],
@@ -176,7 +265,6 @@ export class TanahPage {
 			batang: [""]
     });
 	}
-
 	addHortikultura() {
     const control = <FormArray>this.kuesionerForm.controls['tanaman_hortikultura'];
     control.push(this.initTanaman());
@@ -239,10 +327,9 @@ export class TanahPage {
 
 		      this.data.x = position.coords.longitude;
 					this.data.y = position.coords.latitude;
-					//this.kuesionerForm.value['x'] = position.coords.longitude;
-					//this.kuesionerForm.value['y'] = position.coords.latitude;
-					this.kuesionerForm.addControl('x',new FormControl(position.coords.longitude));
-					this.kuesionerForm.addControl('y',new FormControl(position.coords.latitude));
+
+					this.kuesionerForm.patchValue({'x':position.coords.longitude});
+					this.kuesionerForm.patchValue({'y':position.coords.latitude});
 					
 		    }, (error) => {
 		    	this.error = JSON.stringify(error);
@@ -258,24 +345,24 @@ export class TanahPage {
 	        this.data.x = position.coords.longitude;
 	        this.data.y = position.coords.latitude;
 	        //this.data.gpsinfo = "latitude :"+this.y+" longitude :"+this.x;
-					//this.kuesionerForm.value['x'] = position.coords.longitude;
-					//this.kuesionerForm.value['y'] = position.coords.latitude;
-					this.kuesionerForm.addControl('x',new FormControl(position.coords.longitude));
-					this.kuesionerForm.addControl('y',new FormControl(position.coords.latitude));
-					
+
+					//this.kuesionerForm.addControl('x',new FormControl(position.coords.longitude));
+					//this.kuesionerForm.addControl('y',new FormControl(position.coords.latitude));
+					this.kuesionerForm.patchValue({'x':position.coords.longitude});
+					this.kuesionerForm.patchValue({'y':position.coords.latitude});
 	      }, (err) => {
 	        console.log(err);
 	      });
 	    }
 	    this.geolocation.getCurrentPosition().then((resp) => {
-		// resp.coords.latitude
-		// resp.coords.longitude
-		 this.data.x = resp.coords.longitude;
-	     this.data.y = resp.coords.latitude;
-		}).catch((error) => {
-		  console.log('Error getting location', error);
-		  this.error = JSON.stringify(error);
-		});
+		 		this.data.x = resp.coords.longitude;
+				this.data.y = resp.coords.latitude;
+				this.kuesionerForm.addControl('x',new FormControl(this.data.x));
+				this.kuesionerForm.addControl('y',new FormControl(this.data.y));
+			}).catch((error) => {
+				console.log('Error getting location', error);
+				this.error = JSON.stringify(error);
+			});
 
 		let watch = this.geolocation.watchPosition();
 		watch.subscribe((data) => {
@@ -287,37 +374,44 @@ export class TanahPage {
 	}
 
 	pinpoint(){
-		this.navCtrl.setRoot(TanahMapPage);
+		this.navCtrl.setRoot(TanahMapPage,this.kuesionerForm.value);
 	}
 
 	save(){
 		console.log(this.kuesionerForm.value);
 		this.items.push(this.kuesionerForm.value);
 	}
-
 	addTanah(){
 		this.save();
 		this.navCtrl.setRoot(TabsPage);
 	}
-	
 	close(){
 		this.navCtrl.setRoot(TabsPage);
 	}
+	delete(key: string) {    
+    this.items.remove(key); 
+  }
 
 	changeProvinsi(provinsi){
-	  	this.dbsetting.getAllKabupaten(provinsi).subscribe((data)=>{
-	      this.allKabupaten=data;
-	      //console.log(data);
+	  this.dbsetting.getAllKabupaten(provinsi).subscribe((data)=>{
+				this.allKabupaten=data;
+				this.kode_prov = provinsi;
 	      },function (error){
 	        console.log("error"+error)
 	      },function(){
 	        //loadingdata.dismiss();
 	      }
-	    );
+		);
+			/*this.dbsetting.getallkabupaten(provinsi).then((res:any)=>{
+				console.log(res);
+				this.allKabupaten = res[0];
+			});*/
+			
 	}
 		
 	changeKabupaten(kabupaten){
 	  	this.dbsetting.getAllKecamatan(kabupaten).subscribe((data)=>{
+				this.kode_kab = kabupaten;
 	      this.allKecamatan=data;
 	      //console.log(data);
 	      },function (error){
@@ -330,6 +424,7 @@ export class TanahPage {
 		
 	changeKecamatan(kecamatan){
 	  	this.dbsetting.getAllDesa(kecamatan).subscribe((data)=>{
+				this.kode_kec = kecamatan;
 	      this.allKelurahan=data;
 	      //console.log(data);
 	      },function (error){

@@ -1,10 +1,9 @@
 // Ionic Variables and Theming. For more info, please see:
-// http://ionicframework.com/docs/v2/theming/
+// http://ionicframework.com/docs/theming/
 
 // Font path is used to include ionicons,
 // roboto, and noto sans fonts
 $font-path: "../assets/fonts";
-//$fa-font-path: "../assets/fonts";
 
 
 // The app direction is used to include
@@ -14,16 +13,14 @@ $app-direction: ltr;
 
 
 @import "ionic.globals";
-@import "font-awesome";
-
-
+//@import "font-awesome";
 
 // Shared Variables
 // --------------------------------------------------
 // To customize the look and feel of this app, you can override
 // the Sass variables found in Ionic's source scss files.
 // To view all the possible Ionic variables, see:
-// http://ionicframework.com/docs/v2/theming/overriding-ionic-variables/
+// http://ionicframework.com/docs/theming/overriding-ionic-variables/
 
 
 
@@ -58,6 +55,8 @@ $picker-md-option-font-size:12px;
 $alert-md-button-text-color:color($colors, 'skin-green');
 $alert-md-title-font-size:18px;
 $alert-md-sub-title-font-size:17px;
+$menu-md-background:color($colors, 'skin-blue');
+
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here
@@ -92,7 +91,7 @@ $alert-md-sub-title-font-size:17px;
 // Ionicons
 // --------------------------------------------------
 // The premium icon font for Ionic. For more info, please see:
-// http://ionicframework.com/docs/v2/ionicons/
+// http://ionicframework.com/docs/ionicons/
 
 @import "ionic.ionicons";
 

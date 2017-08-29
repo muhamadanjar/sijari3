@@ -1,17 +1,24 @@
-import { Component, NgZone } from '@angular/core';
-import { NavController, NavParams, AlertController,LoadingController } from 'ionic-angular';
+import { Component,NgZone } from '@angular/core';
+import { IonicPage, NavController, NavParams, AlertController,LoadingController } from 'ionic-angular';
 import { ImghandlerProvider } from '../../providers/imghandler/imghandler';
 import { UserProvider } from '../../providers/user/user';
 import firebase from 'firebase';
 import {Storage} from '@ionic/storage';
 import {LoginPage} from '../login/login';
+/**
+ * Generated class for the ProfilePage page.
+ *
+ * See http://ionicframework.com/docs/components/#navigation for more info
+ * on Ionic pages and navigation.
+ */
 
-//@IonicPage()
+@IonicPage()
 @Component({
   selector: 'page-profile',
   templateUrl: 'profile.html',
 })
 export class ProfilePage {
+
   avatar: string = 'https://firebasestorage.googleapis.com/v0/b/myapp-4eadd.appspot.com/o/chatterplace.png?alt=media&token=e51fa887-bfc6-48ff-87c6-e2c61976534e';
   displayName: string;
   constructor(public navCtrl: NavController, public navParams: NavParams,public storage:Storage,
@@ -126,4 +133,5 @@ export class ProfilePage {
     })
     
   }
+
 }

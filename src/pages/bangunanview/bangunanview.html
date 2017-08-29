@@ -1,0 +1,222 @@
+<!--
+  Generated template for the TanahviewPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="skin-green">
+    <ion-title>Lihat Bangunan</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div class="box box-primary">
+			<div class="box-header with-border">
+				<h3 class="box-title">Profil Responden</h3>
+				<div class="box-tools pull-right">
+					<button type="button" class="btn btn-box-tool" data-widget="collapse">
+						<i class="fa fa-minus"></i>
+					</button>						
+				</div>					
+			</div>
+			<div class="box-body">
+        <ion-list no-lines>
+          <ion-list>
+            <ion-item >
+                <h2>Lokasi Proyek</h2>
+                <p>{{filteredbangunan.lokasi_proyek}}</p>
+            </ion-item>
+            <ion-item>
+                <h2>Nama / Nama Kepala Keluarga</h2>
+                <p>{{filteredbangunan.nama}}</p>
+            </ion-item>
+            <ion-item>
+                <h2>Alamat</h2>
+                <p>{{filteredbangunan.alamat}}</p>
+            </ion-item>
+            <ion-item>
+                <h2>Jenis Kelamin</h2>  
+                <p>{{filteredbangunan.jenis_kelamin}}</p>
+            </ion-item>
+            <ion-item>
+                <h2>Usia</h2>  
+                <p>{{filteredbangunan.usia}}</p>
+            </ion-item>
+            <ion-item>
+                <h2> Pendidikan Terakhir</h2>  
+                <p>{{filteredbangunan.pendidikanterakhir}}</p>
+            </ion-item>
+            <ion-item>
+                <h2> Status dalam rumah tangga</h2>  
+                <p>{{filteredbangunan.statusrumahtangga}}</p>
+            </ion-item>
+            <ion-item>
+                <h2> Lama Tinggal di rumah ini</h2>  
+                <p>{{filteredbangunan.lamatinggal}}</p>
+            </ion-item>
+            
+          </ion-list>
+          
+        </ion-list>      
+      </div>
+  </div>
+
+  <div class="box box-primary">
+			<div class="box-header with-border">
+				<h3 class="box-title">Data Sosial Rumah Tangga</h3>
+				<div class="box-tools pull-right">
+					<button type="button" class="btn btn-box-tool" data-widget="collapse">
+						<i class="fa fa-minus"></i>
+					</button>						
+				</div>					
+			</div>
+			<div class="box-body">
+        <ion-list no-lines>
+          <ion-list>
+            <ion-item >
+                <h2>Jumlah orang yang tinggal di rumah ini</h2>
+                <p>{{filteredbangunan.jumlahorang}}</p>
+            </ion-item>
+            <ion-item>
+                <h2>Jumlah KK yang tinggal di rumah ini</h2>
+                <p>{{filteredbangunan.jumlahkk}}</p>
+            </ion-item>
+            <ion-item>
+                <h2>Status kependudukan</h2>
+                <p>{{filteredbangunan.statuskependudukan}}</p>
+            </ion-item>
+            <ion-item>
+                <h2>Kepemilikan Kartu Tanda Penduduk (KTP)</h2>  
+                <p>{{filteredbangunan.kepemilikanktp}}</p>
+            </ion-item>
+            <ion-item>
+                <h2>Kepemilikian Kartu Keluarga</h2>  
+                <p>{{filteredbangunan.kepemilikankk}}</p>
+            </ion-item>
+            
+          </ion-list>
+          
+        </ion-list>      
+      </div>
+  </div>
+  <!--Status Tanah, Kondisi Bangunan & Aset Lainnya Belum Lengkap-->
+  <div class="box box-primary">
+			<div class="box-header with-border">
+				<h3 class="box-title">Status Tanah, Kondisi Bangunan & Aset Lainnya</h3>
+				<div class="box-tools pull-right">
+					<button type="button" class="btn btn-box-tool" data-widget="collapse">
+						<i class="fa fa-minus"></i>
+					</button>						
+				</div>					
+			</div>
+			<div class="box-body">
+        <ion-list no-lines>
+          <ion-list>
+            <ion-item >
+                <h2>Status kepemilikan tanah</h2>
+                <p>{{filteredbangunan.statuskepemilikantanah}}</p>
+            </ion-item>
+            <ion-item>
+                <h2>Status kepemilikan rumah</h2>
+                <p>{{filteredbangunan.statuskepemilikanrumah}}</p>
+            </ion-item>
+            <ion-item>
+                <h2>Nama Pemilik</h2>
+                <p>{{filteredbangunan.namapemilik}}</p>
+            </ion-item>
+            <ion-item>
+                <h2>Alamat Pemilik</h2>  
+                <p>{{filteredbangunan.alamatpemilik}}</p>
+            </ion-item>
+            <ion-item>
+                <h2>Harga sewa per bulan, jika rumah ybs sewa / kontrak</h2>  
+                <p>{{filteredbangunan.hargasewaperbulan}}</p>
+            </ion-item>
+            
+          </ion-list>
+          
+        </ion-list>      
+      </div>
+  </div>
+
+  <div class="box box-primary">
+			<div class="box-header with-border">
+				<h3 class="box-title">Kondisi Ekonomi</h3>
+				<div class="box-tools pull-right">
+					<button type="button" class="btn btn-box-tool" data-widget="collapse">
+						<i class="fa fa-minus"></i>
+					</button>						
+				</div>					
+			</div>
+			<div class="box-body">
+        <ion-list no-lines>
+          <ion-list>
+            <ion-item >
+                <h2>Pekerjaan utama kepala keluarga</h2>
+                <p>{{filteredbangunan.pekerjaanutama}}</p>
+            </ion-item>
+            <ion-item>
+                <h2>Pekerjaan sampingan kepala keluarga</h2>
+                <p>{{filteredbangunan.pekerjaansampingan}}</p>
+            </ion-item>
+            <ion-item>
+                <h2>Total pendapatan per bulan dari seluruh anggota keluarga (termasuk dari pekerjaan utama dan pekerjaan sampingan)</h2>
+                <p>{{filteredbangunan.totalpendapatanperbulan}}</p>
+            </ion-item>
+            <ion-item>
+                <h2>Total pengeluaran rata-rata per bulan dari seluruh anggota keluarga</h2>  
+                <p>{{filteredbangunan.totalpengeluaranperbulan}}</p>
+            </ion-item>
+          </ion-list>
+        </ion-list>      
+      </div>
+  </div>
+
+  <div class="box box-primary">
+			<div class="box-header with-border">
+				<h3 class="box-title">Informasi Proyek</h3>
+				<div class="box-tools pull-right">
+					<button type="button" class="btn btn-box-tool" data-widget="collapse">
+						<i class="fa fa-minus"></i>
+					</button>						
+				</div>					
+			</div>
+			<div class="box-body">
+        <ion-list no-lines>
+          <ion-list>
+            <ion-item >
+                <h2>Pengetahuan responden tentang rencana pembangunan jaringan irigasi</h2>
+                <p>{{filteredbangunan.pengetahuanrespondenirigasi}}</p>
+            </ion-item>
+            <ion-item>
+                <h2>Sumber informasi tentang rencana pembangunan jaringan irigasi  (jika responden tahu)</h2>
+                <p>{{filteredbangunan.sumberinformasi}}</p>
+            </ion-item>
+            <ion-item>
+                <h2>Kesediaan responden untuk direlokasi</h2>
+                <p>{{filteredbangunan.kesediandirekolasi}}</p>
+            </ion-item>
+            <ion-item>
+                <h2>Alasan penolakan relokasi (jika menolak)</h2>  
+                <p>{{filteredbangunan.alasanpenolakanrelokasi}}</p>
+            </ion-item>
+              
+            <ion-item>
+                <h2>Bentuk penggantian yang lebih disukai</h2>  
+                <p>{{filteredbangunan.bentukpergantiandisukai}}</p>
+            </ion-item>
+
+            <ion-item>
+                <h2>Pendapat responden tentang pemindahan warga secara Kolektif</h2>  
+                <p>{{filteredbangunan.pendapatrespondenpemindahankolektif}}</p>
+            </ion-item>
+          </ion-list>
+        </ion-list>      
+      </div>
+  </div>
+  
+</ion-content>

@@ -1,14 +1,16 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams,AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,AlertController } from 'ionic-angular';
 
 import {LoginPage} from '../login/login';
 import {UserProvider} from '../../providers/user/user';
 
+@IonicPage()
 @Component({
   selector: 'page-passwordreset',
   templateUrl: 'passwordreset.html',
 })
 export class PasswordresetPage {
+
   email:string;
   constructor(public navCtrl: NavController, public navParams: NavParams,public userservice:UserProvider,
     public alertCtrl:AlertController) {

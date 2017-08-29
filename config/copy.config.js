@@ -1,6 +1,5 @@
 const copyConfig = require('../node_modules/@ionic/app-scripts/config/copy.config');
 copyConfig.copyFonts.src.push('{{ROOT}}/node_modules/font-awesome/fonts/**/*');
-//copyConfig.copyFontawesomeCss.src.push('{{ROOT}}/node_modules/font-awesome/css/font-awesome.min.css');
 
 
 // this is a custom dictionary to make it easy to extend/override

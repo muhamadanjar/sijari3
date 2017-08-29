@@ -16,26 +16,8 @@
 </ion-header>
 
 <ion-content padding>
-	<form [formGroup]="settingForm" novalidate>
-		<ion-list>
-      <ion-item>
-        <ion-label>Ambil Provinsi</ion-label>
-        <button ion-button (click)="ambilprovinsi()"><ion-icon name="send"></ion-icon></button>
-      </ion-item>
-      <ion-item>
-        <ion-label>Ambil Kabupaten</ion-label>
-        <button ion-button (click)="ambilkabupaten()"><ion-icon name="send"></ion-icon></button>
-      </ion-item>
-      <ion-item>
-        <ion-label>Ambil Kecamatan</ion-label>
-        <button ion-button (click)="ambilkecamatan()"><ion-icon name="send"></ion-icon></button>
-      </ion-item>
-      <ion-item>
-        <ion-label>Ambil Nagari</ion-label>
-        <button ion-button (click)="ambilnagarii()"><ion-icon name="send"></ion-icon></button>
-      </ion-item>
-    </ion-list>
-	  <pre>{{ settingForm.value | json }}</pre>
-	</form>
+	
+  
+  <button ion-button (click)="load()">Load Data</button>
 	
 </ion-content>

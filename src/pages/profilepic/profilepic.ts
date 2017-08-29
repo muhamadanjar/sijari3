@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,LoadingController } from 'ionic-angular';
 import { ImghandlerProvider } from '../../providers/imghandler/imghandler';
 import { UserProvider } from '../../providers/user/user';
 import {TabsPage} from '../tabs/tabs';
@@ -10,11 +10,13 @@ import {TabsPage} from '../tabs/tabs';
  * on Ionic pages and navigation.
  */
 
+@IonicPage()
 @Component({
   selector: 'page-profilepic',
   templateUrl: 'profilepic.html',
 })
 export class ProfilepicPage {
+
   imgurl = 'https://firebasestorage.googleapis.com/v0/b/myapp-4eadd.appspot.com/o/chatterplace.png?alt=media&token=e51fa887-bfc6-48ff-87c6-e2c61976534e';
   moveon = true;
   constructor(public navCtrl: NavController, public navParams: NavParams, public imgservice: ImghandlerProvider,
@@ -57,5 +59,5 @@ export class ProfilepicPage {
   proceed() {
     this.navCtrl.setRoot(TabsPage);
   }
- 
+
 }

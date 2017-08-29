@@ -1,16 +1,22 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams,LoadingController,ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,LoadingController,ToastController } from 'ionic-angular';
 import { UserProvider} from '../../providers/user/user';
 import {LoginPage} from '../login/login';
 import {ProfilepicPage} from '../profilepic/profilepic';
+/**
+ * Generated class for the SignupPage page.
+ *
+ * See http://ionicframework.com/docs/components/#navigation for more info
+ * on Ionic pages and navigation.
+ */
 
-
-
+@IonicPage()
 @Component({
   selector: 'page-signup',
   templateUrl: 'signup.html',
 })
 export class SignupPage {
+
   newuser = {
     email:'',
     password:'',

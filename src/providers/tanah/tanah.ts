@@ -34,7 +34,6 @@ export class TanahProvider {
     this.storage.set('cars', JSON.stringify(cars));
   }
 
-
   getPagesProfile(){
     let pages = [
       {id: '1', field:'nama_pemilik', soal: 'Nama Pemilik', tipe:'essay', isi: ''},
@@ -86,6 +85,22 @@ export class TanahProvider {
 
     return status;
 
+  }
+
+  getalltanah() {
+    var promise = new Promise((resolve, reject) => {
+      this.firedata.once('value', (snapshot) => {
+        let tanah = snapshot.val();
+        let temparr = [];
+        for (var key in tanah) {
+          temparr.push(tanah[key]);
+        }
+        resolve(temparr);
+      }).catch((err) => {
+        reject(err);
+      })
+    })
+    return promise;
   }
 
   

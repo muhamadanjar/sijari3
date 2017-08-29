@@ -3,32 +3,54 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-import { FormsModule } from '@angular/forms';
+
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
-import { LoginPage } from '../pages/login/login';
+import { config } from './app.firebaseconfig';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabase } from 'angularfire2/database';
 
-import { JariPage } from '../pages/jari/jari';
+import { IonicStorageModule } from '@ionic/storage';
+import { Geolocation } from '@ionic-native/geolocation';
+import { FileChooser } from "@ionic-native/file-chooser";
+import { File } from "@ionic-native/file";
+import { FilePath } from "@ionic-native/file-path";
+//import {GoogleMaps} from '@ionic-native/google-maps';
+//import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+//import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+
+import { MyApp } from './app.component';
+import { LoginPage } from '../pages/login/login';
+import { HomePage } from '../pages/home/home';
 import { TanahPage } from '../pages/tanah/tanah';
 import { TanahMapPage } from '../pages/tanah/tanahMap';
+import { TanahviewPage } from '../pages/tanahview/tanahview';
+import { TanahviewlistPage } from '../pages/tanahview/tanahviewlist';
 import { BangunanPage } from '../pages/bangunan/bangunan';
+import { BangunanMapPage } from '../pages/bangunan/bangunanMap';
+import { BangunanviewPage } from '../pages/bangunanview/bangunanview';
+import { BangunanviewlistPage } from '../pages/bangunanview/bangunanviewlist';
 import { SignupPage } from '../pages/signup/signup';
 import { ProfilepicPage } from '../pages/profilepic/profilepic';
 import { ProfilePage } from '../pages/profile/profile';
 import { TabsPage } from '../pages/tabs/tabs';
 import { SettingPage } from '../pages/setting/setting';
+import { ChatPage } from '../pages/chat/chat';
+import { PasswordresetPage } from '../pages/passwordreset/passwordreset';
+import { KuesionerlistPage } from '../pages/kuesionerlist/kuesionerlist';
 
-import { config } from './app.firebaseconfig';
-import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFireModule } from 'angularfire2';
-import {AngularFireDatabase} from 'angularfire2/database';
 
-import { IonicStorageModule } from '@ionic/storage';
-import {Geolocation} from '@ionic-native/geolocation';
-import {GoogleMaps} from '@ionic-native/google-maps';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
+import { AuthProvider } from '../providers/auth/auth';
+import { GeolocationProvider } from '../providers/geolocation/geolocation';
+import { ImghandlerProvider } from '../providers/imghandler/imghandler';
+import { SettingProvider } from '../providers/setting/setting';
+import { TanahProvider } from '../providers/tanah/tanah';
+import { BangunanProvider } from '../providers/bangunan/bangunan';
+import { UserProvider } from '../providers/user/user';
+
 import {//CdkTableModule,
     MdAutocompleteModule,
     MdButtonModule,
@@ -61,39 +83,39 @@ import {//CdkTableModule,
     MdTabsModule,
     MdToolbarModule,
     MdTooltipModule} from '@angular/material';
-import { DbirigasiserviceProvider } from '../providers/dbirigasiservice/dbirigasiservice';
-import { TanahProvider } from '../providers/tanah/tanah';
-import { BangunanProvider } from '../providers/bangunan/bangunan';
-import { GeolocationProvider } from '../providers/geolocation/geolocation';
-import { AuthProvider } from '../providers/auth/auth';
-import { SettingProvider } from '../providers/setting/setting';
-import { UserProvider } from '../providers/user/user';
-import { ImghandlerProvider } from '../providers/imghandler/imghandler';
-import { FileChooser } from '@ionic-native/file-chooser';
+import { RequestsProvider } from '../providers/requests/requests';
+import { ChatProvider } from '../providers/chat/chat';
+
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     LoginPage,
     SignupPage,
-    JariPage,
     TanahPage,TanahMapPage,
-    
-    BangunanPage,
+    TanahviewPage,TanahviewlistPage,
+    BangunanPage,BangunanMapPage,
+    BangunanviewPage,BangunanviewlistPage,
     ProfilePage,
     ProfilepicPage,
     TabsPage,
-    SettingPage
+    SettingPage,
+    ChatPage,
+    PasswordresetPage,
+    KuesionerlistPage
   ],
   imports: [
     BrowserModule,
     HttpModule,
     FormsModule,
-    BrowserAnimationsModule,
-    MdButtonModule, MdCheckboxModule,MdSelectModule,MdInputModule,
-    IonicModule.forRoot(MyApp),
+    ReactiveFormsModule,
+    //BrowserAnimationsModule,
+    //NoopAnimationsModule,
     AngularFireModule.initializeApp(config),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    IonicModule.forRoot(MyApp),
+
+    MdButtonModule, MdCheckboxModule,MdSelectModule,MdInputModule,
   ],
   exports: [
     //CdkTableModule,
@@ -135,31 +157,38 @@ import { FileChooser } from '@ionic-native/file-chooser';
     HomePage,
     LoginPage,
     SignupPage,
-    JariPage,
     TanahPage,TanahMapPage,
-    BangunanPage,
+    TanahviewPage,TanahviewlistPage,
+    BangunanPage,BangunanMapPage,
+    BangunanviewPage,BangunanviewlistPage,
     ProfilePage,
     ProfilepicPage,
     TabsPage,
-    SettingPage
+    SettingPage,
+    ChatPage,
+    PasswordresetPage,
+    KuesionerlistPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    DbirigasiserviceProvider,
+    AuthProvider,
+    GeolocationProvider,
+    Geolocation,
+    ImghandlerProvider,
+    SettingProvider,
     TanahProvider,
     BangunanProvider,
-    GoogleMaps,
-    Geolocation,
-    GeolocationProvider,
-    AuthProvider,
-    SettingProvider,
+    UserProvider,
     AngularFireAuth,
     AngularFireDatabase,
-    UserProvider,
-    ImghandlerProvider,
-    FileChooser
+    FileChooser,
+    File,
+    FilePath,
+    RequestsProvider,
+    ChatProvider,
+    
   ]
 })
 export class AppModule {}
