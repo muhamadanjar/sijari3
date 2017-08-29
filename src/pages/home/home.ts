@@ -31,7 +31,7 @@ export class HomePage {
   logout(){
     this.auth._logout();
     this.storage.set('user',null);
-    this.navCtrl.setRoot(LoginPage);
+    this._app.getRootNav().setRoot(LoginPage);
   }
 
 }

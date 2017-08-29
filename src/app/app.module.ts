@@ -4,7 +4,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { config } from './app.firebaseconfig';
@@ -26,14 +26,20 @@ import { LoginPage } from '../pages/login/login';
 import { HomePage } from '../pages/home/home';
 import { TanahPage } from '../pages/tanah/tanah';
 import { TanahMapPage } from '../pages/tanah/tanahMap';
+import { TanahviewPage } from '../pages/tanahview/tanahview';
+import { TanahviewlistPage } from '../pages/tanahview/tanahviewlist';
 import { BangunanPage } from '../pages/bangunan/bangunan';
 import { BangunanMapPage } from '../pages/bangunan/bangunanMap';
+import { BangunanviewPage } from '../pages/bangunanview/bangunanview';
+import { BangunanviewlistPage } from '../pages/bangunanview/bangunanviewlist';
 import { SignupPage } from '../pages/signup/signup';
 import { ProfilepicPage } from '../pages/profilepic/profilepic';
 import { ProfilePage } from '../pages/profile/profile';
 import { TabsPage } from '../pages/tabs/tabs';
 import { SettingPage } from '../pages/setting/setting';
 import { ChatPage } from '../pages/chat/chat';
+import { PasswordresetPage } from '../pages/passwordreset/passwordreset';
+import { KuesionerlistPage } from '../pages/kuesionerlist/kuesionerlist';
 
 
 
@@ -87,17 +93,22 @@ import { ChatProvider } from '../providers/chat/chat';
     LoginPage,
     SignupPage,
     TanahPage,TanahMapPage,
+    TanahviewPage,TanahviewlistPage,
     BangunanPage,BangunanMapPage,
+    BangunanviewPage,BangunanviewlistPage,
     ProfilePage,
     ProfilepicPage,
     TabsPage,
     SettingPage,
-    ChatPage
+    ChatPage,
+    PasswordresetPage,
+    KuesionerlistPage
   ],
   imports: [
     BrowserModule,
     HttpModule,
     FormsModule,
+    ReactiveFormsModule,
     //BrowserAnimationsModule,
     //NoopAnimationsModule,
     AngularFireModule.initializeApp(config),
@@ -147,12 +158,16 @@ import { ChatProvider } from '../providers/chat/chat';
     LoginPage,
     SignupPage,
     TanahPage,TanahMapPage,
+    TanahviewPage,TanahviewlistPage,
     BangunanPage,BangunanMapPage,
+    BangunanviewPage,BangunanviewlistPage,
     ProfilePage,
     ProfilepicPage,
     TabsPage,
     SettingPage,
-    ChatPage
+    ChatPage,
+    PasswordresetPage,
+    KuesionerlistPage
   ],
   providers: [
     StatusBar,
@@ -172,7 +187,8 @@ import { ChatProvider } from '../providers/chat/chat';
     File,
     FilePath,
     RequestsProvider,
-    ChatProvider
+    ChatProvider,
+    
   ]
 })
 export class AppModule {}

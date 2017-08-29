@@ -31,7 +31,48 @@ export class BangunanPage {
     public geolocation:Geolocation,
 		public geolocationService: GeolocationProvider) {
       this.items = db.list('/kuesionerbangunan');
-      this.bangunanForm = this._fb.group({
+      this.initForm();
+      this.dbsetting.getAllProvinsi().subscribe((data)=>{
+        this.allProvinsi=data;
+        },function (error){
+          console.log("error"+error);
+        },function(){
+          console.log("Mengambil data kecamatan");
+        }
+      );
+      var o = this.dbsetting.AdminLTE.options;
+      this.dbsetting._init();
+      if (o.enableBoxWidget) {
+        this.dbsetting.AdminLTE.boxWidget.activate();
+      }
+
+      if(navParams.data.lokasi_proyek){
+        
+        this.bangunanForm.setValue(navParams.data);
+      }
+  }
+
+  ionViewDidLoad() {
+    //console.log('ionViewDidLoad BangunanPage');
+  }
+
+  ngAfterContentInit() {
+    this.geolocate();
+    
+  }
+
+  addBangunan(){
+    console.log(this.bangunanForm.value);
+		this.items.push(this.bangunanForm.value);
+		this.navCtrl.setRoot(TabsPage);
+  }
+
+  close(){
+		this.navCtrl.setRoot(TabsPage);
+  }
+
+  initForm(){
+    this.bangunanForm = this._fb.group({
         lokasi_proyek: [""],
         kode_prov: [""],
         kode_kab: [""],
@@ -87,41 +128,7 @@ export class BangunanPage {
         pendapatrespondenpemindahankolektif:[""],
         x:[""],
         y:[""],
-
-
       });
-      this.dbsetting.getAllProvinsi().subscribe((data)=>{
-        this.allProvinsi=data;
-        },function (error){
-          console.log("error"+error);
-        },function(){
-          console.log("Mengambil data kecamatan");
-        }
-      );
-      var o = this.dbsetting.AdminLTE.options;
-      this.dbsetting._init();
-      if (o.enableBoxWidget) {
-        this.dbsetting.AdminLTE.boxWidget.activate();
-      }
-
-      if(navParams.data.lokasi_proyek){
-        
-        this.bangunanForm.setValue(navParams.data);
-      }
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad BangunanPage');
-  }
-
-  addBangunan(){
-    console.log(this.bangunanForm.value);
-		this.items.push(this.bangunanForm.value);
-		this.navCtrl.setRoot(TabsPage);
-  }
-
-  close(){
-		this.navCtrl.setRoot(TabsPage);
   }
 
   pinpoint(){

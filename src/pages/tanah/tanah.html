@@ -23,8 +23,8 @@
 		</ion-item>
 		<ion-item>
 			<ion-label>Provinsi</ion-label>
-			<ion-select formControlName="kode_prov" #kode_prov (ionChange)="changeProvinsi(kode_prov.value)">
-				<ion-option value="0">Pilih Provinsi</ion-option>
+			<ion-select interface="popover" formControlName="kode_prov" #kode_prov (ionChange)="changeProvinsi(kode_prov.value)" >
+				<!--<ion-option value="0">Pilih Provinsi</ion-option>-->
 				<ion-option *ngFor="let provinsi of allProvinsi" value="{{ provinsi.kode_prov }}">
 					{{ provinsi.nama_provinsi }}
 				</ion-option>
@@ -32,8 +32,8 @@
 		</ion-item>
 		<ion-item>
 			<ion-label>Kabupaten</ion-label>
-			<ion-select formControlName="kode_kab" #kode_kab (ionChange)="changeKabupaten(kode_kab.value)">
-				<ion-option value="0">Pilih Kabupaten</ion-option>
+			<ion-select interface="popover" formControlName="kode_kab" #kode_kab (ionChange)="changeKabupaten(kode_kab.value)">
+				<!--<ion-option value="0">Pilih Kabupaten</ion-option>-->
 				<ion-option *ngFor="let kabupaten of allKabupaten" value="{{ kabupaten.kode_kab }}">
 					{{ kabupaten.nama_kabupaten }}
 				</ion-option>
@@ -41,8 +41,8 @@
 		</ion-item>
 		<ion-item>
 			<ion-label>Kecamatan</ion-label>
-			<ion-select formControlName="kode_kec" #kode_kec (ionChange)="changeKecamatan(kode_kec.value)">
-				<ion-option value="0">Pilih Kecamatan</ion-option>
+			<ion-select interface="popover" formControlName="kode_kec" #kode_kec (ionChange)="changeKecamatan(kode_kec.value)">
+				<!--<ion-option value="0">Pilih Kecamatan</ion-option>-->
 				<ion-option *ngFor="let kecamatan of allKecamatan" value="{{ kecamatan.kode_kec }}">
 					{{ kecamatan.nama_kecamatan }}
 				</ion-option>
@@ -50,8 +50,8 @@
 		</ion-item>
 		<ion-item>
 			<ion-label>Nagari</ion-label>
-			<ion-select formControlName="kode_kel">
-				<ion-option value="0">Pilih Nagari</ion-option>
+			<ion-select interface="popover" formControlName="kode_kel">
+				<!--<ion-option value="0">Pilih Nagari</ion-option>-->
 				<ion-option *ngFor="let desa of allKelurahan" value="{{ desa.kode_kel }}">
 					{{ desa.nama_kelurahan }}
 				</ion-option>
@@ -160,17 +160,17 @@
 						<div class="box-body">
 							<ion-item>
 								<ion-label stacked>Status Kepemilikan Tanah</ion-label>
-								<ion-select formControlName="status_kepemilikan_tanah">
-									<ion-option value="0">Pilih Status Kepemilikan Tanah</ion-option>
+								<ion-select interface="action-sheet" formControlName="status_kepemilikan_tanah">
+									
 									<ion-option *ngFor="let desa of allstatuskepemilikantanah" value="{{ desa.value }}">
 										{{ desa.value }}
 									</ion-option>
 								</ion-select>
 							</ion-item>
 							<ion-item>
-								<ion-label stacked>Status Kepemilikan Tanah</ion-label>
-								<ion-select formControlName="pemanfaatantanah">
-									<ion-option value="0">Pilih Status Kepemilikan Tanah</ion-option>
+								<ion-label stacked>Status Pemanfaatan Tanah</ion-label>
+								<ion-select interface="action-sheet" formControlName="pemanfaatantanah">
+									
 									<ion-option *ngFor="let desa of allpemanfaatantanah" value="{{ desa.value }}">
 										{{ desa.value }}
 									</ion-option>
@@ -180,7 +180,6 @@
 								<div class="box box-success">
 									<div class="box-header with-border">
 										<h3 class="box-title">Hortikura</h3>
-
 										<div class="box-tools pull-right">
 											<!--<button type="button" class="btn btn-box-tool" data-widget="collapse">
 												<i class="fa fa-minus"></i>
@@ -188,7 +187,7 @@
 											<button (click)="addHortikultura()" type="button" class="btn btn-box-tool" title="Tambah Hortikura">
 												<i class="fa fa-plus"></i>
 											</button>
-											<button ion-button small (click)="addHortikultura()"><i class="fa fa-plus"></i></button>
+											<!--<button ion-button small (click)="addHortikultura()"><i class="fa fa-plus"></i></button>-->
 											<!--<button type="button" class="btn btn-box-tool" data-widget="remove">
 												<i class="fa fa-times"></i>
 											</button>-->
@@ -196,7 +195,7 @@
 									</div>
 									
 									<div class="box-body">
-										<div *ngFor="let address of kuesionerForm.controls.tanaman_hortikultura.controls; let i=index" class="box box-info box-solid collapsed-box">
+										<div *ngFor="let address of kuesionerForm.controls.tanaman_hortikultura.controls; let i=index" class="box box-success box-solid collapsed-box">
 											<div class="box-header with-border ">
 												<h3 class="box-title">Tanaman Hortikura :{{i + 1}}</h3>
 												<div class="box-tools pull-right">
@@ -247,13 +246,13 @@
 											<button (click)="addTanamanhias()" type="button" class="btn btn-box-tool" title="Tambah Hias">
 												<i class="fa fa-plus"></i>
 											</button>
-											<button ion-button small (click)="addTanamanhias()"> <i class="fa fa-plus"></i></button>
+											<!--<button ion-button small (click)="addTanamanhias()"> <i class="fa fa-plus"></i></button>-->
 											
 										</div>
 									</div>
 									
 									<div class="box-body">
-										<div *ngFor="let address of kuesionerForm.controls.tanamanhias.controls; let i=index" class="box box-warning box-solid collapsed-box">
+										<div *ngFor="let address of kuesionerForm.controls.tanamanhias.controls; let i=index" class="box box-success box-solid collapsed-box">
 											<div class="box-header with-border">
 												<h3 class="box-title">Tanaman Hias :{{i + 1}}</h3>
 												<div class="box-tools pull-right">
@@ -295,13 +294,13 @@
 											<button (click)="addTanamanpelindung()" type="button" class="btn btn-box-tool" title="Tambah Hias">
 												<i class="fa fa-plus"></i>
 											</button>
-											<button ion-button small (click)="addTanamanpelindung()"> <i class="fa fa-plus"></i></button>
+											<!--<button ion-button small (click)="addTanamanpelindung()"> <i class="fa fa-plus"></i></button>-->
 											
 										</div>
 									</div>
 									
 									<div class="box-body">
-										<div *ngFor="let address of kuesionerForm.controls.tanamanpelindung.controls; let i=index" class="box box-warning box-solid collapsed-box">
+										<div *ngFor="let address of kuesionerForm.controls.tanamanpelindung.controls; let i=index" class="box box-success box-solid collapsed-box">
 											<div class="box-header with-border">
 												<h3 class="box-title">Tanaman Pelindung :{{i + 1}}</h3>
 												<div class="box-tools pull-right">
@@ -347,16 +346,16 @@
 
 										<div class="box-tools pull-right">
 										
-											<button (click)="addTanamanhias()" type="button" class="btn btn-box-tool" title="Tambah Hias">
+											<button (click)="addTanamanlain()" type="button" class="btn btn-box-tool" title="Tambah Lain">
 												<i class="fa fa-plus"></i>
 											</button>
-											<button ion-button small (click)="addTanamanlain()"> <i class="fa fa-plus"></i></button>
+											<!--<button ion-button small (click)="addTanamanlain()"> <i class="fa fa-plus"></i></button>-->
 											
 										</div>
 									</div>
 									
 									<div class="box-body">
-										<div *ngFor="let address of kuesionerForm.controls.tanamanlain.controls; let i=index" class="box box-warning box-solid collapsed-box">
+										<div *ngFor="let address of kuesionerForm.controls.tanamanlain.controls; let i=index" class="box box-success box-solid collapsed-box">
 											<div class="box-header with-border">
 												<h3 class="box-title">Tanaman Lain :{{i + 1}}</h3>
 												<div class="box-tools pull-right">

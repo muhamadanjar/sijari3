@@ -87,6 +87,22 @@ export class TanahProvider {
 
   }
 
+  getalltanah() {
+    var promise = new Promise((resolve, reject) => {
+      this.firedata.once('value', (snapshot) => {
+        let tanah = snapshot.val();
+        let temparr = [];
+        for (var key in tanah) {
+          temparr.push(tanah[key]);
+        }
+        resolve(temparr);
+      }).catch((err) => {
+        reject(err);
+      })
+    })
+    return promise;
+  }
+
   
 
 }

@@ -1,7 +1,8 @@
 import { Component,ViewChild, } from '@angular/core';
 import { IonicPage,NavController, NavParams,Tabs } from 'ionic-angular';
 import {HomePage} from '../home/home';
-import {ChatPage} from '../chat/chat';
+import {KuesionerlistPage} from '../kuesionerlist/kuesionerlist';
+
 import {ProfilePage} from '../profile/profile';
 /**
  * Generated class for the TabsPage page.
@@ -19,7 +20,7 @@ export class TabsPage {
 
   private firstLoaded: boolean = false;
   tab1:any= HomePage;
-  tab2:any= ChatPage;
+  tab2:any= KuesionerlistPage;
   tab3:any= ProfilePage;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }

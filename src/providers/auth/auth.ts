@@ -8,7 +8,7 @@ import { Storage } from '@ionic/storage';
 
 import { SettingProvider} from '../setting/setting';
 
-@Injectable()
+/*@Injectable()
 export class User {
   name: string;
   email: string;
@@ -19,13 +19,13 @@ export class User {
     this.name = name;
     this.email = email;
   }
-}
+}*/
 @Injectable()
 export class AuthProvider {
 
   private rootUrl = 'http://localhost';
   private error;
-  currentUser:User;
+  //currentUser:User;
   
   constructor(public afireauth: AngularFireAuth,public _http: Http,private storage: Storage,
     private setting: SettingProvider) {
@@ -59,15 +59,12 @@ export class AuthProvider {
         // At this point make a request to your backend to make a real check!
 
         this._http.post(this.rootUrl+'/api/login', JSON.stringify(credentials)) .subscribe(res => {
-              let data = res.json();
-              
-              if(data.status) {
-                this.currentUser = new User(data.name, data.email);
-                this.storage.set('user', JSON.stringify(this.currentUser));
-              }
-              
-              observer.next(data);
-              observer.complete();
+          let data = res.json();
+          if(data.status) {
+              this.storage.set('user', JSON.stringify({ email:data.email,name:data.name }));
+          }
+          observer.next(data);
+          observer.complete();
         });
       });
     }
@@ -86,14 +83,14 @@ export class AuthProvider {
     }
   }
  
-  public _getUserInfo() : User {
+  /*public _getUserInfo() : User {
     return this.currentUser;
-  }
+  }*/
  
   public _logout() {
     this.afireauth.auth.signOut();
     return Observable.create(observer => {
-      this.currentUser = null;
+      //this.currentUser = null;
       this.storage.set('user', null);
       observer.next(true);
       observer.complete();

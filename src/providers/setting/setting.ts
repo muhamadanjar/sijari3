@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http,Response} from '@angular/http';
 import * as $ from 'jquery';
-import {AngularFireDatabase, FirebaseObjectObservable,FirebaseListObservable} from 'angularfire2/database';
+import {AngularFireDatabase,FirebaseListObservable} from 'angularfire2/database';
+import firebase from "firebase";
 @Injectable()
 export class SettingProvider {
   url:string;
@@ -12,11 +13,14 @@ export class SettingProvider {
   allProvinsi;
   //el:JQuery;
   AdminLTE:any;AdminLTEOptions:any;
-  
-  constructor(public _http:Http,db: AngularFireDatabase) {
+  firedataprov = firebase.database().ref("/provinsi");
+  firedatakab = firebase.database().ref("/kabupaten");
+  firedatakec = firebase.database().ref("/kecamatan");
+  firedatakel = firebase.database().ref("/kelurahan");
+  constructor(public _http:Http,public db: AngularFireDatabase) {
     console.log('Hello SettingProvider Provider');
     this._dbprov = db.list('/provinsi');
-    this._dbkab = db.list('/kabupaten');
+    //this._dbkab = db.list('/kabupaten');
     this._dbkec = db.list('/kecamatan');
     this._dbkel = db.list('/kelurahan');
     this.setUrl('http://localhost');
@@ -156,7 +160,6 @@ export class SettingProvider {
   }
   
   loadwilayah(){
-    let prov;
     this.getAllProvinsi().subscribe((data)=>{
       this._dbprov.push(data);
       },function (error){
@@ -519,5 +522,39 @@ export class SettingProvider {
       }
     };
   }
+
+  getallprovinsi() {
+    var promise = new Promise((resolve, reject) => {
+      this.firedataprov.once('value', (snapshot) => {
+        let tanah = snapshot.val();
+        let temparr = [];
+        for (var key in tanah) {
+          temparr.push(tanah[key]);
+        }
+        resolve(temparr);
+      }).catch((err) => {
+        reject(err);
+      })
+    })
+    return promise;
+  }
+
+  getallkabupaten(provinsi) {
+    var promise = new Promise((resolve, reject) => {
+      this.firedatakab.orderByChild('kode_prov').equalTo(provinsi).once('value', (snapshot) => {
+        let tanah = snapshot.val();
+        let temparr = [];
+        for (var key in tanah) {
+          temparr.push(tanah[key]);
+        }
+        resolve(temparr);
+      }).catch((err) => {
+        reject(err);
+      })
+    })
+    return promise;
+  }
+
+  
 
 }

@@ -23,6 +23,9 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
+      /*setTimeout(() => {
+        splashScreen.hide();
+      }, 100);*/
       this.pages = [
         { title: 'Home', icon:'home', component: HomePage, },
         { title: 'Profil', icon:'person', component: ProfilePage, },

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
-
+import { SettingProvider } from '../setting/setting';
+import firebase from 'firebase';
 /*
   Generated class for the BangunanProvider provider.
 
@@ -10,9 +11,25 @@ import 'rxjs/add/operator/map';
 */
 @Injectable()
 export class BangunanProvider {
-
+  firedata = firebase.database().ref("/kuesionerbangunan")
   constructor(public http: Http) {
-    console.log('Hello BangunanProvider Provider');
+    //console.log('Hello BangunanProvider Provider');
+  }
+
+  getallbangunan() {
+    var promise = new Promise((resolve, reject) => {
+      this.firedata.once('value', (snapshot) => {
+        let bangunan = snapshot.val();
+        let temparr = [];
+        for (var key in bangunan) {
+          temparr.push(bangunan[key]);
+        }
+        resolve(temparr);
+      }).catch((err) => {
+        reject(err);
+      })
+    })
+    return promise;
   }
 
 }
