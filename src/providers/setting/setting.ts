@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Http,Response} from '@angular/http';
 import * as $ from 'jquery';
-import {AngularFireDatabase,FirebaseListObservable} from 'angularfire2/database';
+import { AngularFireDatabase,FirebaseListObservable } from 'angularfire2/database';
 import firebase from "firebase";
+import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 @Injectable()
 export class SettingProvider {
   url:string;
@@ -17,7 +18,7 @@ export class SettingProvider {
   firedatakab = firebase.database().ref("/kabupaten");
   firedatakec = firebase.database().ref("/kecamatan");
   firedatakel = firebase.database().ref("/kelurahan");
-  constructor(public _http:Http,public db: AngularFireDatabase) {
+  constructor(public _http:Http,public db: AngularFireDatabase,private sqlite: SQLite) {
     console.log('Hello SettingProvider Provider');
     this._dbprov = db.list('/provinsi');
     //this._dbkab = db.list('/kabupaten');
