@@ -3,6 +3,11 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
+import { Geolocation } from '@ionic-native/geolocation';
+import { FileChooser } from "@ionic-native/file-chooser";
+import { File } from "@ionic-native/file";
+import { FilePath } from "@ionic-native/file-path";
+import { SQLite } from "@ionic-native/sqlite";
 
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
@@ -13,10 +18,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabase } from 'angularfire2/database';
 
 import { IonicStorageModule } from '@ionic/storage';
-import { Geolocation } from '@ionic-native/geolocation';
-import { FileChooser } from "@ionic-native/file-chooser";
-import { File } from "@ionic-native/file";
-import { FilePath } from "@ionic-native/file-path";
+
 //import {GoogleMaps} from '@ionic-native/google-maps';
 //import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 //import {NoopAnimationsModule} from '@angular/platform-browser/animations';
@@ -188,6 +190,7 @@ import { ChatProvider } from '../providers/chat/chat';
     FilePath,
     RequestsProvider,
     ChatProvider,
+    SQLite,
     
   ]
 })
