@@ -21,6 +21,8 @@ export class BangunanProvider {
       this.firedata.once('value', (snapshot) => {
         let bangunan = snapshot.val();
         let temparr = [];
+        console.log(snapshot);
+        
         for (var key in bangunan) {
           temparr.push(bangunan[key]);
         }

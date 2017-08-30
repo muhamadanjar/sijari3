@@ -3,6 +3,7 @@ import { App,IonicPage, NavController, NavParams,AlertController } from 'ionic-a
 import { BangunanviewPage } from "./bangunanview";
 import {BangunanProvider} from '../../providers/bangunan/bangunan';
 import { TabsPage } from "../tabs/tabs";
+import { AngularFireDatabase, FirebaseListObservable } from "angularfire2/database";
 @IonicPage()
 @Component({
   selector: 'page-bangunanviewlist',
@@ -12,16 +13,19 @@ export class BangunanviewlistPage {
 
   temparr = [];
   filteredbangunan = [];
+  ibangunan:FirebaseListObservable<any>;
   constructor(public navCtrl: NavController, public navParams: NavParams,
    public bangunanservice: BangunanProvider, public alertCtrl: AlertController,
-   private _app:App
+   private _app:App,public db:AngularFireDatabase
   ) {
     this.bangunanservice.getallbangunan().then((res: any) => {
       this.filteredbangunan = res;
       this.temparr = res;
       console.log(res);
       
-   })
+    })
+    this.ibangunan = this.db.list('kuesionerbangunan');
+
   }
 
   searchbangunan(searchbar) {
@@ -42,7 +46,12 @@ export class BangunanviewlistPage {
   viewbangunan(key){
     console.log(key);
     this.navCtrl.push(BangunanviewPage,key);
+  }
+
+  delete(key:string){
+    this.ibangunan.remove(key);
     
+    this.navCtrl.setRoot(BangunanviewlistPage);
   }
 
   close(){

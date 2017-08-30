@@ -34,8 +34,7 @@ export class GeolocationProvider {
             }).then(error => {
                 return error;
             }
-        ).catch((err)=>{console.log(err);
-        });
+        );
     }
 
 }

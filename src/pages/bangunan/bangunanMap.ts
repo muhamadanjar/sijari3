@@ -4,7 +4,7 @@ import {Geolocation} from '@ionic-native/geolocation';
 import {Storage} from '@ionic/storage';
 import { TabsPage } from "../tabs/tabs";
 import { BangunanPage } from "./bangunan";
-import { FormBuilder, FormGroup, FormArray,FormControl, Validators } from '@angular/forms';
+//import { FormBuilder, FormGroup, FormArray,FormControl, Validators } from '@angular/forms';
 declare var google:any;
 var map:any;
 var markers = [];
