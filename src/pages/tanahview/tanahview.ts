@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams,AlertController } from 'ionic-angular';
-
+import { AngularFireDatabase, FirebaseListObservable } from "angularfire2/database";
+import { TanahviewlistPage } from "./tanahviewlist";
+import { TanahPage } from "../tanah/tanah";
 import {TanahProvider} from '../../providers/tanah/tanah';
 
 @IonicPage()
@@ -11,6 +13,7 @@ import {TanahProvider} from '../../providers/tanah/tanah';
 export class TanahviewPage {
   temparr = [];
   filteredtanah = Object;
+  itanah:FirebaseListObservable<any>;
   constructor(public navCtrl: NavController, public navParams: NavParams,
    public tanahservice: TanahProvider, public alertCtrl: AlertController,
   ) {
@@ -19,8 +22,16 @@ export class TanahviewPage {
     
   }
 
-  
+  edit(key:string){
+    console.log(key);
+    this.navCtrl.setRoot(TanahPage,key);
+  }
 
-  
+  delete(key:string){
+    this.itanah.remove(key);
+    
+    this.navCtrl.setRoot(TanahviewlistPage);
+  }
+
 
 }

@@ -177,7 +177,6 @@ import { ChatProvider } from '../providers/chat/chat';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
     GeolocationProvider,
-    Geolocation,
     ImghandlerProvider,
     SettingProvider,
     TanahProvider,
@@ -191,6 +190,7 @@ import { ChatProvider } from '../providers/chat/chat';
     RequestsProvider,
     ChatProvider,
     SQLite,
+    Geolocation,
     
   ]
 })

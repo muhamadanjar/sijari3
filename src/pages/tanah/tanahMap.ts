@@ -4,7 +4,7 @@ import {Geolocation} from '@ionic-native/geolocation';
 import {Storage} from '@ionic/storage';
 import { TabsPage } from "../tabs/tabs";
 import { TanahPage } from "./tanah";
-import { FormBuilder, FormGroup, FormArray,FormControl, Validators } from '@angular/forms';
+//import { FormBuilder, FormGroup, FormArray,FormControl, Validators } from '@angular/forms';
 declare var google:any;
 var map:any;
 var markers = [];
@@ -15,7 +15,6 @@ var markers = [];
   
 })
 
-    
 export class TanahMapPage {
     //map;
     position:Array<{x: any,y: any, z: any}>;
@@ -27,7 +26,6 @@ export class TanahMapPage {
         //private googleMaps: GoogleMaps
 	) {
         console.log(navParams);
-        
     }
 
     ngAfterViewInit() {
@@ -73,8 +71,6 @@ export class TanahMapPage {
             marker.showInfoWindow();
         });
     }*/
-    
-    
 
     ngOnInit() {
         //this.loadMap();
@@ -96,7 +92,7 @@ export class TanahMapPage {
         this.platform.ready().then(() => {
             //var infowindow = new google.maps.InfoWindow();
             var minZoomLevel = 12;
-            var pandeglangPoint = new google.maps.LatLng(-6.3252738,106.0764884);
+            var pandeglangPoint = new google.maps.LatLng(3.466413, 98.680034);
             
             map = new google.maps.Map(document.getElementById('map'), {
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -116,7 +112,7 @@ export class TanahMapPage {
                 streetViewControlOptions: {
                     position: google.maps.ControlPosition.LEFT_TOP
                 },
-                fullscreenControl: true
+                fullscreenControl: false
             });
 
             let t = this;

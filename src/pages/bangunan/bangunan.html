@@ -25,7 +25,7 @@
 			<ion-item>
 				<ion-label>Provinsi</ion-label>
 				<ion-select formControlName="kode_prov" #kode_prov (ionChange)="changeProvinsi(kode_prov.value)">
-					<ion-option value="0">Pilih Provinsi</ion-option>
+					
 					<ion-option *ngFor="let provinsi of allProvinsi" value="{{ provinsi.kode_prov }}">
 						{{ provinsi.nama_provinsi }}
 					</ion-option>
@@ -34,7 +34,7 @@
 			<ion-item>
 				<ion-label>Kabupaten</ion-label>
 				<ion-select formControlName="kode_kab" #kode_kab (ionChange)="changeKabupaten(kode_kab.value)">
-					<ion-option value="0">Pilih Kabupaten</ion-option>
+					
 					<ion-option *ngFor="let kabupaten of allKabupaten" value="{{ kabupaten.kode_kab }}">
 						{{ kabupaten.nama_kabupaten }}
 					</ion-option>
@@ -43,7 +43,7 @@
 			<ion-item>
 				<ion-label>Kecamatan</ion-label>
 				<ion-select formControlName="kode_kec" #kode_kec (ionChange)="changeKecamatan(kode_kec.value)">
-					<ion-option value="0">Pilih Kecamatan</ion-option>
+					
 					<ion-option *ngFor="let kecamatan of allKecamatan" value="{{ kecamatan.kode_kec }}">
 						{{ kecamatan.nama_kecamatan }}
 					</ion-option>
@@ -52,7 +52,7 @@
 			<ion-item>
 				<ion-label>Nagari</ion-label>
 				<ion-select formControlName="kode_kel">
-					<ion-option value="0">Pilih Nagari</ion-option>
+					
 					<ion-option *ngFor="let desa of allKelurahan" value="{{ desa.kode_kel }}">
 						{{ desa.nama_kelurahan }}
 					</ion-option>
@@ -103,16 +103,16 @@
 					</ion-item>
 					<ion-item>
 						<ion-label floating >Jenis Kelamin</ion-label>
-						<ion-select formControlName="jenis_kelamin" #jenis_kelamin>
-							<ion-option value="0">Pilih Provinsi</ion-option>
+						<ion-select interface="popover" formControlName="jenis_kelamin" #jenis_kelamin>
+							
 							<ion-option value="L">Laki - Laki</ion-option>
 							<ion-option value="P">Perempuan</ion-option>
 						</ion-select>
 					</ion-item>
 					<ion-item>
 						<ion-label floating >Usia</ion-label>
-						<ion-select formControlName="usia" #usia>
-							<ion-option value="0">Pilih Provinsi</ion-option>
+						<ion-select interface="popover" formControlName="usia" #usia>
+							
 							<ion-option value="< 20 tahun">< 20 tahun</ion-option>
 							<ion-option value="20 s.d. 30 tahun">20 s.d. 30 tahun</ion-option>
 							<ion-option value="> 30 s.d. 40 tahun">> 30 s.d. 40 tahun</ion-option>
@@ -123,8 +123,8 @@
 					</ion-item>
 					<ion-item>
 						<ion-label floating >Pendidikan Terakhir</ion-label>
-						<ion-select formControlName="pendidikanterakhir" #pendidikanterakhir>
-							<ion-option value="0">Pilih --</ion-option>
+						<ion-select interface="action-sheet" formControlName="pendidikanterakhir" #pendidikanterakhir>
+							
 							<ion-option value="Tidak sekolah atau tidak tamat SD">Tidak sekolah atau tidak tamat SD</ion-option>
 							<ion-option value="Tamat SD / MI / sederajat">Tamat SD / MI / sederajat</ion-option>
 							<ion-option value="Tamat SMP / MTs / sederajat">Tamat SMP / MTs / sederajat</ion-option>
@@ -136,8 +136,8 @@
 					</ion-item>
 					<ion-item>
 						<ion-label floating >Status dalam rumah tangga</ion-label>
-						<ion-select formControlName="statusrumahtangga" #statusrumahtangga>
-							<ion-option value="0">Pilih --</ion-option>
+						<ion-select interface="popover" formControlName="statusrumahtangga" #statusrumahtangga>
+							
 							<ion-option value="Bapak / Suami">Bapak / Suami</ion-option>
 							<ion-option value="Ibu / Istri">Ibu / Istri</ion-option>
 							<ion-option value="Anak">Anak</ion-option>
@@ -145,8 +145,8 @@
 					</ion-item>
 					<ion-item>
 						<ion-label floating >Lama Tinggal di rumah ini</ion-label>
-						<ion-select formControlName="lamatinggal" #lamatinggal>
-							<ion-option value="0">Pilih --</ion-option>
+						<ion-select interface="action-sheet" formControlName="lamatinggal" #lamatinggal>
+							
 							<ion-option value="< 2 tahun">< 2 tahun</ion-option>
 							<ion-option value="2 s.d. 5 tahun">2 s.d. 5 tahun</ion-option>
 							<ion-option value="> 5 s.d. 10 tahun">> 5 s.d. 10 tahun</ion-option>
@@ -170,8 +170,7 @@
 				<ion-list>
 					<ion-item>
 						<ion-label floating >Jumlah orang yang tinggal di rumah ini</ion-label>
-						<ion-select formControlName="jumlahorang" #jumlahorang>
-							<ion-option value="0">Pilih</ion-option>
+						<ion-select interface="popover" formControlName="jumlahorang" #jumlahorang>
 							<ion-option value="3 - 5 orang">3 - 5 orang</ion-option>
 							<ion-option value="6 - 8 orang">6 - 8 orang</ion-option>
 							<ion-option value="> 8 orang">> 8 orang</ion-option>
@@ -179,8 +178,8 @@
 					</ion-item>
 					<ion-item>
 						<ion-label floating >Jumlah KK yang tinggal di rumah ini</ion-label>
-						<ion-select formControlName="jumlahkk" #jumlahkk>
-							<ion-option value="0">Pilih</ion-option>
+						<ion-select interface="popover" formControlName="jumlahkk" #jumlahkk>
+							
 							<ion-option value="1 KK">1 KK</ion-option>
 							<ion-option value="2 KK">2 KK</ion-option>
 							<ion-option value="3 KK">3 KK</ion-option>
@@ -190,8 +189,8 @@
 					</ion-item>
 					<ion-item>
 						<ion-label floating >Status kependudukan</ion-label>
-						<ion-select formControlName="statuskependudukan" #statuskependudukan>
-							<ion-option value="0">Pilih</ion-option>
+						<ion-select interface="action-sheet" formControlName="statuskependudukan" #statuskependudukan>
+							
 							<ion-option value="Suami & istri penduduk asli">Suami & istri penduduk asli</ion-option>
 							<ion-option value="Suami & istri bukan penduduk asli">Suami & istri bukan penduduk asli</ion-option>
 							<ion-option value="Suami penduduk asli, istri pendatang">Suami penduduk asli, istri pendatang</ion-option>
@@ -200,8 +199,8 @@
 					</ion-item>
 					<ion-item>
 						<ion-label floating >Kepemilikan Kartu Tanda Penduduk (KTP)</ion-label>
-						<ion-select formControlName="kepemilikanktp" #kepemilikanktp>
-							<ion-option value="0">Pilih</ion-option>
+						<ion-select interface="action-sheet" formControlName="kepemilikanktp" #kepemilikanktp>
+							
 							<ion-option value="Tidak memiliki KTP">Tidak memiliki KTP</ion-option>
 							<ion-option value="Memiliki KTP dengan alamat yang sesuai dengan alamat rumah ini">Memiliki KTP dengan alamat yang sesuai dengan alamat rumah ini</ion-option>
 							<ion-option value="Memiliki KTP desa ini, tetapi alamatnya tidak sesuai alamat rumah ini">Memiliki KTP desa ini, tetapi alamatnya tidak sesuai alamat rumah ini</ion-option>
@@ -211,8 +210,8 @@
 					</ion-item>
 					<ion-item>
 						<ion-label floating>Kepemilikian Kartu Keluarga</ion-label>
-						<ion-select formControlName="kepemilikankk" #kepemilikankk>
-							<ion-option value="0">Pilih</ion-option>
+						<ion-select interface="action-sheet" formControlName="kepemilikankk" #kepemilikankk>
+							
 							<ion-option value="Tidak memiliki Kartu Keluarga">Tidak memiliki Kartu Keluarga</ion-option>
 							<ion-option value="Memiliki Kartu Keluarga dengan alamat yang sesuai dengan rumah ini">Memiliki Kartu Keluarga dengan alamat yang sesuai dengan rumah ini</ion-option>
 							<ion-option value="Memiliki Kartu Keluarga, tetapi alamatnya tidak sesuai dengan rumah ini">Memiliki Kartu Keluarga, tetapi alamatnya tidak sesuai dengan rumah ini</ion-option>
@@ -235,8 +234,8 @@
 				<ion-list>
 					<ion-item>
 						<ion-label floating >Status kepemilikan tanah</ion-label>
-						<ion-select formControlName="statuskepemilikantanah" #statuskepemilikantanah>
-							<ion-option value="0">Pilih Provinsi</ion-option>
+						<ion-select interface="action-sheet" formControlName="statuskepemilikantanah" #statuskepemilikantanah>
+							
 							<ion-option value="Sertifikat Hak Milik (SHM)">Sertifikat Hak Milik (SHM)</ion-option>
 							<ion-option value="Hak Guna Bangunan (HGB)">Hak Guna Bangunan (HGB)</ion-option>
 							<ion-option value="Girik">Girik</ion-option>
@@ -247,8 +246,8 @@
 					</ion-item>
 					<ion-item>
 						<ion-label floating >Status kepemilikan rumah</ion-label>
-						<ion-select formControlName="statuskepemilikanrumah" #statuskepemilikanrumah>
-							<ion-option value="0">Pilih Provinsi</ion-option>
+						<ion-select interface="popover" formControlName="statuskepemilikanrumah" #statuskepemilikanrumah>
+							
 							<ion-option value="Milik sendiri">Milik sendiri</ion-option>
 							<ion-option value="Milik keluarga">Milik keluarga</ion-option>
 							<ion-option value="Sewa bulanan">Sewa bulanan</ion-option>
@@ -266,8 +265,8 @@
 					</ion-item>
 					<ion-item>
 						<ion-label floating >Harga sewa per bulan, jika rumah ybs sewa / kontrak</ion-label>
-						<ion-select formControlName="hargasewaperbulan" #hargasewaperbulan>
-							<ion-option value="0">Pilih</ion-option>
+						<ion-select interface="action-sheet" formControlName="hargasewaperbulan" #hargasewaperbulan>
+							
 							<ion-option value="< Rp 250 ribu per bulan">< Rp 250 ribu per bulan</ion-option>
 							<ion-option value="Rp 250 ribu s.d. Rp 500 per bulan">Rp 250 ribu s.d. Rp 500 per bulan</ion-option>
 							<ion-option value="> Rp 500.000 s.d. Rp  750.000 per bulan">> Rp 500.000 s.d. Rp  750.000 per bulan</ion-option>
@@ -278,9 +277,8 @@
 					</ion-item>
 					<ion-item>
 						<ion-label floating>Jenis konstruksi bangunan rumah</ion-label>
-						
-						<ion-select formControlName="jeniskontruksi" #jeniskontruksi>
-							<ion-option value="0">Pilih</ion-option>
+						<ion-select interface="popover" formControlName="jeniskontruksi" #jeniskontruksi>
+							
 							<ion-option value="Permanen">Permanen</ion-option>
 							<ion-option value="Semi permanen">Semi permanen</ion-option>
 							<ion-option value="Non permanen / temporer">Non permanen / temporer</ion-option>
@@ -288,8 +286,8 @@
 					</ion-item>
 					<ion-item>
 						<ion-label floating >Kepemilikan bukti pembayaran / struk PBB (Pajak Bumi & Bangunan)</ion-label>
-						<ion-select formControlName="strukpbb" #strukpbb>
-							<ion-option value="0">Pilih</ion-option>
+						<ion-select interface="popover" formControlName="strukpbb" #strukpbb>
+							
 							<ion-option value="Punya">Punya</ion-option>
 							<ion-option value="Tidak punya">Tidak punya</ion-option>
 							<ion-option value="Tidak tahu">Tidak tahu</ion-option>
@@ -302,8 +300,8 @@
 					</ion-item>
 					<ion-item>
 						<ion-label floating >Kepemilikan surat IMB</ion-label>
-						<ion-select formControlName="kepemilikansuratimb" #kepemilikansuratimb>
-							<ion-option value="0">Pilih</ion-option>
+						<ion-select interface="action-sheet" formControlName="kepemilikansuratimb" #kepemilikansuratimb>
+							
 							<ion-option value="Ada, tapi untuk bangunan lama">Ada, tapi untuk bangunan lama</ion-option>
 							<ion-option value="Ada untuk bangunan saat ini">Ada untuk bangunan saat ini</ion-option>
 							<ion-option value="Sedang dibuat">Sedang dibuat</ion-option>
@@ -312,8 +310,8 @@
 					</ion-item>
 					<ion-item>
 						<ion-label floating >Pemanfaatan bangunan</ion-label>
-						<ion-select formControlName="pemanfaatanbangunan" #pemanfaatanbangunan>
-							<ion-option value="0">Pilih</ion-option>
+						<ion-select interface="action-sheet" formControlName="pemanfaatanbangunan" #pemanfaatanbangunan>
+							
 							<ion-option value="Hanya untuk bermukim">Hanya untuk bermukim</ion-option>
 							<ion-option value="Untuk bermukim & tempat usaha">Untuk bermukim & tempat usaha</ion-option>
 							<ion-option value="Untuk bermukin & gudang penyimpanan">Untuk bermukin & gudang penyimpanan</ion-option>
@@ -322,8 +320,8 @@
 					</ion-item>
 					<ion-item>
 						<ion-label floating >Sumber penerangan</ion-label>
-						<ion-select formControlName="sumberpenerangan" #sumberpenerangan>
-							<ion-option value="0">Pilih</ion-option>
+						<ion-select interface="action-sheet" formControlName="sumberpenerangan" #sumberpenerangan>
+							
 							<ion-option value="Sambungan langsung dari PLN">Sambungan langsung dari PLN</ion-option>
 							<ion-option value="Sambungan listrik PLN dari tetangga">Sambungan listrik PLN dari tetangga</ion-option>
 							<ion-option value="Sambungan listrik non PLN">Sambungan listrik non PLN</ion-option>
@@ -332,16 +330,16 @@
 					</ion-item>
 					<ion-item>
 						<ion-label floating >Sambungan telepon kabel</ion-label>
-						<ion-select formControlName="sambungantelpkabel" #strukpbb>
-							<ion-option value="0">Pilih</ion-option>
+						<ion-select interface="popover" formControlName="sambungantelpkabel" #strukpbb>
+							
 							<ion-option value="Ada">Ada</ion-option>
 							<ion-option value="Tidak ada">Tidak ada</ion-option>
 						</ion-select>
 					</ion-item>
 					<ion-item>
 						<ion-label floating >Jenis pagar rumah</ion-label>
-						<ion-select formControlName="jenispagarrumah" #strukpbb>
-							<ion-option value="0">Pilih</ion-option>
+						<ion-select interface="popover" formControlName="jenispagarrumah" #strukpbb>
+							
 							<ion-option value="Tanpa pagar">Tanpa pagar</ion-option>
 							<ion-option value="Pagar tanaman">Pagar tanaman</ion-option>
 							<ion-option value="Pagar Besi">Pagar Besi</ion-option>
@@ -355,12 +353,12 @@
 					</ion-item>
 					<ion-item>
 						<ion-label floating >Panjang Pagar</ion-label>
-						<ion-input formControlName="panjangpagar"></ion-input>
+						<ion-input interface="action-sheet" formControlName="panjangpagar"></ion-input>
 					</ion-item>
 					<ion-item>
 						<ion-label floating>Kepemilikan sumur / mata air</ion-label>
-						<ion-select formControlName="kepemilikansumurmataair" #kepemilikansumurmataair>
-							<ion-option value="0">Pilih</ion-option>
+						<ion-select interface="action-sheet" formControlName="kepemilikansumurmataair" #kepemilikansumurmataair>
+							
 							<ion-option value="Tidak ada">Tidak ada</ion-option>
 							<ion-option value="Sumur timba">Sumur timba</ion-option>
 							<ion-option value="Sumur dengan pompa tangan">Sumur dengan pompa tangan</ion-option>
@@ -371,8 +369,8 @@
 					</ion-item>
 					<ion-item>
 						<ion-label floating >Kepemilikan rumah di tempat lain</ion-label>
-						<ion-select formControlName="kepemilikanrumahlain" #kepemilikanrumahlain>
-							<ion-option value="0">Pilih</ion-option>
+						<ion-select interface="action-sheet" formControlName="kepemilikanrumahlain" #kepemilikanrumahlain>
+							
 							<ion-option value="Tidak memiliki">Tidak memiliki</ion-option>
 							<ion-option value="Memiliki di desa yang sama">Memiliki di desa yang sama</ion-option>
 							<ion-option value="Memiliki di desan lain di kabupaten yang sama">Memiliki di desan lain di kabupaten yang sama</ion-option>
@@ -383,16 +381,16 @@
 					</ion-item>
 					<ion-item>
 						<ion-label floating >Kepemilikan tanah di tempat lain</ion-label>
-						<ion-select formControlName="kepemilikantanahlain" #kepemilikantanahlain>
-							<ion-option value="0">Pilih</ion-option>
+						<ion-select interface="popover" formControlName="kepemilikantanahlain" #kepemilikantanahlain>
+							
 							<ion-option value="Memiliki">Memiliki</ion-option>
 							<ion-option value="Tidak">Tidak</ion-option>
 						</ion-select>
 					</ion-item>
 					<ion-item>
 						<ion-label floating >Lokasi tanah milik di tempat lain (jika ada)</ion-label>
-						<ion-select formControlName="lokasitanahditempatlain" #lokasitanahditempatlain>
-							<ion-option value="0">Pilih</ion-option>
+						<ion-select interface="action-sheet" formControlName="lokasitanahditempatlain" #lokasitanahditempatlain>
+							
 							<ion-option value="Di desa yang sama">Di desa yang sama</ion-option>
 							<ion-option value="Di desa lain, tetapi masih di dalam kecamatan yang sama">Di desa lain, tetapi masih di dalam kecamatan yang sama</ion-option>
 							<ion-option value="Di kecamatan lain, tetapi di kota/Kabupaten yang sama">Di kecamatan lain, tetapi di kota/Kabupaten yang sama</ion-option>
@@ -417,8 +415,8 @@
 				<ion-list>
 					<ion-item>
 						<ion-label floating >Pekerjaan utama kepala keluarga</ion-label>
-						<ion-select formControlName="pekerjaanutama" #pekerjaanutama>
-							<ion-option value="0">Pilih</ion-option>
+						<ion-select interface="popover" formControlName="pekerjaanutama" #pekerjaanutama>
+							
 							<ion-option value="PNS">PNS</ion-option>
 							<ion-option value="TNI / polisi">TNI / polisi</ion-option>
 							<ion-option value="Ibu rumah tangga">Ibu rumah tangga</ion-option>
@@ -431,16 +429,16 @@
 					</ion-item>
 					<ion-item>
 						<ion-label floating >Pekerjaan sampingan kepala keluarga</ion-label>
-						<ion-select formControlName="pekerjaansampingan" #pekerjaansampingan>
-							<ion-option value="0">Pilih</ion-option>
+						<ion-select interface="popover" formControlName="pekerjaansampingan" #pekerjaansampingan>
+							
 							<ion-option value="Ada pekerjaan sampingan">Ada pekerjaan sampingan</ion-option>
 							<ion-option value="Tidak ada pekerjan sampingan">Tidak ada pekerjan sampingan</ion-option>
 						</ion-select>
 					</ion-item>
 					<ion-item>
 						<ion-label floating >Total pendapatan per bulan dari seluruh anggota keluarga (termasuk dari pekerjaan utama dan pekerjaan sampingan)</ion-label>
-						<ion-select formControlName="totalpendapatanperbulan" #totalpendapatanperbulan>
-							<ion-option value="0">Pilih</ion-option>
+						<ion-select interface="popover" formControlName="totalpendapatanperbulan" #totalpendapatanperbulan>
+							
 							<ion-option value="< Rp 1.800.000 per bulan">< Rp 1.800.000 per bulan</ion-option>
 							<ion-option value="Rp 1.800.000 s.d. Rp 2.700.000 per bulan">Rp 1.800.000 s.d. Rp 2.700.000 per bulan</ion-option>
 							<ion-option value="> Rp 2.700.000 s.d. Rp 3.600.000 per bulan">> Rp 2.700.000 s.d. Rp 3.600.000 per bulan</ion-option>
@@ -451,8 +449,8 @@
 					</ion-item>
 					<ion-item>
 						<ion-label floating >Total pengeluaran rata-rata per bulan dari seluruh anggota keluarga</ion-label>
-						<ion-select formControlName="totalpengeluaranperbulan" #totalpengeluaranperbulan>
-							<ion-option value="0">Pilih</ion-option>
+						<ion-select interface="action-sheet" formControlName="totalpengeluaranperbulan" #totalpengeluaranperbulan>
+							
 							<ion-option value="< Rp 1.800.000 per bulan">< Rp 1.800.000 per bulan</ion-option>
 							<ion-option value="Rp 1.800.000 s.d. Rp 2.700.000 per bulan">Rp 1.800.000 s.d. Rp 2.700.000 per bulan</ion-option>
 							<ion-option value="> Rp 2.700.000 s.d. Rp 3.600.000 per bulan">> Rp 2.700.000 s.d. Rp 3.600.000 per bulan</ion-option>
@@ -480,40 +478,39 @@
 				<ion-list>
 					<ion-item>
 						<ion-label floating >Pengetahuan responden tentang rencana pembangunan jaringan irigasi</ion-label>
-						<ion-select formControlName="pengetahuanrespondenirigasi" #pengetahuanrespondenirigasi>
-							<ion-option value="0">Pilih</ion-option>
+						<ion-select interface="popover" formControlName="pengetahuanrespondenirigasi" #pengetahuanrespondenirigasi>
+							
 							<ion-option value="Ya, tahu">Ya, tahu</ion-option>
 							<ion-option value="Tidak tahu">Tidak tahu</ion-option>
 						</ion-select>
 					</ion-item>
 					<ion-item>
 						<ion-label floating >Sumber informasi tentang rencana pembangunan jaringan irigasi  (jika responden tahu)</ion-label>
-						<ion-select formControlName="sumberinformasi" #sumberinformasi>
-							<ion-option value="0">Pilih</ion-option>
+						<ion-select interface="popover" formControlName="sumberinformasi" #sumberinformasi>
+							
 							<ion-option value="Ya, tahu">Ya, tahu</ion-option>
 							<ion-option value="Tidak tahu">Tidak tahu</ion-option>
 						</ion-select>
 					</ion-item>
 					<ion-item>
 						<ion-label floating >Kesediaan responden untuk direlokasi</ion-label>
-						<ion-select formControlName="kesediandirekolasi" #kesediandirekolasi>
-							<ion-option value="0">Pilih</ion-option>
+						<ion-select interface="popover" formControlName="kesediandirekolasi" #kesediandirekolasi>
 							<ion-option value="Ya, tahu">Ya, tahu</ion-option>
 							<ion-option value="Tidak tahu">Tidak tahu</ion-option>
 						</ion-select>
 					</ion-item>
 					<ion-item>
 						<ion-label floating >Alasan penolakan relokasi (jika menolak)</ion-label>
-						<ion-select formControlName="alasanpenolakanrelokasi" #alasanpenolakanrelokasi>
-							<ion-option value="0">Pilih</ion-option>
+						<ion-select interface="popover" formControlName="alasanpenolakanrelokasi" #alasanpenolakanrelokasi>
+							
 							<ion-option value="Ya, tahu">Ya, tahu</ion-option>
 							<ion-option value="Tidak tahu">Tidak tahu</ion-option>
 						</ion-select>
 					</ion-item>
 					<ion-item>
 						<ion-label floating >Bentuk penggantian yang lebih disukai</ion-label>
-						<ion-select formControlName="bentukpergantiandisukai" #bentukpergantiandisukai>
-							<ion-option value="0">Pilih</ion-option>
+						<ion-select interface="action-sheet" formControlName="bentukpergantiandisukai" #bentukpergantiandisukai>
+							
 							<ion-option value="Uang tunai">Uang tunai</ion-option>
 							<ion-option value="Kavling siap bangun & dana pembangunan rumah">Kavling siap bangun & dana pembangunan rumah</ion-option>
 							<ion-option value="Rumah jadi">Rumah jadi</ion-option>
@@ -522,8 +519,8 @@
 					</ion-item>
 					<ion-item>
 						<ion-label floating >Pendapat responden tentang pemindahan warga secara Kolektif</ion-label>
-						<ion-select formControlName="pendapatrespondenpemindahankolektif" #pendapatrespondenpemindahankolektif>
-							<ion-option value="0">Pilih</ion-option>
+						<ion-select interface="action-sheet" formControlName="pendapatrespondenpemindahankolektif" #pendapatrespondenpemindahankolektif>
+							
 							<ion-option value="Lebih baik jika warga dipindahkan secara kolektif Ketempat yang sama">Lebih baik jika warga dipindahkan secara kolektif Ketempat yang sama</ion-option>
 							<ion-option value="Lebih baik jika warga dibiarkan memilih tempat yang baru masing-masing">Lebih baik jika warga dibiarkan memilih tempat yang baru masing-masing</ion-option>
 						</ion-select>

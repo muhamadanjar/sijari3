@@ -17,8 +17,8 @@
   <ion-fab bottom right >
     <button ion-fab mini><ion-icon name="add"></ion-icon></button>
     <ion-fab-list side="top">
-      <button ion-fab><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-      <button ion-fab><i class="fa fa-trash" aria-hidden="true"></i></button>      
+      <button ion-fab (click)="edit(filteredtanah)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+      <button ion-fab (click)="delete(filteredtanah)"><i class="fa fa-trash" aria-hidden="true"></i></button>      
     </ion-fab-list>
   </ion-fab>
   <div class="box box-primary">
@@ -68,6 +68,39 @@
               <h2>Status Pemanfaatan Tanah</h2>  
               <p>{{filteredtanah.pemanfaatantanah}}</p>
             </ion-item>
+            <ion-item>
+              <h2>Tanaman Hortikura</h2>
+            </ion-item>
+         
+
+            <ion-card *ngFor="let item of filteredtanah.tanaman_hortikultura">
+              <ion-card-content>
+                <ion-card-title>
+                  {{item.satu_tiga}}
+                </ion-card-title>
+                <p></p>
+
+              </ion-card-content>
+              
+              <ion-item>
+                <ion-icon name='musical-notes' item-start style="color: #d03e84"></ion-icon>
+                Satu s/d Tiga
+                <ion-badge item-end>{{item.satu_tiga}}</ion-badge>
+              </ion-item>
+              <ion-item>
+                <ion-icon name='musical-notes' item-start style="color: #d03e84"></ion-icon>
+                Tiga s/d Sepuluh
+                <ion-badge item-end>{{item.tiga_sepuluh}}</ion-badge>
+              </ion-item>
+
+              <ion-item>
+                <ion-icon name='logo-twitter' item-start style="color: #55acee"></ion-icon>
+                Lebih Sepuluh
+                <ion-badge item-end>{{item.lebih_sepuluh}}</ion-badge>
+              </ion-item>
+
+            </ion-card>
+           
         </ion-list>
       </div>
   </div>

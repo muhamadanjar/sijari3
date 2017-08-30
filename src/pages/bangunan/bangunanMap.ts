@@ -33,8 +33,6 @@ export class BangunanMapPage {
        this.initializeMap();
     }
     
-    
-
     ngOnInit() {
         //this.loadMap();
     }
@@ -55,7 +53,7 @@ export class BangunanMapPage {
         this.platform.ready().then(() => {
             //var infowindow = new google.maps.InfoWindow();
             var minZoomLevel = 12;
-            var pandeglangPoint = new google.maps.LatLng(-6.3252738,106.0764884);
+            var pandeglangPoint = new google.maps.LatLng(3.461401, 98.680135);
             
             map = new google.maps.Map(document.getElementById('map'), {
                 mapTypeId: google.maps.MapTypeId.ROADMAP,

@@ -11,6 +11,7 @@ import { SettingProvider } from '../../providers/setting/setting';
 
 import {Storage} from '@ionic/storage';
 import {AngularFireDatabase,FirebaseListObservable} from 'angularfire2/database';
+import {AngularFireAuth} from 'angularfire2/auth';
 import {TabsPage} from '../tabs/tabs';
 import {TanahMapPage} from './tanahMap';
 
@@ -61,7 +62,8 @@ export class TanahPage {
 		public dbsetting:SettingProvider,
 		public storage:Storage,
 		public zone:NgZone,
-		db: AngularFireDatabase
+		db: AngularFireDatabase,
+		public afireauth: AngularFireAuth,
 	) {
 		
 		this.items = db.list('/kuesionertanah');
@@ -81,8 +83,8 @@ export class TanahPage {
    	});*/
 		
 		this.initForm();
+		this.kuesionerForm.patchValue({'id_user':this.afireauth.auth.currentUser.uid});
 		
-
 		this.profile = tanahProvider.getPagesProfile();
 		this.statustanah = tanahProvider.getPagesStatusTanah();
 		//console.log(this.item);
@@ -170,11 +172,7 @@ export class TanahPage {
 
 	}
 
-	setValue(v){
-		if(this.navParams.data[v] !== null){
-			this.kuesionerForm.controls[v] = new FormControl(this.navParams.data[v]);
-		}
-	}
+
 		
 	/*setMake(m){
 		console.log(m);
@@ -435,8 +433,6 @@ export class TanahPage {
 	    );
 	}
 
-
-	
 	
 	addItem(newName: string) {
     this.items.push({ text: newName });

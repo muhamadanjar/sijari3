@@ -2,6 +2,7 @@ import { Component,ViewChild } from '@angular/core';
 import { Platform,Nav } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { SQLite,SQLiteObject } from "@ionic-native/sqlite";
 
 import { AuthProvider } from '../providers/auth/auth';
 import { Storage } from '@ionic/storage';
@@ -22,7 +23,27 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
+      let db = new SQLite();
+      db.create({
+        name:'data.db',
+        location:'default'
+      })
+      .then((db:SQLiteObject) => {
+        db.executeSql('create table if not exist user (nama VARCHAR(32))',{})
+        .then(()=>{ 
+          console.log('Executed SQL user');
+        }).catch(e => { 
+          console.log(e);
+        });
+      })
+      .catch(e => console.log(e));
       splashScreen.hide();
+      auth.getUser();
+      storage.get('user').then((user)=>{
+        if(user != null){
+          this.rootPage = HomePage;
+        }
+      });
       /*setTimeout(() => {
         splashScreen.hide();
       }, 100);*/
