@@ -7,7 +7,7 @@
 	</ion-buttons>
     <ion-title>Bangunan</ion-title>
     <ion-buttons end color="primary">
-		<button ion-button (click)="addBangunan()" >
+		<button ion-button (click)="addBangunan()" [disabled]="!bangunanForm.controls.lokasi_proyek.valid">
 			<ion-icon name="send"></ion-icon>
 		</button>
     </ion-buttons>
@@ -20,7 +20,7 @@
 		<ion-list>
 			<ion-item>
 				<ion-label floating>Lokasi Proyek</ion-label>
-				<ion-input formControlName="lokasi_proyek"></ion-input>
+				<ion-input formControlName="lokasi_proyek" required></ion-input>
 			</ion-item>
 			<ion-item>
 				<ion-label>Provinsi</ion-label>

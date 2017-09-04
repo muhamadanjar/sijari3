@@ -48,9 +48,8 @@ export class BangunanviewlistPage {
     this.navCtrl.push(BangunanviewPage,key);
   }
 
-  delete(key:string){
+  deletebangunan(key:string){
     this.ibangunan.remove(key);
-    
     this.navCtrl.setRoot(BangunanviewlistPage);
   }
 

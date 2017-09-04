@@ -4,12 +4,12 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, FormArray,FormControl, Validators } from '@angular/forms';
 import { Geolocation } from '@ionic-native/geolocation';
 import { GeolocationProvider } from '../../providers/geolocation/geolocation';
-import {TabsPage} from '../tabs/tabs';
+import { TabsPage } from '../tabs/tabs';
 import { BangunanMapPage } from './bangunanMap';
 import { SettingProvider } from '../../providers/setting/setting';
-import {Storage} from '@ionic/storage';
+import { Storage } from '@ionic/storage';
 import { bangunanData } from './bangunanData';
-import {AngularFireDatabase, FirebaseObjectObservable,FirebaseListObservable} from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseObjectObservable,FirebaseListObservable } from 'angularfire2/database';
 @IonicPage()
 @Component({
   selector: 'page-bangunan',
@@ -47,7 +47,6 @@ export class BangunanPage {
       }
 
       if(navParams.data.lokasi_proyek){
-        
         this.bangunanForm.setValue(navParams.data);
       }
   }
@@ -61,9 +60,13 @@ export class BangunanPage {
     
   }
 
-  addBangunan(){
+  addBangunan(bangunan: bangunanData){
     console.log(this.bangunanForm.value);
-		this.items.push(this.bangunanForm.value);
+    
+		this.items.push(this.bangunanForm.value).then((item)=>{
+      console.log(item.key);
+      this.items.update(item.key, { key: item.key });
+    });
 		this.navCtrl.setRoot(TabsPage);
   }
 
@@ -73,7 +76,8 @@ export class BangunanPage {
 
   initForm(){
     this.bangunanForm = this._fb.group({
-        lokasi_proyek: [""],
+        key: [""],  
+        lokasi_proyek: ["",Validators.required],
         kode_prov: [""],
         kode_kab: [""],
         kode_kec: [""],
