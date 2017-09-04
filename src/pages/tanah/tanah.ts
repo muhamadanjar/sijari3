@@ -213,7 +213,8 @@ export class TanahPage {
 
 	initForm(){
 		this.kuesionerForm = this._fb.group({
-			lokasi_proyek: [""],
+			key: [""],
+			lokasi_proyek: ["",Validators.required],
 			kode_prov: [""],
 			kode_kab: [""],
 			kode_kec: [""],

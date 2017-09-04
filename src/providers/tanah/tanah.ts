@@ -12,9 +12,9 @@ export class TanahProvider {
   firedata = firebase.database().ref("/kuesionertanah")
   cars: Tanah[] = [];
   public url:string="http://localhost/api/";
-  constructor(public _http: Http, public storage: Storage,public s:SettingProvider){
+  constructor(public _http: Http, public storage: Storage){
     this.mockCars();
-    this.url = s.getUrl();
+    //this.url = s.getUrl();
   }
 
   getAllTasks(){
