@@ -3,6 +3,7 @@ import { App,IonicPage, NavController, NavParams,AlertController,Refresher } fro
 import { TanahviewPage } from "./tanahview";
 import {TanahProvider} from '../../providers/tanah/tanah';
 import { TabsPage } from "../tabs/tabs";
+import {AngularFireDatabase,FirebaseListObservable} from 'angularfire2/database';
 @IonicPage()
 @Component({
   selector: 'page-tanahviewlist',
@@ -11,16 +12,13 @@ import { TabsPage } from "../tabs/tabs";
 export class TanahviewlistPage {
   temparr = [];
   filteredtanah = [];
+  itanah:FirebaseListObservable<any>;
   constructor(public navCtrl: NavController, public navParams: NavParams,
    public tanahservice: TanahProvider, public alertCtrl: AlertController,
-   private _app:App
+   private _app:App,public db:AngularFireDatabase
   ) {
-    this.tanahservice.getalltanah().then((res: any) => {
-      this.filteredtanah = res;
-      this.temparr = res;
-      console.log(res);
-      
-   })
+    this.loadData();
+    this.itanah = this.db.list('kuesionertanah');
   }
 
   searchtanah(searchbar) {
@@ -43,24 +41,37 @@ export class TanahviewlistPage {
     this.navCtrl.push(TanahviewPage,key);
     
   }
+  edittanah(key){
+    console.log(key); 
+  }
+
+  deletetanah(key:string){
+    if(key !== null){
+      this.itanah.remove(key);
+      this.navCtrl.setRoot(TanahviewlistPage);
+    }
+    
+  }
 
   close(){
     this._app.getRootNav().setRoot(TabsPage);
   }
 
   doRefresh(refresher){
-    console.log();
-
+    console.log(refresher);
     setTimeout(()=>{
-      this.tanahservice.getalltanah().then((res: any) => {
-          this.filteredtanah = res;
-          this.temparr = res;
-          console.log(res);
-          
-      })
+      this.loadData();
       refresher.complete();
     },2000);
     
+  }
+
+  loadData(){
+    this.tanahservice.getalltanah().then((res: any) => {
+          this.filteredtanah = res;
+          this.temparr = res;
+          console.log(res);
+    })
   }
 
   

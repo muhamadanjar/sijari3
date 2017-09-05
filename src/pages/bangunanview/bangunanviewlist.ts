@@ -14,6 +14,7 @@ export class BangunanviewlistPage {
   temparr = [];
   filteredbangunan = [];
   ibangunan:FirebaseListObservable<any>;
+  slideData = [{ image: "assets/images/slide1.jpeg" },{ image: "assets/images/slide2.jpeg" },{ image: "assets/images/slide3.jpeg" }];
   constructor(public navCtrl: NavController, public navParams: NavParams,
    public bangunanservice: BangunanProvider, public alertCtrl: AlertController,
    private _app:App,public db:AngularFireDatabase
@@ -44,8 +45,12 @@ export class BangunanviewlistPage {
   }
 
   viewbangunan(key){
-    console.log(key);
     this.navCtrl.push(BangunanviewPage,key);
+  }
+
+  editbangunan(key){
+    console.log(key);
+    
   }
 
   deletebangunan(key:string){

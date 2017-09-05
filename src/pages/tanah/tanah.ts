@@ -95,77 +95,8 @@ export class TanahPage {
 		}
 		
 		
-		for (var key in navParams.data) {
-			
-			if(navParams.data[key] instanceof Array){
-				
-				if(key == 'tanaman_hortikultura'){
-					let _arr = navParams.data[key];
-					let tarr = this._fb.array([]);
-					for(let i=0;i<_arr.length;i++){
-						let tanaman = this.initTanaman();
-						tanaman.patchValue({
-							'nama_tanaman':_arr[i].nama_tanaman,
-							'satu_tiga':_arr[i].satu_tiga,
-							'tiga_sepuluh':_arr[i].tiga_sepuluh,
-							'lebih_sepuluh':_arr[i].lebih_sepuluh,
-						});
-						tarr.push(tanaman);
-					}
-					console.log(tarr);
-					this.kuesionerForm.setControl(key,tarr);	
-				}else if(key == 'tanamanhias'){
-					let _arr = navParams.data[key];
-					let tarr = this._fb.array([]);
-					for(let i=0;i<_arr.length;i++){
-						let tanaman = this.initTanamanBatang();
-						tanaman.patchValue({
-							'nama_tanaman':_arr[i].nama_tanaman,
-							'batang':_arr[i].batang,
-						});
-						tarr.push(tanaman);
-					}
-					console.log(tarr);
-					this.kuesionerForm.setControl(key,tarr);	
-				}else if(key == 'tanamanpelindung'){
-					let _arr = navParams.data[key];
-					let tarr = this._fb.array([]);
-					for(let i=0;i<_arr.length;i++){
-						let tanaman = this.initTanaman();
-						tanaman.patchValue({
-							'nama_tanaman':_arr[i].nama_tanaman,
-							'satu_tiga':_arr[i].satu_tiga,
-							'tiga_sepuluh':_arr[i].tiga_sepuluh,
-							'lebih_sepuluh':_arr[i].lebih_sepuluh,
-						});
-						tarr.push(tanaman);
-					}
-					console.log(tarr);
-					this.kuesionerForm.setControl(key,tarr);	
-				}else if(key == 'tanamanlain'){
-					let _arr = navParams.data[key];
-					let tarr = this._fb.array([]);
-					for(let i=0;i<_arr.length;i++){
-						let tanaman = this.initTanamanBatang();
-						tanaman.patchValue({
-							'nama_tanaman':_arr[i].nama_tanaman,
-							'batang':_arr[i].batang,
-						});
-						tarr.push(tanaman);
-					}
-					console.log(tarr);
-					this.kuesionerForm.setControl(key,tarr);	
-				}
-				
-			}else{
-				this.kuesionerForm.controls[key] = new FormControl(navParams.data[key]);
-			}
-		}
-		/*if(navParams.data.lokasi_proyek){
-			console.log(navParams.data);
-			
-			//this.kuesionerForm.setValue(navParams.data);
-		}*/
+		this.checkdata(navParams);
+		
 
 		console.log(this.kuesionerForm);
 		
@@ -209,6 +140,8 @@ export class TanahPage {
   ngAfterViewInit() {
 		this.geolocate2();
 		
+	}
+	public ngOnInit() {
 	}
 
 	initForm(){
@@ -288,7 +221,6 @@ export class TanahPage {
     const control = <FormArray>this.kuesionerForm.controls['tanamanpelindung'];
     control.removeAt(i);
 	}
-
 	addTanamanlain(){
 		const control = <FormArray>this.kuesionerForm.controls['tanamanlain'];
     control.push(this.initTanamanBatang());
@@ -297,7 +229,46 @@ export class TanahPage {
     const control = <FormArray>this.kuesionerForm.controls['tanamanlain'];
     control.removeAt(i);
 	}
-	public ngOnInit() {
+	checkdata(navParams){
+		for (var key in navParams.data) {
+			
+			if(navParams.data[key] instanceof Array){
+				
+				if(key == 'tanaman_hortikultura' || key == 'tanamanpelindung'){
+					let _arr = navParams.data[key];
+					let tarr = this._fb.array([]);
+					for(let i=0;i<_arr.length;i++){
+						let tanaman = this.initTanaman();
+						tanaman.patchValue({
+							'nama_tanaman':_arr[i].nama_tanaman,
+							'satu_tiga':_arr[i].satu_tiga,
+							'tiga_sepuluh':_arr[i].tiga_sepuluh,
+							'lebih_sepuluh':_arr[i].lebih_sepuluh,
+						});
+						tarr.push(tanaman);
+					}
+					console.log(tarr);
+					this.kuesionerForm.setControl(key,tarr);	
+				}else if(key == 'tanamanhias' || key == 'tanamanlain'){
+					let _arr = navParams.data[key];
+					let tarr = this._fb.array([]);
+					for(let i=0;i<_arr.length;i++){
+						let tanaman = this.initTanamanBatang();
+						tanaman.patchValue({
+							'nama_tanaman':_arr[i].nama_tanaman,
+							'batang':_arr[i].batang,
+						});
+						tarr.push(tanaman);
+					}
+					console.log(tarr);
+					this.kuesionerForm.setControl(key,tarr);	
+					
+				}
+				
+			}else{
+				this.kuesionerForm.controls[key] = new FormControl(navParams.data[key]);
+			}
+		}
 	}
 	
 	private validateDays(formGroup: FormGroup) {
@@ -378,7 +349,9 @@ export class TanahPage {
 
 	save(){
 		console.log(this.kuesionerForm.value);
-		this.items.push(this.kuesionerForm.value);
+		this.items.push(this.kuesionerForm.value).then((item)=>{
+			this.items.update(item.key, { key: item.key });
+		});
 	}
 	addTanah(){
 		this.save();

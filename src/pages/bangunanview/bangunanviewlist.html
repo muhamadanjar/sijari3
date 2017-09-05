@@ -19,7 +19,6 @@
 
 
 <ion-content>
-  <ion-searchbar [(ngModel)]="searchstring" (input)="searchbangunan($event)" placeholder="Search"></ion-searchbar>
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content 
       pullingIcon="arrow-dropdown" 
@@ -28,6 +27,7 @@
       refreshingText="Memuat Data">
     </ion-refresher-content>
   </ion-refresher>
+  <ion-searchbar [(ngModel)]="searchstring" (input)="searchbangunan($event)" placeholder="Search"></ion-searchbar>
   <ion-list no-lines>
     <ion-list>
       <ion-item-sliding *ngFor="let key of filteredbangunan">
@@ -39,7 +39,11 @@
             <ion-icon name="eye"></ion-icon>
             Lihat
           </button>
-          <button ion-button color="primary" (click)="deletebangunan(key.key)">
+          <button ion-button color="secondary" (click)="editbangunan(key)">
+            <ion-icon><i class="fa fa-pencil-square-o" aria-hidden="true"></i></ion-icon>
+            Edit
+          </button>
+          <button ion-button color="danger" (click)="deletebangunan(key.key)">
             <ion-icon name="trash"></ion-icon>
             Delete
           </button>
@@ -48,7 +52,15 @@
       </ion-item-sliding>
     </ion-list>
   </ion-list>
-
-  
+    
+  <ion-card>
+      <ion-slides autoplay="5000" loop="true" speed="3000" pager>
+        <ion-slide *ngFor="let slide of slideData">
+          <img [src]="slide.image" />
+        </ion-slide>
+      </ion-slides>
+      <div class="card-title">São Paulo</div>
+      <div class="card-subtitle">41 Listings</div>
+  </ion-card>
   
 </ion-content>
