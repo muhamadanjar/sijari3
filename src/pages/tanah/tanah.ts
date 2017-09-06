@@ -20,11 +20,13 @@ export interface Tanaman {
 		satu_tiga: string;
 		tiga_sepuluh: string;
 		lebih_sepuluh: string;
+		foto:string;
 }
 
 export interface TanamanHias {
     nama_tanaman: string;  // required field
 		batang: string;
+		foto:string;
 }
 
 

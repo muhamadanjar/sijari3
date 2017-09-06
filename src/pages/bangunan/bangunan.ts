@@ -132,6 +132,7 @@ export class BangunanPage {
         pendapatrespondenpemindahankolektif:[""],
         x:[""],
         y:[""],
+        foto:[""],
       });
   }
 

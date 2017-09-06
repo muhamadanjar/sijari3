@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { App,IonicPage, NavController, NavParams,AlertController } from 'ionic-angular';
 import { BangunanviewPage } from "./bangunanview";
+import { BangunaneditPage } from "./bangunanedit";
 import {BangunanProvider} from '../../providers/bangunan/bangunan';
 import { TabsPage } from "../tabs/tabs";
 import { AngularFireDatabase, FirebaseListObservable } from "angularfire2/database";
@@ -23,8 +24,8 @@ export class BangunanviewlistPage {
       this.filteredbangunan = res;
       this.temparr = res;
       console.log(res);
-      
     })
+    console.log(this.bangunanservice.getAllItems());
     this.ibangunan = this.db.list('kuesionerbangunan');
 
   }
@@ -50,7 +51,7 @@ export class BangunanviewlistPage {
 
   editbangunan(key){
     console.log(key);
-    
+    this.navCtrl.setRoot(BangunaneditPage,key);
   }
 
   deletebangunan(key:string){
