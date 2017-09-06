@@ -50,12 +50,11 @@ export class BangunanviewlistPage {
   }
 
   editbangunan(key){
-    console.log(key);
     this.navCtrl.setRoot(BangunaneditPage,key);
   }
 
   deletebangunan(key:string){
-    this.ibangunan.remove(key);
+    this.bangunanservice.deleteBangunanByKey(key);
     this.navCtrl.setRoot(BangunanviewlistPage);
   }
 
@@ -64,8 +63,6 @@ export class BangunanviewlistPage {
   }
 
   doRefresh(refresher){
-    console.log();
-
     setTimeout(()=>{
       this.bangunanservice.getallbangunan().then((res: any) => {
         this.filteredbangunan = res;

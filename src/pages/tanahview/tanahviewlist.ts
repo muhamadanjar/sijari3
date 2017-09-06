@@ -3,6 +3,7 @@ import { App,IonicPage, NavController, NavParams,AlertController,Refresher } fro
 import { TanahviewPage } from "./tanahview";
 import {TanahProvider} from '../../providers/tanah/tanah';
 import { TabsPage } from "../tabs/tabs";
+import { TanaheditPage } from "./tanahedit";
 import {AngularFireDatabase,FirebaseListObservable} from 'angularfire2/database';
 @IonicPage()
 @Component({
@@ -42,7 +43,7 @@ export class TanahviewlistPage {
     
   }
   edittanah(key){
-    console.log(key); 
+    this.navCtrl.setRoot(TanaheditPage,key);
   }
 
   deletetanah(key:string){

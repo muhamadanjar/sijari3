@@ -1,3 +1,84 @@
 page-chat {
-
+    /* Chat */
+    .chat .message p {
+        margin-bottom: 0;
+        font-size: 14px;
+    }
+    .chat span {
+        font-size: 12px;
+    }
+    .chat ul li {
+        width: 100%;
+        position: relative;
+        display: inline-block;
+        margin-bottom: 16px;
+    }
+    .chat ul li > img {
+        float: left;
+    }
+    .chat ul li .message {
+        margin-left: 55px;
+        position: relative;
+        padding: 12px 16px;
+        border-radius: 4px;
+    }
+    .chat ul li .message.first {
+        border-top-right-radius: 20px;
+    }
+    .chat ul li .message.last {
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+    }
+    .chat ul li.message-left {
+        margin-bottom: 36px;
+    }
+    .chat ul li.message-right .message.first {
+        border-top-left-radius: 20px;
+        border-top-right-radius: 4px;
+    }
+    .chat ul li.message-right > img {
+        float: right;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+    }
+    .chat ul li.message-right .message {
+        margin-right: 55px;
+        margin-left: 0;
+        margin-bottom: 2px;
+        background-color: #f1f1f1 !important;
+    }
+    .chat ul li.message-left > img {
+        margin-right: 0;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+    }
+    .chat ul li.message-left .message {
+        background-color: #f0f8ff;
+        margin-bottom: 2px;
+    }
+    .message-right > span,
+    .message-left > span {
+        margin-bottom: 20px;
+        display: block;
+    }
+    .message-left > span {
+        margin-left: 55px;
+    }
+    .photo-add {
+        margin-top: 8px;
+    }
+    .photo-add .square-user {
+        height: 48px;
+        width: 48px;
+        margin-right: 4px;
+        float: left;
+    }
+    .chat-day {
+        display: block;
+        text-align: center;
+        text-transform: uppercase;
+        margin-bottom: 30px;
+    }
 }

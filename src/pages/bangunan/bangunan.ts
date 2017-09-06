@@ -7,6 +7,7 @@ import { GeolocationProvider } from '../../providers/geolocation/geolocation';
 import { TabsPage } from '../tabs/tabs';
 import { BangunanMapPage } from './bangunanMap';
 import { SettingProvider } from '../../providers/setting/setting';
+import { BangunanProvider } from '../../providers/bangunan/bangunan';
 import { Storage } from '@ionic/storage';
 import { bangunanData } from './bangunanData';
 import { AngularFireDatabase, FirebaseObjectObservable,FirebaseListObservable } from 'angularfire2/database';
@@ -28,18 +29,12 @@ export class BangunanPage {
 		public storage:Storage,
     public db: AngularFireDatabase,
     private _fb: FormBuilder,
+    private bangunanService: BangunanProvider,
     public geolocation:Geolocation,
 		public geolocationService: GeolocationProvider) {
       this.items = db.list('/kuesionerbangunan');
       this.initForm();
-      this.dbsetting.getAllProvinsi().subscribe((data)=>{
-        this.allProvinsi=data;
-        },function (error){
-          console.log("error"+error);
-        },function(){
-          console.log("Mengambil data kecamatan");
-        }
-      );
+      this.loadDataProvinsi();
       var o = this.dbsetting.AdminLTE.options;
       this.dbsetting._init();
       if (o.enableBoxWidget) {
@@ -57,16 +52,16 @@ export class BangunanPage {
 
   ngAfterContentInit() {
     this.geolocate();
-    
   }
 
   addBangunan(bangunan: bangunanData){
-    console.log(this.bangunanForm.value);
-    
-		this.items.push(this.bangunanForm.value).then((item)=>{
+    //console.log(this.bangunanForm.value);
+		/*this.items.push(this.bangunanForm.value).then((item)=>{
       console.log(item.key);
       this.items.update(item.key, { key: item.key });
-    });
+    });*/
+    this.bangunanService.addBangunan(this.bangunanForm.value);
+    
 		this.navCtrl.setRoot(TabsPage);
   }
 
@@ -189,7 +184,16 @@ export class BangunanPage {
 
 		});
 	}
-
+  loadDataProvinsi(){
+    this.dbsetting.getAllProvinsi().subscribe((data)=>{
+      this.allProvinsi=data;
+      },function (error){
+        console.log("error"+error);
+      },function(){
+        console.log("Mengambil data kecamatan");
+      }
+    );
+  }
 	changeProvinsi(provinsi){
 	  	this.dbsetting.getAllKabupaten(provinsi).subscribe((data)=>{
 	      this.allKabupaten=data;
@@ -200,8 +204,7 @@ export class BangunanPage {
 	        //loadingdata.dismiss();
 	      }
 	    );
-	}
-		
+	}	
 	changeKabupaten(kabupaten){
 	  	this.dbsetting.getAllKecamatan(kabupaten).subscribe((data)=>{
 	      this.allKecamatan=data;

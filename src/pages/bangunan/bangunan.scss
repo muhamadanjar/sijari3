@@ -478,6 +478,32 @@ page-bangunan {
     .modal .panel-body {
     color: #444;
     }
+
+    .button-group {
+        .col {
+            &:first-child:not(:last-child) {
+            padding-right: 0;
+            .button {
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;
+            }
+            }
+            &:not(:first-child):not(:last-child) {
+            padding-right: 0;
+            padding-left: 0;
+            .button {
+                border-radius: 0;
+            }
+            }
+            &:last-child:not(:first-child) {
+            padding-left: 0;
+            .button {
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+            }
+            }
+        }
+    }
 }
 
 page-bangunanmap{

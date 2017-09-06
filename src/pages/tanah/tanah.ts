@@ -67,7 +67,6 @@ export class TanahPage {
 		db: AngularFireDatabase,
 		public afireauth: AngularFireAuth,
 	) {
-		
 		this.items = db.list('/kuesionertanah');
 		this.allstatuskepemilikantanah = this.tanahProvider.getStatusKepemilikanTanah();
 		this.allpemanfaatantanah = this.tanahProvider.getPemanfaatanTanah();
@@ -95,17 +94,12 @@ export class TanahPage {
 		if (o.enableBoxWidget) {
 			this.dbsetting.AdminLTE.boxWidget.activate();
 		}
-		
-		
+			
 		this.checkdata(navParams);
-		
-
+	
 		console.log(this.kuesionerForm);
-		
 
 	}
-
-
 		
 	/*setMake(m){
 		console.log(m);
@@ -350,10 +344,11 @@ export class TanahPage {
 	}
 
 	save(){
-		console.log(this.kuesionerForm.value);
+		/*console.log(this.kuesionerForm.value);
 		this.items.push(this.kuesionerForm.value).then((item)=>{
 			this.items.update(item.key, { key: item.key });
-		});
+		});*/
+		this.tanahProvider.addTanah(this.kuesionerForm.value);
 	}
 	addTanah(){
 		this.save();
@@ -408,22 +403,5 @@ export class TanahPage {
 	      }
 	    );
 	}
-
-	
-	addItem(newName: string) {
-    this.items.push({ text: newName });
-  }
-  updateItem(key: string, newText: string) {
-    this.items.update(key, { text: newText });
-  }
-  deleteItem(key: string) {    
-    this.items.remove(key); 
-  }
-  deleteEverything() {
-    this.items.remove();
-	}
-	
-
-	
 
 }
