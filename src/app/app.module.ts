@@ -30,10 +30,12 @@ import { TanahPage } from '../pages/tanah/tanah';
 import { TanahMapPage } from '../pages/tanah/tanahMap';
 import { TanahviewPage } from '../pages/tanahview/tanahview';
 import { TanahviewlistPage } from '../pages/tanahview/tanahviewlist';
+import { TanaheditPage } from '../pages/tanahview/tanahedit';
 import { BangunanPage } from '../pages/bangunan/bangunan';
 import { BangunanMapPage } from '../pages/bangunan/bangunanMap';
 import { BangunanviewPage } from '../pages/bangunanview/bangunanview';
 import { BangunanviewlistPage } from '../pages/bangunanview/bangunanviewlist';
+import { BangunaneditPage } from '../pages/bangunanview/bangunanedit';
 import { SignupPage } from '../pages/signup/signup';
 import { ProfilepicPage } from '../pages/profilepic/profilepic';
 import { ProfilePage } from '../pages/profile/profile';
@@ -95,9 +97,9 @@ import { ChatProvider } from '../providers/chat/chat';
     LoginPage,
     SignupPage,
     TanahPage,TanahMapPage,
-    TanahviewPage,TanahviewlistPage,
+    TanahviewPage,TanahviewlistPage,TanaheditPage,
     BangunanPage,BangunanMapPage,
-    BangunanviewPage,BangunanviewlistPage,
+    BangunanviewPage,BangunanviewlistPage,BangunaneditPage,
     ProfilePage,
     ProfilepicPage,
     TabsPage,
@@ -160,9 +162,9 @@ import { ChatProvider } from '../providers/chat/chat';
     LoginPage,
     SignupPage,
     TanahPage,TanahMapPage,
-    TanahviewPage,TanahviewlistPage,
+    TanahviewPage,TanahviewlistPage,TanaheditPage,
     BangunanPage,BangunanMapPage,
-    BangunanviewPage,BangunanviewlistPage,
+    BangunanviewPage,BangunanviewlistPage,BangunaneditPage,
     ProfilePage,
     ProfilepicPage,
     TabsPage,

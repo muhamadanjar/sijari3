@@ -6,26 +6,29 @@ import { Tanah } from '../../models/tanah';
 import { Storage } from '@ionic/storage';
 import { SettingProvider } from '../setting/setting';
 import firebase from 'firebase';
+import { AngularFireDatabase, FirebaseListObservable } from "angularfire2/database";
+import { FormBuilder,FormGroup,Validators } from '@angular/forms';
 @Injectable()
 export class TanahProvider {
 
   firedata = firebase.database().ref("/kuesionertanah")
   cars: Tanah[] = [];
   public url:string="http://localhost/api/";
-  constructor(public _http: Http, public storage: Storage){
+  private basePath: string = '/kuesionertanah';
+  itanah:FirebaseListObservable<any>;
+  constructor(public _http: Http, public storage: Storage,private db: AngularFireDatabase,
+    private _fb: FormBuilder,){
     this.mockCars();
     //this.url = s.getUrl();
+    this.itanah = this.db.list(this.basePath);
   }
-
   getAllTasks(){
 		return this._http.get(this.url)
 		.map((response:Response)=>response.json());
 	}
-
   getCars(){
     return this.storage.get('cars');
   }
-
   mockCars(){
     let cars = [
       {id: '1', make: 'Ford', model: 'Focus'},
@@ -33,7 +36,6 @@ export class TanahProvider {
     ]
     this.storage.set('cars', JSON.stringify(cars));
   }
-
   getPagesProfile(){
     let pages = [
       {id: '1', field:'nama_pemilik', soal: 'Nama Pemilik', tipe:'essay', isi: ''},
@@ -42,7 +44,6 @@ export class TanahProvider {
 
     return pages;
   }
-
   getPagesStatusTanah(){
     let pages = [
       {id: '1', field:'status_kepemilikan_tanah', soal: 'Status kepemilikan tanah', tipe:'pilihan', isi: ''},
@@ -58,7 +59,6 @@ export class TanahProvider {
 
     return pages;
   }
-
   getStatusKepemilikanTanah(){
     let status = [
       {id: '1', value: 'Sertifikat Hak Milik (SHM)'},
@@ -72,7 +72,6 @@ export class TanahProvider {
     return status;
 
   }
-
   getPemanfaatanTanah(){
     let status = [
       {id: '1', value: 'Sawah'},
@@ -87,6 +86,55 @@ export class TanahProvider {
 
   }
 
+  initForm(formGroup: FormGroup){
+		formGroup = this._fb.group({
+			key: [""],
+			lokasi_proyek: ["",Validators.required],
+			kode_prov: [""],
+			kode_kab: [""],
+			kode_kec: [""],
+			kode_kel: [""],
+			jorong: [""],
+			id_user:[""],
+			nama_pemilik: [""],
+			alamat_pemilik: [""],
+
+			status_kepemilikan_tanah: [""],
+			pemanfaatantanah: [""],
+			tanaman_hortikultura: this._fb.array([
+        this.initTanaman(),
+			]),
+			tanamanhias: this._fb.array([this._fb.group({
+				nama_tanaman: [""],
+				batang: [""]
+			})]),
+			tanamanpelindung:this._fb.array([
+        this.initTanaman(),
+			]),
+			tanamanlain:this._fb.array([this._fb.group({
+				nama_tanaman: [""],
+				batang: [""]
+			})]),
+			x:[""],
+			y:[""],
+		});
+	}
+  initTanaman() {
+    return this._fb.group({
+      nama_tanaman: ["",Validators.required],
+			satu_tiga: [""],
+			tiga_sepuluh: [""],
+      lebih_sepuluh: [""],
+      foto:[""],
+    });
+	}
+	initTanamanBatang(){
+		return this._fb.group({
+      nama_tanaman: [""],
+      batang: [""],
+      foto:[""],
+    });
+	}
   getalltanah() {
     var promise = new Promise((resolve, reject) => {
       this.firedata.once('value', (snapshot) => {
@@ -101,6 +149,18 @@ export class TanahProvider {
       })
     })
     return promise;
+  }
+  deleteTanahByKey(key: string) {
+    this.itanah.remove(key);
+  }
+  addTanah(item) {
+    this.itanah.push(item).then((item)=>{
+      this.itanah.update(item.key, { key: item.key });
+    });
+  }
+  editTanah(key: string,item) {
+    console.log(item);
+    this.itanah.update(key,item);
   }
 
   

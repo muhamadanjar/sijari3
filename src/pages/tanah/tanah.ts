@@ -51,14 +51,11 @@ export class TanahPage {
 	
 	public profile: any[];
 	public statustanah: any[];
-
-
-	items: FirebaseListObservable<any>;
+	
 	@ViewChild(Tabs) tabs: Tabs;
   constructor(public navCtrl: NavController, public navParams: NavParams,
   	public geolocation:Geolocation,
 		public geolocationService: GeolocationProvider,
-		public formBuilder: FormBuilder,
 		private _fb: FormBuilder,
 		public tanahProvider:TanahProvider,
 		public dbsetting:SettingProvider,
@@ -67,7 +64,7 @@ export class TanahPage {
 		db: AngularFireDatabase,
 		public afireauth: AngularFireAuth,
 	) {
-		this.items = db.list('/kuesionertanah');
+		
 		this.allstatuskepemilikantanah = this.tanahProvider.getStatusKepemilikanTanah();
 		this.allpemanfaatantanah = this.tanahProvider.getPemanfaatanTanah();
 		this.dbsetting.getAllProvinsi().subscribe((data)=>{
@@ -88,7 +85,7 @@ export class TanahPage {
 		
 		this.profile = tanahProvider.getPagesProfile();
 		this.statustanah = tanahProvider.getPagesStatusTanah();
-		//console.log(this.item);
+
 		var o = this.dbsetting.AdminLTE.options;
 		this.dbsetting._init();
 		if (o.enableBoxWidget) {
@@ -96,8 +93,6 @@ export class TanahPage {
 		}
 			
 		this.checkdata(navParams);
-	
-		console.log(this.kuesionerForm);
 
 	}
 		
@@ -114,12 +109,10 @@ export class TanahPage {
 			}
 		});
 	}
-
 	setModel(m){
 		this.model = m;
 		this.kuesionerForm.value['model'] = m;
 	}
-
 	setModelOptions(){
 		let carModels = [];
 		let make = this.make;
@@ -156,19 +149,17 @@ export class TanahPage {
 			status_kepemilikan_tanah: [""],
 			pemanfaatantanah: [""],
 			tanaman_hortikultura: this._fb.array([
-        this.initTanaman(),
+        this.tanahProvider.initTanaman(),
 			]),
-			tanamanhias: this._fb.array([this._fb.group({
-				nama_tanaman: [""],
-				batang: [""]
-			})]),
+			tanamanhias: this._fb.array([
+				this.tanahProvider.initTanamanBatang()
+			]),
 			tanamanpelindung:this._fb.array([
-        this.initTanaman(),
+        this.tanahProvider.initTanaman(),
 			]),
-			tanamanlain:this._fb.array([this._fb.group({
-				nama_tanaman: [""],
-				batang: [""]
-			})]),
+			tanamanlain:this._fb.array([
+				this.tanahProvider.initTanamanBatang()
+			]),
 			x:[""],
 			y:[""],
 		});
@@ -180,18 +171,10 @@ export class TanahPage {
     });
 	}
 	initTanaman() {
-    return this._fb.group({
-      nama_tanaman: ["",Validators.required],
-			satu_tiga: [""],
-			tiga_sepuluh: [""],
-			lebih_sepuluh: [""],
-    });
+    return this.tanahProvider.initTanaman();
 	}
 	initTanamanBatang(){
-		return this._fb.group({
-      nama_tanaman: [""],
-			batang: [""]
-    });
+		return this.tanahProvider.initTanamanBatang();
 	}
 	addHortikultura() {
     const control = <FormArray>this.kuesionerForm.controls['tanaman_hortikultura'];
@@ -344,10 +327,7 @@ export class TanahPage {
 	}
 
 	save(){
-		/*console.log(this.kuesionerForm.value);
-		this.items.push(this.kuesionerForm.value).then((item)=>{
-			this.items.update(item.key, { key: item.key });
-		});*/
+	
 		this.tanahProvider.addTanah(this.kuesionerForm.value);
 	}
 	addTanah(){
@@ -357,8 +337,9 @@ export class TanahPage {
 	close(){
 		this.navCtrl.setRoot(TabsPage);
 	}
-	delete(key: string) {    
-    this.items.remove(key); 
+	delete(key: string) {   
+		this.tanahProvider.deleteTanahByKey(key); 
+    this.navCtrl.setRoot(TabsPage);
   }
 
 	changeProvinsi(provinsi){

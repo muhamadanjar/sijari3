@@ -16,11 +16,12 @@ export class Item {
 export class BangunanProvider {
   firedata = firebase.database().ref("/kuesionerbangunan");
 
-  private basePath: string = '/items';
+  private basePath: string = '/kuesionerbangunan';
   items: FirebaseListObservable<Item[]> = null; //  list of objects
   item: FirebaseObjectObservable<Item> = null; //   single object
+  ibangunan:FirebaseListObservable<any>;
   constructor(public http: Http,private db: AngularFireDatabase) {
-     this.items = this.db.list('/items');
+     this.ibangunan = this.db.list(this.basePath);
   }
 
   getallbangunan() {
@@ -40,20 +41,20 @@ export class BangunanProvider {
     })
     return promise;
   }
-
-
-
   getAllItems() {
-    return this.items.map((data) => data.map(x => x as Item));
+    return this.ibangunan.map((data) => data.map(x => x));
   }
-  deleteItemByKey($key: string) {
-    this.items.remove($key);
+  deleteBangunanByKey(key: string) {
+    this.ibangunan.remove(key);
   }
-  addItem(item: Item) {
-    this.items.push(item);
+  addBangunan(item) {
+    this.ibangunan.push(item).then((item)=>{
+      this.ibangunan.update(item.key, { key: item.key });
+    });
   }
-  editItem(key: string,item: Item) {
-    this.db.object('items/'+key).update(item);
+  editBangunan(key: string,item) {
+    console.log(key);
+    this.ibangunan.update(key,item);
   }
   /*
   getItemsList(query={}): FirebaseListObservable<Item[]> {
@@ -89,11 +90,11 @@ export class BangunanProvider {
   deleteAll(): void {
       this.items.remove()
         .catch(error => this.handleError(error))
-  }
+  }*/
   // Default error handling for all actions
   private handleError(error) {
     console.log(error)
-  }*/
+  }
 
   
 
