@@ -17,7 +17,7 @@ export class TanaheditPage {
     kuesionerForm: FormGroup;
     key;
     ibangunan: FirebaseListObservable<any>;
-
+    public error: string;
     allProvinsi;allKabupaten;allKecamatan;allKelurahan;
 	kode_prov;kode_kab;kode_kec;kode_kel;
     allstatuskepemilikantanah;allpemanfaatantanah;
@@ -25,6 +25,8 @@ export class TanaheditPage {
     constructor(public navCtrl: NavController, public navParams: NavParams,
     public tanahservice: TanahProvider, public alertCtrl: AlertController,
     public settingservice: SettingProvider,private _fb: FormBuilder,
+    public geolocation:Geolocation,
+    public geolocationService: GeolocationProvider,
     ) {
         this.allstatuskepemilikantanah = this.tanahservice.getStatusKepemilikanTanah();
 		this.allpemanfaatantanah = this.tanahservice.getPemanfaatanTanah();
@@ -174,4 +176,42 @@ export class TanaheditPage {
             }
           );
     }
+
+    geolocate(){
+		this.geolocationService.geolocate();
+		this.geolocationService.getCoords().then(
+		    (position) => {
+		        console.log(position);
+		        //alert(JSON.stringify(position));
+
+		     
+
+					this.kuesionerForm.patchValue({'x':position.coords.longitude});
+					this.kuesionerForm.patchValue({'y':position.coords.latitude});
+					
+		    }, (error) => {
+		    	this.error = JSON.stringify(error);
+		    }
+		);
+	}
+
+	geolocate2(){
+		if(this.geolocation){
+            this.geolocation.getCurrentPosition().then((resp) => {
+                this.kuesionerForm.patchValue({'x':resp.coords.longitude});
+                this.kuesionerForm.patchValue({'y':resp.coords.latitude});
+                }).catch((error) => {
+                    console.log('Error getting location', error);
+                    this.error = JSON.stringify(error);
+                });
+
+            let watch = this.geolocation.watchPosition();
+            watch.subscribe((data) => {
+            // data can be a set of coordinates, or an error (if an error occurred).
+            // data.coords.latitude
+            // data.coords.longitude
+
+            });
+        }
+	}
 }
