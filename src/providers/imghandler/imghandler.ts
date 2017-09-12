@@ -1,19 +1,18 @@
-import { Injectable } from '@angular/core';
+import { Injectable,ElementRef } from '@angular/core';
+import {Camera} from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
 import { FileChooser } from '@ionic-native/file-chooser';
 import { FilePath } from '@ionic-native/file-path';
 import firebase from 'firebase';
-/*
-  Generated class for the ImghandlerProvider provider.
- 
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular 2 DI.
-*/
+
 @Injectable()
 export class ImghandlerProvider {
   nativepath: any;
   firestore = firebase.storage();
-  constructor(public filechooser: FileChooser) {
+  public error: string;
+  public myPhoto: any;
+  public myPhotoURL: any;
+  constructor(public filechooser: FileChooser,public camera: Camera) {
   }
  
   uploadimage() {
@@ -84,6 +83,138 @@ export class ImghandlerProvider {
     }
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
       s4() + '-' + s4() + s4() + s4();
+  }
+
+  takePhoto() {
+    this.camera.getPicture({
+      quality: 100,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      sourceType: this.camera.PictureSourceType.CAMERA,
+      encodingType: this.camera.EncodingType.PNG,
+      saveToPhotoAlbum: true
+    }).then(imageData => {
+      this.myPhoto = imageData;
+      //this._uploadPhoto(imageData);
+    }, error => {
+      this.error = JSON.stringify(error);
+    });
+  }
+
+  selectPhoto(): void {
+    this.camera.getPicture({
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      quality: 100,
+      encodingType: this.camera.EncodingType.PNG,
+    }).then(imageData => {
+      this.myPhoto = imageData;
+      //this._uploadPhoto(imageData);
+    }, error => {
+      this.error = JSON.stringify(error);
+    });
+  }
+
+  takePhotoHortikura(){
+    var promise = new Promise((resolve, reject) => {
+      const options = {
+        quality: 100,
+        destinationType: this.camera.DestinationType.DATA_URL,
+        encodingType: this.camera.EncodingType.JPEG,
+        mediaType: this.camera.MediaType.PICTURE
+      }
+      this.camera.getPicture(options).then((imageData) => {
+        // imageData is either a base64 encoded string or a file URI
+        // If it's base64:
+        let base64Image = 'data:image/jpeg;base64,' + imageData;
+        console.log(base64Image);
+        resolve(base64Image);
+      }, (err) => {
+        reject(err);
+      });
+    });
+
+    return promise;
+    
+  }
+
+  /*public _uploadPhoto(imageData: any): void {
+      this.error = null;
+      this.loading = this.loadingCtrl.create({
+        content: 'Uploading...'
+      });
+
+      this.loading.present();
+      /*this.file.resolveLocalFilesystemUrl(imageData)
+        .then(entry => (<FileEntry>entry).file(file => this.readFile(file)))
+        .catch(err => console.log(err));
+
+      const fileTransfer: FileTransferObject = this.transfer.create();
+      let namafile = this.data.kode_kel+"_"+this.randomString(24)+'.jpg';
+      let options1: FileUploadOptions = {
+        fileKey: 'file',
+        fileName: namafile,
+        headers: {}
+      }
+      let image = '/api/pjuuploadimage';
+
+      fileTransfer.upload(imageData, this.rootUrl+'/php/upload.php',options1)
+        .then((data) => {
+        // success
+        alert("success");
+        this.data.foto = namafile;
+        this.loading.dismiss();
+      }, (err) => {
+        // error
+        alert("error"+JSON.stringify(err));
+        this.handleError(err);
+        this.loading.dismiss();
+      });
+  
+  }*/
+
+  convertImgToDataURLviaCanvas(url, callback, outputFormat) {
+    /*var img = new Image();
+    img.crossOrigin = 'Anonymous';
+    img.onload = function() {
+      var canvas = document.createElement('CANVAS');
+      var ctx = canvas.getContext('2d');
+      var dataURL;
+      canvas.height = this.height;
+      canvas.width = this.width;
+      ctx.drawImage(this, 0, 0);
+      dataURL = canvas.toDataURL(outputFormat);
+      callback(dataURL);
+      canvas = null;
+    };
+    img.src = url;*/
+  }
+  
+  convertFileToDataURLviaFileReader(url, callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.onload = function() {
+      var reader = new FileReader();
+      reader.onloadend = function() {
+        
+        callback(reader.result);
+      }
+      reader.readAsDataURL(xhr.response);
+    };
+    xhr.open('GET', url);
+    xhr.responseType = 'blob';
+    xhr.send();
+  }
+
+  uploadbase64(url,callback){
+    (<any>window).resolveLocalFileSystemURL(url, (res) => {
+      res.file((resFile) => {
+        var reader = new FileReader();
+        reader.readAsDataURL(resFile);
+        reader.onloadend = (evt: any) => {
+          callback(evt.target.result);
+          
+        }
+      })
+    })
   }
  
 }

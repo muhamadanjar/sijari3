@@ -8,15 +8,13 @@ import { FileChooser } from "@ionic-native/file-chooser";
 import { File } from "@ionic-native/file";
 import { FilePath } from "@ionic-native/file-path";
 import { SQLite } from "@ionic-native/sqlite";
-
+import { Camera } from "@ionic-native/camera";
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-
 import { config } from './app.firebaseconfig';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabase } from 'angularfire2/database';
-
 import { IonicStorageModule } from '@ionic/storage';
 
 //import {GoogleMaps} from '@ionic-native/google-maps';
@@ -31,6 +29,7 @@ import { TanahMapPage } from '../pages/tanah/tanahMap';
 import { TanahviewPage } from '../pages/tanahview/tanahview';
 import { TanahviewlistPage } from '../pages/tanahview/tanahviewlist';
 import { TanaheditPage } from '../pages/tanahview/tanahedit';
+
 import { BangunanPage } from '../pages/bangunan/bangunan';
 import { BangunanMapPage } from '../pages/bangunan/bangunanMap';
 import { BangunanviewPage } from '../pages/bangunanview/bangunanview';
@@ -44,8 +43,6 @@ import { SettingPage } from '../pages/setting/setting';
 import { ChatPage } from '../pages/chat/chat';
 import { PasswordresetPage } from '../pages/passwordreset/passwordreset';
 import { KuesionerlistPage } from '../pages/kuesionerlist/kuesionerlist';
-
-
 
 import { AuthProvider } from '../providers/auth/auth';
 import { GeolocationProvider } from '../providers/geolocation/geolocation';
@@ -193,7 +190,7 @@ import { ChatProvider } from '../providers/chat/chat';
     ChatProvider,
     SQLite,
     Geolocation,
-    
+    Camera
   ]
 })
 export class AppModule {}

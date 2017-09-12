@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,AlertController } from 'ionic-angular';
+import { Component,NgZone } from '@angular/core';
+import { IonicPage, NavController, NavParams,AlertController,LoadingController } from 'ionic-angular';
 import { AngularFireDatabase, FirebaseListObservable } from "angularfire2/database";
 import { Geolocation } from '@ionic-native/geolocation';
 import { GeolocationProvider } from '../../providers/geolocation/geolocation';
@@ -7,6 +7,7 @@ import { BangunanviewlistPage } from "./bangunanviewlist";
 import {BangunanProvider} from '../../providers/bangunan/bangunan';
 import {SettingProvider} from '../../providers/setting/setting';
 import { FormBuilder, FormGroup, FormArray,FormControl, Validators } from '@angular/forms';
+import { ImghandlerProvider } from '../../providers/imghandler/imghandler';
 @IonicPage()
 @Component({
   selector: 'page-bangunanedit',
@@ -18,8 +19,9 @@ export class BangunaneditPage {
     key;
     ibangunan: FirebaseListObservable<any>;
     constructor(public navCtrl: NavController, public navParams: NavParams,
-    public bangunanservice: BangunanProvider, public alertCtrl: AlertController,
+    public bangunanservice: BangunanProvider, public alertCtrl: AlertController,public loadingCtrl:LoadingController,
     public settingservice: SettingProvider,private _fb: FormBuilder,
+    public imghandler: ImghandlerProvider,public zone: NgZone
     ) {
         this.initForm();
         this.key = navParams.data.key;
@@ -102,4 +104,19 @@ export class BangunaneditPage {
         this.bangunanservice.editBangunan(key,this.bangunanForm.value);
         this.navCtrl.setRoot(BangunanviewlistPage);
     }
+
+    editimage() {
+        let statusalert = this.alertCtrl.create({
+          buttons: ['okay']
+        });
+        let loading = this.loadingCtrl.create({
+          content:'Uploading.....'
+        });
+        loading.present();
+        this.imghandler.uploadimage().then((url: any) => {
+          console.log(url)
+        }).catch((err) => {
+          loading.dismiss();
+        });
+      }
 }

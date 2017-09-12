@@ -288,22 +288,20 @@ export class TanahPage {
 
 	geolocate2(){
 		if(this.geolocation){
-	      //this.data.gpsinfo = "Mencari Lokasi....";
 	      this.geolocation.getCurrentPosition().then((position) => {
-	        
 	        this.data.x = position.coords.longitude;
 	        this.data.y = position.coords.latitude;
-	        //this.data.gpsinfo = "latitude :"+this.y+" longitude :"+this.x;
-
-					//this.kuesionerForm.addControl('x',new FormControl(position.coords.longitude));
-					//this.kuesionerForm.addControl('y',new FormControl(position.coords.latitude));
 					this.kuesionerForm.patchValue({'x':position.coords.longitude});
 					this.kuesionerForm.patchValue({'y':position.coords.latitude});
 	      }, (err) => {
-	        console.log(err);
-	      });
-	    }
-	    this.geolocation.getCurrentPosition().then((resp) => {
+					console.log(err);
+					this.error = JSON.stringify(err);
+	      }).catch((error)=>{
+					console.log('Error getting location', error);
+					this.error = JSON.stringify(error);
+				});
+	  }
+	    /*this.geolocation.getCurrentPosition().then((resp) => {
 		 		this.data.x = resp.coords.longitude;
 				this.data.y = resp.coords.latitude;
 				this.kuesionerForm.addControl('x',new FormControl(this.data.x));
@@ -311,7 +309,7 @@ export class TanahPage {
 			}).catch((error) => {
 				console.log('Error getting location', error);
 				this.error = JSON.stringify(error);
-			});
+			});*/
 
 		let watch = this.geolocation.watchPosition();
 		watch.subscribe((data) => {
@@ -326,12 +324,8 @@ export class TanahPage {
 		this.navCtrl.setRoot(TanahMapPage,this.kuesionerForm.value);
 	}
 
-	save(){
-	
-		this.tanahProvider.addTanah(this.kuesionerForm.value);
-	}
 	addTanah(){
-		this.save();
+		this.tanahProvider.addTanah(this.kuesionerForm.value);
 		this.navCtrl.setRoot(TabsPage);
 	}
 	close(){

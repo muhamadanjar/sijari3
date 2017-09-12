@@ -6,6 +6,7 @@ import { SQLite,SQLiteObject } from "@ionic-native/sqlite";
 
 import { AuthProvider } from '../providers/auth/auth';
 import { Storage } from '@ionic/storage';
+import { TabsPage } from '../pages/tabs/tabs';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { ProfilePage } from '../pages/profile/profile';
@@ -41,7 +42,7 @@ export class MyApp {
       auth.getUser();
       storage.get('user').then((user)=>{
         if(user != null){
-          this.rootPage = HomePage;
+          this.rootPage = TabsPage;
         }
       });
       /*setTimeout(() => {
