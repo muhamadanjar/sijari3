@@ -4,6 +4,7 @@ import { File } from '@ionic-native/file';
 import { FileChooser } from '@ionic-native/file-chooser';
 import { FilePath } from '@ionic-native/file-path';
 import firebase from 'firebase';
+import { SettingProvider } from "../setting/setting";
 
 @Injectable()
 export class ImghandlerProvider {
@@ -12,7 +13,7 @@ export class ImghandlerProvider {
   public error: string;
   public myPhoto: any;
   public myPhotoURL: any;
-  constructor(public filechooser: FileChooser,public camera: Camera) {
+  constructor(public filechooser: FileChooser,public camera: Camera,public setting:SettingProvider) {
   }
  
   uploadimage() {
@@ -211,10 +212,76 @@ export class ImghandlerProvider {
         reader.readAsDataURL(resFile);
         reader.onloadend = (evt: any) => {
           callback(evt.target.result);
-          
         }
       })
     })
+  }
+
+  filereadertostorage(url,callback){
+    (<any>window).resolveLocalFileSystemURL(url, (res) => {
+      res.file((resFile) => {
+        var reader = new FileReader();
+        reader.readAsArrayBuffer(resFile);
+        reader.onloadend = (evt: any) => {
+          callback(evt.target.result);
+        }
+      })
+    })
+  }
+  _uploadbase64(options,folder=''){
+    var promise = new Promise((resolve,reject)=>{
+      this.camera.getPicture(options).then((imageData) => {
+        (<any>window).resolveLocalFileSystemURL(imageData, (res) => {
+          res.file((resFile) => {
+            var reader = new FileReader();
+            reader.readAsDataURL(resFile);
+            reader.onloadend = (evt: any) => {
+              resolve(evt.target.result);
+            }
+          })
+        })
+        
+      }, (err) => {
+        reject(err);    
+        this.error = JSON.stringify(err);
+      });
+    });
+
+    return promise;
+  }
+
+  upload(options,folder){
+    var promise = new Promise((resolve,reject)=>{
+      this.camera.getPicture(options).then((imageData) => {
+        (<any>window).resolveLocalFileSystemURL(imageData, (res) => {
+          res.file((resFile) => {
+            var reader = new FileReader();
+            reader.readAsArrayBuffer(resFile);
+            reader.onloadend = (evt: any) => {
+              var imgBlob = new Blob([evt.target.result], { type: 'image/jpeg' });
+              var randomStr = this.setting.randomString(90);
+              var img_combine = firebase.auth().currentUser.uid+'_'+randomStr;
+              var imageStore = this.firestore.ref(folder).child(img_combine);
+              imageStore.put(imgBlob).then((res) => {
+                this.firestore.ref(folder).child(img_combine).getDownloadURL().then((url) => {
+                  resolve(url);
+                }).catch((err) => {
+                    reject(err);
+                })
+              }).catch((err) => {
+                reject(err);
+              })
+            }
+          })
+        })
+        
+      }, (err) => {
+        reject(err);    
+        this.error = JSON.stringify(err);
+      });
+    });
+
+    return promise;
   }
  
 }

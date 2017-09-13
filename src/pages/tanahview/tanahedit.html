@@ -2,7 +2,7 @@
 	<ion-navbar color="skin-green">
 	  <ion-buttons left>
 		  <button ion-button (click)="close()">
-			  <ion-icon name="close"></ion-icon>
+			  <ion-icon><i class="fa fa-times" aria-hidden="true"></i></ion-icon>
 		  </button>
 	  </ion-buttons>
 	  <ion-title>Edit Tanah</ion-title>
@@ -134,10 +134,8 @@
 												<button (click)="addHortikultura()" type="button" class="btn btn-box-tool" title="Tambah Hortikura">
 													<i class="fa fa-plus"></i>
 												</button>
-												
 											</div>
 										</div>
-										
 										<div class="box-body">
 											<div *ngFor="let address of kuesionerForm.controls.tanaman_hortikultura.controls; let i=index" class="box box-success box-solid collapsed-box">
 													<div class="box-header with-border ">
@@ -172,8 +170,8 @@
 															<ion-input type="number" class="form-control" formControlName="lebih_sepuluh"></ion-input>
 														</ion-item>
 														<ion-item>
-															<button ion-button full (click)="editimagehortikura(i)">Pilih</button>
-															<img class="img" [src]="foto" (click)="editimagehortikura(i)"/>
+															<button ion-button full (click)="editimage(i)">Pilih</button>
+															<img class="img" [src]="kuesionerForm.value.tanaman_hortikultura[i].foto" (click)="editimage(i)"/>
 														</ion-item>
 													</div>
 											</div>
@@ -222,6 +220,10 @@
 													<ion-item>
 														<ion-label floating>Batang</ion-label>
 														<ion-input type="number" class="form-control" formControlName="batang"></ion-input>
+													</ion-item>
+													<ion-item>
+														<button ion-button full (click)="editimagehias(i)">Pilih</button>
+														<img class="img" [src]="kuesionerForm.value.tanamanhias[i].foto" (click)="editimagehias(i)"/>
 													</ion-item>
 												</div>	
 												
@@ -276,6 +278,10 @@
 														<ion-label floating>Lebih dari 10 Tahun</ion-label>
 														<ion-input type="number" class="form-control" formControlName="lebih_sepuluh"></ion-input>
 													</ion-item>
+													<ion-item>
+														<button ion-button full (click)="editimagepelindung(i)">Pilih</button>
+														<img class="img" [src]="kuesionerForm.value.tanamanpelindung[i].foto" (click)="editimagepelindung(i)"/>
+													</ion-item>
 												</div>	
 												
 											</div>
@@ -325,6 +331,10 @@
 													<ion-item>
 														<ion-label floating>Batang</ion-label>
 														<ion-input type="number" class="form-control" formControlName="batang"></ion-input>
+													</ion-item>
+													<ion-item>
+														<button ion-button full (click)="editimagelain(i)">Pilih</button>
+														<img class="img" [src]="kuesionerForm.value.tanamanlain[i].foto" (click)="editimagelain(i)"/>
 													</ion-item>
 												</div>	
 											</div>
