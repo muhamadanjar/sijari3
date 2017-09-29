@@ -216,15 +216,19 @@
 													</ion-item>
 													<ion-item>
 														<ion-label floating>1 - 3 Tahun</ion-label>
-														<ion-input type="number" class="form-control" formControlName="satu_tiga"></ion-input>
+														<ion-input type="number" step="0.01" class="form-control" formControlName="satu_tiga"></ion-input>
 													</ion-item>
 													<ion-item>
 														<ion-label floating>3 - 10 Tahun</ion-label>
-														<ion-input type="number" class="form-control" formControlName="tiga_sepuluh"></ion-input>
+														<ion-input type="number" step="0.01" class="form-control" formControlName="tiga_sepuluh"></ion-input>
 													</ion-item>
 													<ion-item>
 														<ion-label floating>Lebih dari 10 Tahun</ion-label>
-														<ion-input type="number" class="form-control" formControlName="lebih_sepuluh"></ion-input>
+														<ion-input type="number" step="0.01" class="form-control" formControlName="lebih_sepuluh"></ion-input>
+													</ion-item>
+													<ion-item>
+														<button ion-button full (click)="editimage(i)">Pilih</button>
+														<img class="img" [src]="kuesionerForm.value.tanaman_hortikultura[i].foto" (click)="editimage(i)"/>
 													</ion-item>
 											</div>	
 											
@@ -274,6 +278,10 @@
 												<ion-item>
 													<ion-label floating>Batang</ion-label>
 													<ion-input type="number" class="form-control" formControlName="batang"></ion-input>
+												</ion-item>
+												<ion-item>
+													<button ion-button full (click)="editimagehias(i)">Pilih</button>
+													<img class="img" [src]="kuesionerForm.value.tanamanhias[i].foto" (click)="editimagehias(i)"/>
 												</ion-item>
 											</div>	
 											
@@ -328,6 +336,10 @@
 													<ion-label floating>Lebih dari 10 Tahun</ion-label>
 													<ion-input type="number" class="form-control" formControlName="lebih_sepuluh"></ion-input>
 												</ion-item>
+												<ion-item>
+													<button ion-button full (click)="editimagepelindung(i)">Pilih</button>
+													<img class="img" [src]="kuesionerForm.value.tanamanpelindung[i].foto" (click)="editimagepelindung(i)"/>
+												</ion-item>
 											</div>	
 											
 										</div>
@@ -377,6 +389,10 @@
 												<ion-item>
 													<ion-label floating>Batang</ion-label>
 													<ion-input type="number" class="form-control" formControlName="batang"></ion-input>
+												</ion-item>
+												<ion-item>
+													<button ion-button full (click)="editimagelain(i)">Pilih</button>
+													<img class="img" [src]="kuesionerForm.value.tanamanlain[i].foto" (click)="editimagelain(i)"/>
 												</ion-item>
 											</div>	
 										</div>

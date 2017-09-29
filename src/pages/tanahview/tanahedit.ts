@@ -98,10 +98,10 @@ export class TanaheditPage {
 		this.tanamanhias = navParams.data.tanamanhias;
 		this.tanamanlain = navParams.data.tanamanlain;
 		this.checkdata(navParams);
-    this.key = navParams.data.key;
+    	this.key = navParams.data.key;
 	}
-  ngAfterViewInit() {
-			this.geolocate2();
+  	ngAfterViewInit() {
+		this.geolocate2();
 	}
 	public ngOnInit() {
 	}
@@ -251,7 +251,7 @@ export class TanaheditPage {
 					console.log('Error getting location', error);
 					this.error = JSON.stringify(error);
 				});
-	  }
+	  	}
 	    /*this.geolocation.getCurrentPosition().then((resp) => {
 		 		this.data.x = resp.coords.longitude;
 				this.data.y = resp.coords.latitude;
@@ -284,8 +284,8 @@ export class TanaheditPage {
 	}
 	delete(key: string) {   
 		this.tanahProvider.deleteTanahByKey(key); 
-    this.navCtrl.setRoot(TabsPage);
-  }
+		this.navCtrl.setRoot(TabsPage);
+	}
 
 	changeProvinsi(provinsi){
 	  this.dbsetting.getAllKabupaten(provinsi).subscribe((data)=>{
@@ -346,7 +346,7 @@ export class TanaheditPage {
 		control.removeAt(i);
 	}
 	editimage(array_hortikura) {
-			this.paSheetHortikura(array_hortikura);
+		this.paSheetHortikura(array_hortikura);
 	}
 	paSheetHortikura(array_hortikura) {
 		let tanahedit = this;
@@ -448,7 +448,7 @@ export class TanaheditPage {
 			mediaType: this.camera.MediaType.PICTURE
 		}
 		let tanaman = this.tanamanhias;
-		this.imghandler._uploadbase64(options).then((uploadedurl: any)=>{
+		this.imghandler.upload(options,'/hias').then((uploadedurl: any)=>{
 			tanaman[array_hias].foto = uploadedurl;
 			this.kuesionerForm.patchValue({tanamanhias:tanaman});
 		}).catch(err=>{
@@ -472,25 +472,25 @@ export class TanaheditPage {
 		
 	}
 
-
-	editimagepelindung(array_pelindung) {
-		this.paSheetHias(array_pelindung);
+	editimagelain(array_hias) {
+		this.paSheetLain(array_hias);
 	}
-	paSheetPelindung(array_pelindung) {
+	paSheetLain(array_hias) {
 		let tanahedit = this;
+		
 		let actionSheet = this.actionSheetCtrl.create({
-			title: 'Tanaman Lain',
+			title: 'Hias',
 			buttons: [
 			{
 				text: 'Ambil Galeri',
 				role: 'destructive',
 				handler: () => {
-					tanahedit.selectPhotoLain(array_pelindung);
+					tanahedit.selectPhotoLain(array_hias);
 				}
 			},{
 				text: 'Ambil Gambar',
 				handler: () => {
-					tanahedit.takePhotoLain(array_pelindung);
+					tanahedit.takePhotoLain(array_hias);
 				}
 			},{
 				text: 'Cancel',
@@ -503,7 +503,7 @@ export class TanaheditPage {
 		});
 		actionSheet.present();
 	}
-	takePhotoPelindung(array_pelindung){
+	takePhotoLain(array_hias){
 		const options = {
 			quality: 75,
 			destinationType: this.camera.DestinationType.FILE_URI,
@@ -511,14 +511,14 @@ export class TanaheditPage {
 			mediaType: this.camera.MediaType.PICTURE
 		}
 		let tanaman = this.tanamanlain;
-		this.imghandler._uploadbase64(options).then((uploadedurl: any)=>{
-			tanaman[array_pelindung].foto = uploadedurl;
+		this.imghandler.upload(options,'/lain').then((uploadedurl: any)=>{
+			tanaman[array_hias].foto = uploadedurl;
 			this.kuesionerForm.patchValue({tanamanlain:tanaman});
 		}).catch(err=>{
 			this.error = JSON.stringify(err);
 		});
 	}
-	selectPhotoPelindung(array_pelindung): void {
+	selectPhotoLain(array_hias): void {
 		const optionsselect = {
 			sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
 		  destinationType: this.camera.DestinationType.FILE_URI,
@@ -526,8 +526,8 @@ export class TanaheditPage {
 		  encodingType: this.camera.EncodingType.PNG,
 		}
 		let tanaman = this.tanamanlain;
-		this.imghandler._uploadbase64(optionsselect).then((uploadedurl: any)=>{
-			tanaman[array_pelindung].foto = uploadedurl;
+		this.imghandler.upload(optionsselect,'lain').then((uploadedurl: any)=>{
+			tanaman[array_hias].foto = uploadedurl;
 			this.kuesionerForm.patchValue({tanamanlain:tanaman});
 		}).catch(err=>{
 			this.error = JSON.stringify(err);
@@ -535,24 +535,25 @@ export class TanaheditPage {
 		
 	}
 
-	editimagelain(array_lain) {
-		this.paSheetHias(array_lain);
+	editimagepelindung(array_hias) {
+		this.paSheetPelindung(array_hias);
 	}
-	paSheetLain(array_lain) {
+	paSheetPelindung(array_hias) {
 		let tanahedit = this;
+		
 		let actionSheet = this.actionSheetCtrl.create({
-			title: 'Tanaman Lain',
+			title: 'Hias',
 			buttons: [
 			{
 				text: 'Ambil Galeri',
 				role: 'destructive',
 				handler: () => {
-					tanahedit.selectPhotoLain(array_lain);
+					tanahedit.selectPhotoPelindung(array_hias);
 				}
 			},{
 				text: 'Ambil Gambar',
 				handler: () => {
-					tanahedit.takePhotoLain(array_lain);
+					tanahedit.takePhotoPelindung(array_hias);
 				}
 			},{
 				text: 'Cancel',
@@ -565,38 +566,36 @@ export class TanaheditPage {
 		});
 		actionSheet.present();
 	}
-	takePhotoLain(array_lain){
+	takePhotoPelindung(array_hias){
 		const options = {
 			quality: 75,
 			destinationType: this.camera.DestinationType.FILE_URI,
 			encodingType: this.camera.EncodingType.JPEG,
 			mediaType: this.camera.MediaType.PICTURE
 		}
-		let tanaman = this.tanamanlain;
+		let tanaman = this.tanamanpelindung;
 		this.imghandler._uploadbase64(options).then((uploadedurl: any)=>{
-			tanaman[array_lain].foto = uploadedurl;
-			this.kuesionerForm.patchValue({tanamanlain:tanaman});
+			tanaman[array_hias].foto = uploadedurl;
+			this.kuesionerForm.patchValue({'tanamanpelindung':tanaman});
 		}).catch(err=>{
 			this.error = JSON.stringify(err);
 		});
 	}
-	selectPhotoLain(array_lain): void {
+	selectPhotoPelindung(array_hias): void {
 		const optionsselect = {
 			sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
 		  destinationType: this.camera.DestinationType.FILE_URI,
 		  quality: 75,
 		  encodingType: this.camera.EncodingType.PNG,
 		}
-		let tanaman = this.tanamanlain;
-		this.imghandler._uploadbase64(optionsselect).then((uploadedurl: any)=>{
-			tanaman[array_lain].foto = uploadedurl;
-			this.kuesionerForm.patchValue({tanamanlain:tanaman});
+		let tanaman = this.tanamanpelindung;
+		this.imghandler.upload(optionsselect,'pelindung').then((uploadedurl: any)=>{
+			tanaman[array_hias].foto = uploadedurl;
+			this.kuesionerForm.patchValue({tanamanpelindung:tanaman});
 		}).catch(err=>{
 			this.error = JSON.stringify(err);
 		});
 		
 	}
-  
-	
 
 }

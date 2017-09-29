@@ -1,10 +1,11 @@
 import { Component,ViewChild,NgZone } from '@angular/core';
-import { NavController, NavParams,Tabs } from 'ionic-angular';
+import { NavController, NavParams,Tabs,ActionSheetController } from 'ionic-angular';
 import { tanahData } from './tanahData';
 //import {Tanah} from '../../models/tanah';
 
 import { FormBuilder, FormGroup, FormArray,FormControl, Validators } from '@angular/forms';
 import { Geolocation } from '@ionic-native/geolocation';
+import {Camera} from '@ionic-native/camera';
 import { GeolocationProvider } from '../../providers/geolocation/geolocation';
 import { TanahProvider } from '../../providers/tanah/tanah';
 import { SettingProvider } from '../../providers/setting/setting';
@@ -14,6 +15,8 @@ import {AngularFireDatabase,FirebaseListObservable} from 'angularfire2/database'
 import {AngularFireAuth} from 'angularfire2/auth';
 import {TabsPage} from '../tabs/tabs';
 import {TanahMapPage} from './tanahMap';
+import {ImghandlerProvider} from '../../providers/imghandler/imghandler';
+
 
 export interface Tanaman {
     nama_tanaman: string;  // required field
@@ -47,13 +50,17 @@ export class TanahPage {
 	kode_prov;kode_kab;kode_kec;kode_kel;
 	allstatuskepemilikantanah;allpemanfaatantanah;
 
+	tanamanhortikura;tanamanpelindung;
+	tanamanhias;tanamanlain;
+
 	kuesionerForm: FormGroup;
 	
 	public profile: any[];
 	public statustanah: any[];
 	
 	@ViewChild(Tabs) tabs: Tabs;
-  constructor(public navCtrl: NavController, public navParams: NavParams,
+	constructor(public navCtrl: NavController, public navParams: NavParams,
+		public actionSheetCtrl:ActionSheetController,
   	public geolocation:Geolocation,
 		public geolocationService: GeolocationProvider,
 		private _fb: FormBuilder,
@@ -63,6 +70,8 @@ export class TanahPage {
 		public zone:NgZone,
 		db: AngularFireDatabase,
 		public afireauth: AngularFireAuth,
+		public imghandler:ImghandlerProvider,
+		public camera:Camera
 	) {
 		
 		this.allstatuskepemilikantanah = this.tanahProvider.getStatusKepemilikanTanah();
@@ -79,7 +88,10 @@ export class TanahPage {
 			console.log(res);
       this.allProvinsi=res[0];
    	});*/
-		
+		 this.tanamanhortikura = navParams.data.tanaman_hortikultura;
+		 this.tanamanpelindung = navParams.data.tanamanpelindung;
+		 this.tanamanhias = navParams.data.tanamanhias;
+		 this.tanamanlain = navParams.data.tanamanlain;
 		this.initForm();
 		this.kuesionerForm.patchValue({'id_user':this.afireauth.auth.currentUser.uid});
 		
@@ -377,6 +389,259 @@ export class TanahPage {
 	        //loadingdata.dismiss();
 	      }
 	    );
+	}
+
+	editimage(array_hortikura) {
+		this.paSheetHortikura(array_hortikura);
+	}
+	paSheetHortikura(array_hortikura) {
+		let tanahedit = this;
+		
+		let actionSheet = this.actionSheetCtrl.create({
+		  title: 'Hortikura',
+		  buttons: [
+			{
+			  text: 'Ambil Galeri',
+			  role: 'destructive',
+			  handler: () => {
+					tanahedit.selectPhotoHortikura(array_hortikura);
+			  }
+			},{
+			  text: 'Ambil Gambar',
+			  handler: () => {
+					tanahedit.takePhotoHortikura(array_hortikura);
+			  }
+			},{
+			  text: 'Cancel',
+			  role: 'cancel',
+			  handler: () => {
+				console.log('Cancel clicked');
+			  }
+			}
+		  ]
+		});
+		actionSheet.present();
+	}
+  
+	takePhotoHortikura(array_hortikura){
+		const options = {
+			quality: 75,
+			destinationType: this.camera.DestinationType.FILE_URI,
+			encodingType: this.camera.EncodingType.JPEG,
+			mediaType: this.camera.MediaType.PICTURE
+		}
+		let tanaman = this.tanamanhortikura;
+		this.imghandler.upload(options,'/tanah').then((uploadedurl: any)=>{
+			tanaman[array_hortikura].foto = uploadedurl;
+			this.kuesionerForm.patchValue({tanaman_hortikultura:this.tanamanhortikura});
+		}).catch(err=>{
+			this.error = JSON.stringify(err);
+		});
+	}
+  
+	selectPhotoHortikura(array_hortikura): void {
+		const optionsselect = {
+			sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+		  destinationType: this.camera.DestinationType.FILE_URI,
+		  quality: 75,
+		  encodingType: this.camera.EncodingType.PNG,
+		}
+		let tanaman = this.tanamanhortikura;
+		this.imghandler.upload(optionsselect,'/tanah').then((uploadedurl: any)=>{
+				tanaman[array_hortikura].foto = uploadedurl;
+				this.kuesionerForm.patchValue({tanaman_hortikultura:this.tanamanhortikura});
+		}).catch(err=>{
+				this.error = JSON.stringify(err);
+		});
+		
+	}
+	editimagehias(array_hias) {
+		this.paSheetHias(array_hias);
+	}
+	paSheetHias(array_hias) {
+		let tanahedit = this;
+		
+		let actionSheet = this.actionSheetCtrl.create({
+			title: 'Hias',
+			buttons: [
+			{
+				text: 'Ambil Galeri',
+				role: 'destructive',
+				handler: () => {
+					tanahedit.selectPhotoHias(array_hias);
+				}
+			},{
+				text: 'Ambil Gambar',
+				handler: () => {
+					tanahedit.takePhotoHias(array_hias);
+				}
+			},{
+				text: 'Cancel',
+				role: 'cancel',
+				handler: () => {
+				console.log('Cancel clicked');
+				}
+			}
+			]
+		});
+		actionSheet.present();
+	}
+	takePhotoHias(array_hias){
+		const options = {
+			quality: 75,
+			destinationType: this.camera.DestinationType.FILE_URI,
+			encodingType: this.camera.EncodingType.JPEG,
+			mediaType: this.camera.MediaType.PICTURE
+		}
+		let tanaman = this.tanamanhias;
+		this.imghandler.upload(options,'/hias').then((uploadedurl: any)=>{
+			tanaman[array_hias].foto = uploadedurl;
+			this.kuesionerForm.patchValue({tanamanhias:tanaman});
+		}).catch(err=>{
+			this.error = JSON.stringify(err);
+		});
+	}
+	selectPhotoHias(array_hias): void {
+		const optionsselect = {
+			sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+		  destinationType: this.camera.DestinationType.FILE_URI,
+		  quality: 75,
+		  encodingType: this.camera.EncodingType.PNG,
+		}
+		let tanaman = this.tanamanhias;
+		this.imghandler._uploadbase64(optionsselect).then((uploadedurl: any)=>{
+			tanaman[array_hias].foto = uploadedurl;
+			this.kuesionerForm.patchValue({tanamanhias:tanaman});
+		}).catch(err=>{
+			this.error = JSON.stringify(err);
+		});
+		
+	}
+
+	editimagelain(array_hias) {
+		this.paSheetLain(array_hias);
+	}
+	paSheetLain(array_hias) {
+		let tanahedit = this;
+		
+		let actionSheet = this.actionSheetCtrl.create({
+			title: 'Hias',
+			buttons: [
+			{
+				text: 'Ambil Galeri',
+				role: 'destructive',
+				handler: () => {
+					tanahedit.selectPhotoLain(array_hias);
+				}
+			},{
+				text: 'Ambil Gambar',
+				handler: () => {
+					tanahedit.takePhotoLain(array_hias);
+				}
+			},{
+				text: 'Cancel',
+				role: 'cancel',
+				handler: () => {
+				console.log('Cancel clicked');
+				}
+			}
+			]
+		});
+		actionSheet.present();
+	}
+	takePhotoLain(array_hias){
+		const options = {
+			quality: 75,
+			destinationType: this.camera.DestinationType.FILE_URI,
+			encodingType: this.camera.EncodingType.JPEG,
+			mediaType: this.camera.MediaType.PICTURE
+		}
+		let tanaman = this.tanamanlain;
+		this.imghandler.upload(options,'/lain').then((uploadedurl: any)=>{
+			tanaman[array_hias].foto = uploadedurl;
+			this.kuesionerForm.patchValue({tanamanlain:tanaman});
+		}).catch(err=>{
+			this.error = JSON.stringify(err);
+		});
+	}
+	selectPhotoLain(array_hias): void {
+		const optionsselect = {
+			sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+		  destinationType: this.camera.DestinationType.FILE_URI,
+		  quality: 75,
+		  encodingType: this.camera.EncodingType.PNG,
+		}
+		let tanaman = this.tanamanlain;
+		this.imghandler.upload(optionsselect,'lain').then((uploadedurl: any)=>{
+			tanaman[array_hias].foto = uploadedurl;
+			this.kuesionerForm.patchValue({tanamanlain:tanaman});
+		}).catch(err=>{
+			this.error = JSON.stringify(err);
+		});
+		
+	}
+
+	editimagepelindung(array_hias) {
+		this.paSheetPelindung(array_hias);
+	}
+	paSheetPelindung(array_hias) {
+		let tanahedit = this;
+		
+		let actionSheet = this.actionSheetCtrl.create({
+			title: 'Hias',
+			buttons: [
+			{
+				text: 'Ambil Galeri',
+				role: 'destructive',
+				handler: () => {
+					tanahedit.selectPhotoPelindung(array_hias);
+				}
+			},{
+				text: 'Ambil Gambar',
+				handler: () => {
+					tanahedit.takePhotoPelindung(array_hias);
+				}
+			},{
+				text: 'Cancel',
+				role: 'cancel',
+				handler: () => {
+				console.log('Cancel clicked');
+				}
+			}
+			]
+		});
+		actionSheet.present();
+	}
+	takePhotoPelindung(array_hias){
+		const options = {
+			quality: 75,
+			destinationType: this.camera.DestinationType.FILE_URI,
+			encodingType: this.camera.EncodingType.JPEG,
+			mediaType: this.camera.MediaType.PICTURE
+		}
+		let tanaman = this.tanamanpelindung;
+		this.imghandler._uploadbase64(options).then((uploadedurl: any)=>{
+			tanaman[array_hias].foto = uploadedurl;
+			this.kuesionerForm.patchValue({'tanamanpelindung':tanaman});
+		}).catch(err=>{
+			this.error = JSON.stringify(err);
+		});
+	}
+	selectPhotoPelindung(array_hias): void {
+		const optionsselect = {
+			sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+		  destinationType: this.camera.DestinationType.FILE_URI,
+		  quality: 75,
+		  encodingType: this.camera.EncodingType.PNG,
+		}
+		let tanaman = this.tanamanpelindung;
+		this.imghandler.upload(optionsselect,'pelindung').then((uploadedurl: any)=>{
+			tanaman[array_hias].foto = uploadedurl;
+			this.kuesionerForm.patchValue({tanamanpelindung:tanaman});
+		}).catch(err=>{
+			this.error = JSON.stringify(err);
+		});
+		
 	}
 
 }

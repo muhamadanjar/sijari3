@@ -3,7 +3,7 @@
     <name>SIJARI</name>
     <description>Survey Irigasi.</description>
     <author email="arvanria@gmail.com" href="http://arvazark.blogspot.com/">Muhamad Anjar</author>
-    <content original-src="index.html" src="http://192.168.20.48:8100" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-navigation href="http://ionic.local/*" />
     <allow-intent href="http://*/*" />

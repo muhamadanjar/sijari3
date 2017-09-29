@@ -176,7 +176,7 @@
       </div>
   </div>
 
-  <div class="box box-primary collapsed-box">
+    <div class="box box-primary collapsed-box">
 			<div class="box-header with-border">
 				<h3 class="box-title">Informasi Proyek</h3>
 				<div class="box-tools pull-right">
@@ -186,37 +186,45 @@
 				</div>					
 			</div>
 			<div class="box-body">
-        <ion-list no-lines>
-          <ion-list>
-            <ion-item >
-                <h2>Pengetahuan responden tentang rencana pembangunan jaringan irigasi</h2>
-                <p>{{filteredbangunan.pengetahuanrespondenirigasi}}</p>
-            </ion-item>
-            <ion-item>
-                <h2>Sumber informasi tentang rencana pembangunan jaringan irigasi  (jika responden tahu)</h2>
-                <p>{{filteredbangunan.sumberinformasi}}</p>
-            </ion-item>
-            <ion-item>
-                <h2>Kesediaan responden untuk direlokasi</h2>
-                <p>{{filteredbangunan.kesediandirekolasi}}</p>
-            </ion-item>
-            <ion-item>
-                <h2>Alasan penolakan relokasi (jika menolak)</h2>  
-                <p>{{filteredbangunan.alasanpenolakanrelokasi}}</p>
-            </ion-item>
-              
-            <ion-item>
-                <h2>Bentuk penggantian yang lebih disukai</h2>  
-                <p>{{filteredbangunan.bentukpergantiandisukai}}</p>
-            </ion-item>
+                <ion-list no-lines>
+                <ion-list>
+                    <ion-item >
+                        <h2>Pengetahuan responden tentang rencana pembangunan jaringan irigasi</h2>
+                        <p>{{filteredbangunan.pengetahuanrespondenirigasi}}</p>
+                    </ion-item>
+                    <ion-item>
+                        <h2>Sumber informasi tentang rencana pembangunan jaringan irigasi  (jika responden tahu)</h2>
+                        <p>{{filteredbangunan.sumberinformasi}}</p>
+                    </ion-item>
+                    <ion-item>
+                        <h2>Kesediaan responden untuk direlokasi</h2>
+                        <p>{{filteredbangunan.kesediandirekolasi}}</p>
+                    </ion-item>
+                    <ion-item>
+                        <h2>Alasan penolakan relokasi (jika menolak)</h2>  
+                        <p>{{filteredbangunan.alasanpenolakanrelokasi}}</p>
+                    </ion-item>
+                    
+                    <ion-item>
+                        <h2>Bentuk penggantian yang lebih disukai</h2>  
+                        <p>{{filteredbangunan.bentukpergantiandisukai}}</p>
+                    </ion-item>
 
-            <ion-item>
-                <h2>Pendapat responden tentang pemindahan warga secara Kolektif</h2>  
-                <p>{{filteredbangunan.pendapatrespondenpemindahankolektif}}</p>
-            </ion-item>
-          </ion-list>
-        </ion-list>      
-      </div>
-  </div>
+                    <ion-item>
+                        <h2>Pendapat responden tentang pemindahan warga secara Kolektif</h2>  
+                        <p>{{filteredbangunan.pendapatrespondenpemindahankolektif}}</p>
+                    </ion-item>
+                </ion-list>
+                </ion-list>      
+            </div>
+    </div>
+
+    <div>
+        <ion-list>
+        <ion-item>
+            <img [src]="filteredbangunan.foto">
+        </ion-item>
+        </ion-list>
+    </div>
   
 </ion-content>

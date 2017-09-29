@@ -259,7 +259,7 @@ export class ImghandlerProvider {
             reader.readAsArrayBuffer(resFile);
             reader.onloadend = (evt: any) => {
               var imgBlob = new Blob([evt.target.result], { type: 'image/jpeg' });
-              var randomStr = this.setting.randomString(90);
+              var randomStr = this.setting.randomString(50);
               var img_combine = firebase.auth().currentUser.uid+'_'+randomStr;
               var imageStore = this.firestore.ref(folder).child(img_combine);
               imageStore.put(imgBlob).then((res) => {

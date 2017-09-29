@@ -3,7 +3,7 @@
   	<ion-navbar color="skin-green">
 		<ion-buttons left>
 			<button ion-button (click)="close()">
-				<ion-icon name="close"></ion-icon>
+				<ion-icon><i class="fa fa-times"></i></ion-icon>
 			</button>
 		</ion-buttons>
 		<ion-title>Edit Bangunan</ion-title>
@@ -18,6 +18,7 @@
 
 
 <ion-content padding>
+	{{imgurl}}
 	<form [formGroup]="bangunanForm" novalidate>
 		<ion-list>
 			<ion-item>
@@ -466,7 +467,6 @@
 			</div>
 		</div>
 
-		
 		<div class="box box-primary collapsed-box">
 			<div class="box-header with-border">
 				<h3 class="box-title">Informasi Proyek</h3>
@@ -530,8 +530,11 @@
 				</ion-list>									
 			</div>
 		</div>
-		
-		<img [src]="bangunanForm.value.foto"/>
+
+		<ion-item>
+			<button ion-button full (click)="editimage()">Pilih</button>
+			<img class="img" [src]="bangunanForm.value.foto" (click)="editimage()"/>
+		</ion-item>
 		<pre>{{ bangunanForm.value | json }}</pre>
 	</form>
 	
